@@ -17,6 +17,8 @@ class ViewController: UIViewController, AddGoalDelegate {
         Goal(id: 3, name: "Spend more time on hobbies", percentToBeComplete: 50)
     ]
     
+    
+    
     @IBOutlet weak var oneGoal: UILabel!
     @IBOutlet weak var goalsContainer: UIView!
     
@@ -67,15 +69,21 @@ class ViewController: UIViewController, AddGoalDelegate {
         //TODO: offset relative to last created label aka goal
         var baseTopOffset: CGFloat = 0.0
         
+        
         for goal in goals {
             baseTopOffset += 50.0
             
             let label = UILabel()
             label.textAlignment = .left
             label.text = goal.name
+            label.tag = goal.id
             
             label.contentMode = .scaleToFill
             label.numberOfLines = 0
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+            label.addGestureRecognizer(tap)
+            label.isUserInteractionEnabled = true
             
             goalsContainer.addSubview(label)
             
@@ -119,6 +127,16 @@ class ViewController: UIViewController, AddGoalDelegate {
             let createGoalController = segue.destination as! CreateGoalController
             createGoalController.delegate = self
         }
+    }
+    
+    
+    //MARK: - Gestures Methods
+    @objc func handleTap(sender: UITapGestureRecognizer) -> Void {
+        guard let tappedView = sender.view else {
+            return
+        }
+        
+        print("tapped on label with tag \(tappedView.tag)")
     }
 }
 
