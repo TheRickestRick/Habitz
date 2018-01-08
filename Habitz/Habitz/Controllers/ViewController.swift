@@ -24,11 +24,9 @@ class ViewController: UIViewController, AddGoalDelegate {
         super.viewDidLoad()
         
 //        let goal = Goal(id: 1, name: "Eat healthier", percentToBeComplete: 100)
-        
-        
 //        displayGoal(goal: goal)
         
-        createGoalLabel(goals: goals)
+        createGoalLabels(for: goals)
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,7 +62,8 @@ class ViewController: UIViewController, AddGoalDelegate {
 //    }
     
     
-    func createGoalLabel(goals: [Goal]) -> Void {
+    //MARK: - Rendering Methods
+    func createGoalLabels(for goals: [Goal]) -> Void {
         //TODO: offset relative to last created label aka goal
         var baseTopOffset: CGFloat = 0.0
         
@@ -84,7 +83,6 @@ class ViewController: UIViewController, AddGoalDelegate {
         }
     }
 
-    
     func setupLabelConstraints(for label:UILabel, offsetTopBy topOffset: CGFloat) -> Void {
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -96,14 +94,26 @@ class ViewController: UIViewController, AddGoalDelegate {
 
     }
     
-    //MARK: - Goals delegate methods, for updating list to display
-    func addNewGoal(newGoal: Goal) {
-        goals.append(newGoal)
-        print(goals)
-//        createGoalLabel(goals: goals)
+    func clearAllLabels(from view: UIView) -> Void {
+        for view in view.subviews {
+            view.removeFromSuperview()
+        }
     }
     
     
+    //MARK: - Delegate methods
+    func addNewGoal(newGoal: Goal) {
+        goals.append(newGoal)
+        
+        print(goals)
+        
+        clearAllLabels(from: goalsContainer)
+        createGoalLabels(for: goals)
+    }
+    
+    
+    
+    //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "newGoal" {
             let createGoalController = segue.destination as! CreateGoalController
