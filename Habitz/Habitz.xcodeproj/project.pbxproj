@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		16471DBE2004EF36004CE4E4 /* EditGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16471DBD2004EF36004CE4E4 /* EditGoalController.swift */; };
+		1659CDF42005177400FE4604 /* EditGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF32005177400FE4604 /* EditGoalDelegate.swift */; };
+		1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */; };
 		16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E845EC2003CC6900BD7E99 /* AppDelegate.swift */; };
 		16E845EF2003CC6900BD7E99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E845EE2003CC6900BD7E99 /* ViewController.swift */; };
 		16E845F22003CC6900BD7E99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16E845F02003CC6900BD7E99 /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		16471DBD2004EF36004CE4E4 /* EditGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalController.swift; sourceTree = "<group>"; };
+		1659CDF32005177400FE4604 /* EditGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalDelegate.swift; sourceTree = "<group>"; };
+		1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalDelegate.swift; sourceTree = "<group>"; };
 		16E845E92003CC6900BD7E99 /* Habitz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habitz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16E845EC2003CC6900BD7E99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16E845EE2003CC6900BD7E99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				16E8460B20041BFE00BD7E99 /* AddGoalDelegate.swift */,
+				1659CDF32005177400FE4604 /* EditGoalDelegate.swift */,
+				1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -194,12 +200,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */,
 				16471DBE2004EF36004CE4E4 /* EditGoalController.swift in Sources */,
 				16E845EF2003CC6900BD7E99 /* ViewController.swift in Sources */,
 				16E846002003CFC000BD7E99 /* Goal.swift in Sources */,
 				16E84609200407BE00BD7E99 /* CreateGoalController.swift in Sources */,
 				16E846022003CFC700BD7E99 /* Habit.swift in Sources */,
 				16E8460C20041BFE00BD7E99 /* AddGoalDelegate.swift in Sources */,
+				1659CDF42005177400FE4604 /* EditGoalDelegate.swift in Sources */,
 				16E846072003DAFC00BD7E99 /* User.swift in Sources */,
 				16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */,
 			);

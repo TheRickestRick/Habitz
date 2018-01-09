@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, AddGoalDelegate {
+class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
+    
+    
     
     var goalToEdit: Goal?
     
@@ -123,6 +125,15 @@ class ViewController: UIViewController, AddGoalDelegate {
         createGoalLabels(for: goals)
     }
     
+    func editGoal(for goal: Goal) {
+        print("update contents for goal with id \(goal.id)")
+        
+        goals[goal.id] = goal
+        
+        clearAllLabels(from: goalsContainer)
+        createGoalLabels(for: goals)
+    }
+    
     
     
     //MARK: - Navigation
@@ -135,6 +146,7 @@ class ViewController: UIViewController, AddGoalDelegate {
         if segue.identifier == "editGoal" {
             let editGoalController = segue.destination as! EditGoalController
             editGoalController.goalToEdit = goalToEdit
+            editGoalController.editDelegate = self
         }
     }
     
@@ -151,7 +163,7 @@ class ViewController: UIViewController, AddGoalDelegate {
         
         goalToEdit = goals[tappedView.tag]
         
-//        print("goal to edit: \(goalToEdit)")
+//        print(String(describing: goalToEdit?.name))
         
         performSegue(withIdentifier: "editGoal", sender: self)
     }
