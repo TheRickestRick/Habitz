@@ -131,12 +131,16 @@ class ViewController: UIViewController, AddGoalDelegate {
     
     
     //MARK: - Gestures Methods
+    
+    //TODO: route to edit view based on clicks
     @objc func handleTap(sender: UITapGestureRecognizer) -> Void {
         guard let tappedView = sender.view else {
             return
         }
         
         print("tapped on label with tag \(tappedView.tag)")
+        
+        performSegue(withIdentifier: "editGoal", sender: self)
     }
 }
 
