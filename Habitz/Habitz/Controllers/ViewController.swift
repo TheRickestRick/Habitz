@@ -21,14 +21,27 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate, Delet
         Goal(id: 3, name: "Spend more time on hobbies", percentToBeComplete: 50)
     ]
     
-    
-    @IBOutlet weak var oneGoal: UILabel!
     @IBOutlet weak var goalsContainer: UIView!
+    @IBOutlet weak var goalsHeader: UILabel!
+    @IBOutlet weak var headerContainer: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createGoalLabels(for: goals)
+        
+        
+        // set up swipe gesture recognizer on header
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeHeaderRight(sender:)))
+        headerContainer.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeHeaderLeft(sender:)))
+        swipeLeft.direction = .left
+        headerContainer.addGestureRecognizer(swipeLeft)
+        
+        headerContainer.isUserInteractionEnabled = true
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -145,5 +158,20 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate, Delet
         
         performSegue(withIdentifier: "editGoal", sender: self)
     }
+    
+    @objc func handleSwipeHeaderRight(sender: UISwipeGestureRecognizer) -> Void {
+        if sender.state == .ended {
+            print("swiped to the right")
+        }
+    }
+    
+    @objc func handleSwipeHeaderLeft(sender: UISwipeGestureRecognizer) -> Void {
+        if sender.state == .ended {
+            print("swiped to the left")
+            //TODO: change animation from bottom to top to right to left to match swipe
+            performSegue(withIdentifier: "goToHabits", sender: self)
+        }
+    }
+    
 }
 
