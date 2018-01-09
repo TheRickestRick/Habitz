@@ -8,8 +8,8 @@
 
 import UIKit
 
-class HabitsController: UIViewController, CreateHabitDelegate {
-
+class HabitsController: UIViewController, CreateHabitDelegate, EditHabitDelegate, DeleteHabitDelegate {
+    
     // constants
     var habitToEdit: Habit?
     
@@ -101,12 +101,24 @@ class HabitsController: UIViewController, CreateHabitDelegate {
     }
 
     
+    
     //MARK: - Delegate Methods
     func addNewHabit(forHabit habit: Habit) {
         habits.append(habit)
         
         updateView()
     }
+    
+    func editHabit(for habit: Habit) {
+        print("edit habit")
+        print(habit)
+    }
+    
+    func deleteHabit(for habit: Habit) {
+        print("delete habit")
+        print(habit)
+    }
+
     
     
     //MARK: - Navigation
@@ -117,7 +129,12 @@ class HabitsController: UIViewController, CreateHabitDelegate {
         }
         
         if segue.identifier == "editHabit" {
+            let editHabitController = segue.destination as! EditHabitController
             
+            editHabitController.habitToEdit = habitToEdit
+            
+            editHabitController.editDelegate = self
+            editHabitController.deleteDelegate = self
         }
     }
     
