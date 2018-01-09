@@ -9,11 +9,14 @@
 import UIKit
 
 class EditGoalController: UIViewController {
+    var goalToEdit: Goal?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print(goalToEdit)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,5 +34,18 @@ class EditGoalController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //MARK: - Button Methods
+    @IBAction func saveChanges(_ sender: UIButton) {
+        print("save changes")
+    }
+    
+    @IBAction func cancelChanges(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteGoal(_ sender: UIButton) {
+        print("delete this goal")
+    }
+    
 }

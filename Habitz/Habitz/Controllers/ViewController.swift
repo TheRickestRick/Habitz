@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController, AddGoalDelegate {
     
+    var goalToEdit: Goal?
+    
     var goals = [
         Goal(id: 0, name: "Be healthier in body and mind", percentToBeComplete: 100),
         Goal(id: 1, name: "Strengthen relationships with friends", percentToBeComplete: 50),
@@ -68,7 +70,7 @@ class ViewController: UIViewController, AddGoalDelegate {
     func createGoalLabels(for goals: [Goal]) -> Void {
         //TODO: offset relative to last created label aka goal
         var baseTopOffset: CGFloat = 0.0
-        
+        var goalIndex = 0
         
         for goal in goals {
             baseTopOffset += 50.0
@@ -76,7 +78,7 @@ class ViewController: UIViewController, AddGoalDelegate {
             let label = UILabel()
             label.textAlignment = .left
             label.text = goal.name
-            label.tag = goal.id
+            label.tag = goalIndex
             
             label.contentMode = .scaleToFill
             label.numberOfLines = 0
@@ -88,6 +90,8 @@ class ViewController: UIViewController, AddGoalDelegate {
             goalsContainer.addSubview(label)
             
             setupLabelConstraints(for: label, offsetTopBy: baseTopOffset)
+            
+            goalIndex += 1
         }
     }
 
@@ -127,6 +131,11 @@ class ViewController: UIViewController, AddGoalDelegate {
             let createGoalController = segue.destination as! CreateGoalController
             createGoalController.delegate = self
         }
+        
+        if segue.identifier == "editGoal" {
+            let editGoalController = segue.destination as! EditGoalController
+            editGoalController.goalToEdit = goalToEdit
+        }
     }
     
     
@@ -138,7 +147,11 @@ class ViewController: UIViewController, AddGoalDelegate {
             return
         }
         
-        print("tapped on label with tag \(tappedView.tag)")
+//        print("tapped on label with tag \(tappedView.tag)")
+        
+        goalToEdit = goals[tappedView.tag]
+        
+//        print("goal to edit: \(goalToEdit)")
         
         performSegue(withIdentifier: "editGoal", sender: self)
     }

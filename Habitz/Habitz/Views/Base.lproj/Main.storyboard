@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Edit Goal Controller-->
         <scene sceneID="dSK-jp-pTc">
             <objects>
-                <viewController id="Udq-zd-DXT" sceneMemberID="viewController">
+                <viewController id="Udq-zd-DXT" customClass="EditGoalController" customModule="Habitz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DTK-G5-9Q0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,16 +28,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-Zv-4yo">
-                                <rect key="frame" x="83" y="587" width="49" height="36"/>
+                                <rect key="frame" x="16" y="587" width="49" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="SAVE"/>
+                                <connections>
+                                    <action selector="saveChanges:" destination="Udq-zd-DXT" eventType="touchUpInside" id="SJb-WL-WYw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvW-bC-UdS">
-                                <rect key="frame" x="212" y="587" width="78" height="36"/>
+                                <rect key="frame" x="148" y="587" width="78" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="CANCEL"/>
+                                <connections>
+                                    <action selector="cancelChanges:" destination="Udq-zd-DXT" eventType="touchUpInside" id="OJr-Ks-0br"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yso-pi-FOH">
+                                <rect key="frame" x="288" y="587" width="71" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="DELETE"/>
+                                <connections>
+                                    <action selector="deleteGoal:" destination="Udq-zd-DXT" eventType="touchUpInside" id="pu6-Q5-lqI"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
