@@ -25,8 +25,6 @@ class EditGoalController: UIViewController, UIPickerViewDataSource, UIPickerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        print(goalToEdit)
         
         percentToCompletePicker.dataSource = self
         percentToCompletePicker.delegate = self
@@ -47,12 +45,12 @@ class EditGoalController: UIViewController, UIPickerViewDataSource, UIPickerView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
     
     //MARK: - Button Methods
     @IBAction func saveChanges(_ sender: UIButton) {
-        print("save changes")
-        
+
         guard let editGoalName = formGoalName.text else { return }
         guard let editGoalPercent = formGoalPercentComplete.text else { return }
         guard let editGoalId = goalToEdit?.id else { return }
@@ -69,8 +67,14 @@ class EditGoalController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     
     @IBAction func deleteGoal(_ sender: UIButton) {
-        print("delete this goal")
+        //TODO: prompt before deleting
+        guard let goalToDelete = goalToEdit else { return }
+        
+        deleteDelegate?.deleteGoal(for: goalToDelete)
+        
+        self.dismiss(animated: true, completion: nil)
     }
+
     
     
     //MARK: - Picker Delegate Methods

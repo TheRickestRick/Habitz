@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
+class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate, DeleteGoalDelegate {
     
-    
-    
+    // constants
     var goalToEdit: Goal?
     
+    // TODO: replace with API call
     var goals = [
         Goal(id: 0, name: "Be healthier in body and mind", percentToBeComplete: 100),
         Goal(id: 1, name: "Strengthen relationships with friends", percentToBeComplete: 50),
@@ -22,15 +22,11 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
     ]
     
     
-    
     @IBOutlet weak var oneGoal: UILabel!
     @IBOutlet weak var goalsContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let goal = Goal(id: 1, name: "Eat healthier", percentToBeComplete: 100)
-//        displayGoal(goal: goal)
         
         createGoalLabels(for: goals)
     }
@@ -39,33 +35,7 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-//    func displayGoal(goal: Goal) -> Void {
-//        print("display goal", goal)
-//        oneGoal.text = goal.name
-//    }
-    
-    
-//    func createGoalLabel(goal: Goal) -> Void {
-//        let label = UILabel()
-//        label.textAlignment = .left
-//        label.text = "Meditate for 10 minutes"
-//
-//        goalsContainer.addSubview(label)
-//
-//        setupLabelConstraints(for: label, offsetTopBy: 50.0)
-//
-//
-//
-//        let label2 = UILabel()
-//        label2.textAlignment = .left
-//        label2.text = "Workout core"
-//
-//        goalsContainer.addSubview(label2)
-//
-//        setupLabelConstraints(for: label2, offsetTopBy: 50.0 + 50.0)
-//    }
+
     
     
     //MARK: - Rendering Methods
@@ -80,7 +50,7 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
             let label = UILabel()
             label.textAlignment = .left
             label.text = goal.name
-            label.tag = goalIndex
+            label.tag = goal.id            
             
             label.contentMode = .scaleToFill
             label.numberOfLines = 0
@@ -114,24 +84,34 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
         }
     }
     
-    
-    //MARK: - Delegate methods
-    func addNewGoal(newGoal: Goal) {
-        goals.append(newGoal)
-        
-        print(goals)
-        
+    func updateView() -> Void {
         clearAllLabels(from: goalsContainer)
         createGoalLabels(for: goals)
     }
     
+ 
+    
+    //MARK: - Delegate methods
+    func addNewGoal(newGoal: Goal) {
+        goals.append(newGoal)
+                
+        updateView()
+    }
+    
     func editGoal(for goal: Goal) {
-        print("update contents for goal with id \(goal.id)")
+        if let i = goals.index(where: { $0.id == goal.id }) {
+            goals[i] = goal
+        }
         
-        goals[goal.id] = goal
+        updateView()
+    }
+    
+    func deleteGoal(for goal: Goal) {
+        if let i = goals.index(where: { $0.id == goal.id }) {
+            goals.remove(at: i)
+        }
         
-        clearAllLabels(from: goalsContainer)
-        createGoalLabels(for: goals)
+        updateView()
     }
     
     
@@ -147,23 +127,21 @@ class ViewController: UIViewController, AddGoalDelegate, EditGoalDelegate {
             let editGoalController = segue.destination as! EditGoalController
             editGoalController.goalToEdit = goalToEdit
             editGoalController.editDelegate = self
+            editGoalController.deleteDelegate = self
         }
     }
+
     
     
     //MARK: - Gestures Methods
-    
-    //TODO: route to edit view based on clicks
     @objc func handleTap(sender: UITapGestureRecognizer) -> Void {
         guard let tappedView = sender.view else {
             return
         }
         
-//        print("tapped on label with tag \(tappedView.tag)")
-        
-        goalToEdit = goals[tappedView.tag]
-        
-//        print(String(describing: goalToEdit?.name))
+        if let i = goals.index(where: { $0.id == tappedView.tag }) {
+            goalToEdit = goals[i]
+        }
         
         performSegue(withIdentifier: "editGoal", sender: self)
     }
