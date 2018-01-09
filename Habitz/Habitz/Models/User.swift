@@ -13,3 +13,6 @@ struct User {
     let email: String
     let password: String
 }
+
+// TODO: auth, store via keychain - cocoapods, valet
+

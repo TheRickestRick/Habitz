@@ -13,3 +13,5 @@ struct Goal {
     var name: String
     var percentToBeComplete: Int
 }
+
+// TODO: startDate, endDate
