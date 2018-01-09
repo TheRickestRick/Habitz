@@ -22,7 +22,6 @@ class GoalsController: UIViewController, AddGoalDelegate, EditGoalDelegate, Dele
     ]
     
     @IBOutlet weak var goalsContainer: UIView!
-    @IBOutlet weak var goalsHeader: UILabel!
     @IBOutlet weak var headerContainer: UIView!
     
     

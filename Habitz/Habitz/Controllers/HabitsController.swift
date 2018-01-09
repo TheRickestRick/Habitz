@@ -8,22 +8,23 @@
 
 import UIKit
 
-class HabitsController: UIViewController {
+class HabitsController: UIViewController, CreateHabitDelegate {
 
     // constants
     var habitToEdit: Habit?
     
     // TODO: replace with API call
     var habits: [Habit] = [
-        Habit(id: 0, name: "Drink a green smoothie", isComplete: true, goalId: 1),
-        Habit(id: 0, name: "Meditate for 15 minutes", isComplete: true, goalId: 1),
-        Habit(id: 0, name: "Call or text an old friend", isComplete: true, goalId: 2),
-        Habit(id: 0, name: "Go to a networking event", isComplete: true, goalId: 3),
-        Habit(id: 0, name: "Send mom an email", isComplete: true, goalId: 2),
-        Habit(id: 0, name: "Message a new contact on LinkedIn", isComplete: true, goalId: 3)
+        Habit(id: 1, name: "Drink a green smoothie", isComplete: true, goalId: 1),
+        Habit(id: 2, name: "Meditate for 15 minutes", isComplete: true, goalId: 1),
+        Habit(id: 3, name: "Call or text an old friend", isComplete: true, goalId: 2),
+        Habit(id: 4, name: "Go to a networking event", isComplete: true, goalId: 3),
+        Habit(id: 5, name: "Send mom an email", isComplete: true, goalId: 2),
+        Habit(id: 6, name: "Message a new contact on LinkedIn", isComplete: true, goalId: 3)
     ]
     
     @IBOutlet weak var habitsContainer: UIView!
+    @IBOutlet weak var headerContainer: UIView!
     
     
     override func viewDidLoad() {
@@ -31,6 +32,15 @@ class HabitsController: UIViewController {
         
         createHabitLabels(for: habits)
         
+        // set up swipe gesture recognizer on header
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeHeaderRight(sender:)))
+        headerContainer.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeHeaderLeft(sender:)))
+        swipeLeft.direction = .left
+        headerContainer.addGestureRecognizer(swipeLeft)
+        
+        headerContainer.isUserInteractionEnabled = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,6 +101,26 @@ class HabitsController: UIViewController {
     }
 
     
+    //MARK: - Delegate Methods
+    func addNewHabit(forHabit habit: Habit) {
+        print("add new habit")
+        print(habit.name)
+        print(habit.goalId)
+    }
+    
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createHabit" {
+            let createHabitController = segue.destination as! CreateHabitController
+            createHabitController.delegate = self
+        }
+        
+        if segue.identifier == "editHabit" {
+            
+        }
+    }
+    
     
     //MARK: - Gestures Methods
     @objc func handleTap(sender: UITapGestureRecognizer) -> Void {
@@ -103,5 +133,18 @@ class HabitsController: UIViewController {
         }
         
         performSegue(withIdentifier: "editHabit", sender: self)
+    }
+    
+    @objc func handleSwipeHeaderRight(sender: UISwipeGestureRecognizer) -> Void {
+        if sender.state == .ended {
+            //TODO: change animation from bottom to top to right to left to match swipe
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc func handleSwipeHeaderLeft(sender: UISwipeGestureRecognizer) -> Void {
+        if sender.state == .ended {
+            print("swiped to the left")
+        }
     }
 }
