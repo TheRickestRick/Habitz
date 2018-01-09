@@ -56,6 +56,8 @@ class CreateHabitController: UIViewController, UIPickerViewDataSource, UIPickerV
                              goalId: pickerData[pickerIndex].id)
         
         delegate?.addNewHabit(forHabit: newHabit)
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelCreateNewHabit(_ sender: UIButton) {

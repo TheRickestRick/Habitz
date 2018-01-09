@@ -103,9 +103,9 @@ class HabitsController: UIViewController, CreateHabitDelegate {
     
     //MARK: - Delegate Methods
     func addNewHabit(forHabit habit: Habit) {
-        print("add new habit")
-        print(habit.name)
-        print(habit.goalId)
+        habits.append(habit)
+        
+        updateView()
     }
     
     
