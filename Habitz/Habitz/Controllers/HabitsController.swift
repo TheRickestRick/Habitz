@@ -105,18 +105,21 @@ class HabitsController: UIViewController, CreateHabitDelegate, EditHabitDelegate
     //MARK: - Delegate Methods
     func addNewHabit(forHabit habit: Habit) {
         habits.append(habit)
-        
         updateView()
     }
     
     func editHabit(for habit: Habit) {
-        print("edit habit")
-        print(habit)
+        if let i = habits.index(where: { $0.id == habit.id }) {
+            habits[i] = habit
+        }
+        updateView()
     }
     
     func deleteHabit(for habit: Habit) {
-        print("delete habit")
-        print(habit)
+        if let i = habits.index(where: { $0.id == habit.id }) {
+            habits.remove(at: i)
+        }
+        updateView()
     }
 
     

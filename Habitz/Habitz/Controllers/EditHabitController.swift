@@ -22,7 +22,7 @@ class EditHabitController: UIViewController, UIPickerViewDataSource, UIPickerVie
     let pickerData = [
         Goal(id: 1, name: "Be healthier in body and mind", percentToBeComplete: 100),
         Goal(id: 2, name: "Strengthen relationships with friends", percentToBeComplete: 50),
-        Goal(id: 3, name: "Start a new career is software engineering", percentToBeComplete: 75),
+        Goal(id: 3, name: "Start a new career in software engineering", percentToBeComplete: 75),
         Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50)
     ]
     let associatedGoalPicker: UIPickerView! = UIPickerView()
@@ -61,8 +61,8 @@ class EditHabitController: UIViewController, UIPickerViewDataSource, UIPickerVie
     //MARK: - Button Methods
     @IBAction func saveChanges(_ sender: UIButton) {
 
+        guard let editHabitId = habitToEdit?.id else { return }
         guard let editHabitName = habitToEditName.text else { return }
-        guard let editHabitId = habitToEdit?.goalId else { return }
         guard let editHabitIsComplete = habitToEdit?.isComplete else { return }
         
         let pickerIndex = associatedGoalPicker.selectedRow(inComponent: 0)

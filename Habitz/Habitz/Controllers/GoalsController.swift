@@ -17,7 +17,7 @@ class GoalsController: UIViewController, AddGoalDelegate, EditGoalDelegate, Dele
     var goals = [
         Goal(id: 1, name: "Be healthier in body and mind", percentToBeComplete: 100),
         Goal(id: 2, name: "Strengthen relationships with friends", percentToBeComplete: 50),
-        Goal(id: 3, name: "Start a new career is software engineering", percentToBeComplete: 75),
+        Goal(id: 3, name: "Start a new career in software engineering", percentToBeComplete: 75),
         Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50)
     ]
     
