@@ -3,16 +3,24 @@ const router = express.Router()
 const knex = require('../db')
 
 router.get('/', (req, res, next) => {
-  knex('goals')
-    .then(goals => res.json(goals))
-    .catch(err => next(err))
+  // query string to search by user_id
+  if (req.query.user_id !== undefined) {
+    knex('goals')
+      .where({user_id: req.query.user_id})
+      .then(goals => res.json(goals))
+      .catch(err => next(err))
+  } else {
+    knex('goals')
+      .then(goals => res.json(goals))
+      .catch(err => next(err))
+  }
 })
 
 router.post('/', validate, (req, res, next) => {
   knex('goals')
     .insert(params(req))
     .returning('*')
-    .then(goal => res.json(goal[0]))
+    .then(goals => res.json(goals[0]))
     .catch(err => next(err))
 })
 
@@ -29,7 +37,7 @@ router.patch('/:id', validate, (req, res, next) => {
     .update(params(req))
     .where({id: req.params.id})
     .returning('*')
-    .then(goal => res.json(goal[0]))
+    .then(goals => res.json(goals[0]))
     .catch(err => next(err))
 })
 

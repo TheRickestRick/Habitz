@@ -3,7 +3,17 @@ const router = express.Router()
 const knex = require('../db')
 
 router.get('/', (req, res, next) => {
-  res.send('get all habits');
+  // query string to search by goal_id
+  if (req.query.goal_id !== undefined) {
+    knex('habits')
+      .where({goal_id: req.query.goal_id})
+      .then(habits => res.json(habits))
+      .catch(err => next(err))
+  } else {
+    knex('habits')
+      .then(habits => res.json(habits))
+      .catch(err => next(err))
+  }
   // knex('posts')
   //   .then(posts => {
   //     return knex('comments')
@@ -24,51 +34,46 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', validate, (req, res, next) => {
-  res.send('create a new habit');
-  // knex('posts')
-  //   .insert(params(req))
-  //   .returning('*')
-  //   .then(posts => res.json(posts[0]))
-  //   .catch(err => next(err))
+  knex('habits')
+    .insert(params(req))
+    .returning('*')
+    .then(habits => res.json(habits[0]))
+    .catch(err => next(err))
 })
 
 router.get('/:id', (req, res, next) => {
-  res.send(`get habit with id of ${req.params.id}`);
-  // knex('posts')
-  //   .where({id: req.params.id})
-  //   .first()
-  //   .then(post => res.json(post))
-  //   .catch(err => next(err))
+  knex('habits')
+    .where({id: req.params.id})
+    .first()
+    .then(habit => res.json(habit))
+    .catch(err => next(err))
 })
 
 router.patch('/:id', validate, (req, res, next) => {
-  res.send(`update habit with id of ${req.params.id}`);
-  // knex('posts')
-  //   .update(params(req))
-  //   .where({id: req.params.id})
-  //   .returning('*')
-  //   .then(posts => res.json(posts[0]))
-  //   .catch(err => next(err))
+  knex('habits')
+    .update(params(req))
+    .where({id: req.params.id})
+    .returning('*')
+    .then(habits => res.json(habits[0]))
+    .catch(err => next(err))
 })
 
 router.delete('/:id', (req, res, next) => {
-  res.send(`delete habit with id of ${req.params.id}`);
-  // knex('posts')
-  //   .del()
-  //   .where({id: req.params.id})
-  //   .then(() => res.end())
-  //   .catch(err => next(err))
+  knex('habits')
+    .del()
+    .where({id: req.params.id})
+    .then(() => res.end())
+    .catch(err => next(err))
 })
 
-// function params(req) {
-//   return {
-//     title: req.body.title,
-//     body: req.body.body,
-//     author: req.body.author,
-//     image_url: req.body.image_url,
-//   }
-// }
-//
+function params(req) {
+  return {
+    name: req.body.name,
+    is_completed: req.body.is_completed,
+    goal_id: req.body.goal_id
+  }
+}
+
 function validate(req, res, next) {
   const errors = [];
 //   ['title', 'body', 'author', 'image_url'].forEach(field => {
