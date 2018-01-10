@@ -3,34 +3,17 @@ const router = express.Router()
 const knex = require('../db')
 
 router.get('/', (req, res, next) => {
-  // res.send('get all goals');
   knex('goals')
-    .then(goals => {
-      res.json(goals)
-      // return knex('goals')
-  //       .whereIn('post_id', posts.map(p => p.id))
-  //       .then((comments) => {
-  //         const commentsByPostId = comments.reduce((result, comment) => {
-  //           result[comment.post_id] = result[comment.post_id] || []
-  //           result[comment.post_id].push(comment)
-  //           return result
-  //         }, {})
-  //         posts.forEach(post => {
-  //           post.comments = commentsByPostId[post.id] || []
-  //         })
-  //         res.json(posts)
-  //       })
-    })
+    .then(goals => res.json(goals))
     .catch(err => next(err))
 })
 
 router.post('/', validate, (req, res, next) => {
-  res.send('create a new goal');
-  // knex('posts')
-  //   .insert(params(req))
-  //   .returning('*')
-  //   .then(posts => res.json(posts[0]))
-  //   .catch(err => next(err))
+  knex('goals')
+    .insert(params(req))
+    .returning('*')
+    .then(goal => res.json(goal[0]))
+    .catch(err => next(err))
 })
 
 router.get('/:id', (req, res, next) => {
@@ -42,33 +25,30 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.patch('/:id', validate, (req, res, next) => {
-  res.send(`update goal with id of ${req.params.id}`);
-  // knex('posts')
-  //   .update(params(req))
-  //   .where({id: req.params.id})
-  //   .returning('*')
-  //   .then(posts => res.json(posts[0]))
-  //   .catch(err => next(err))
+  knex('goals')
+    .update(params(req))
+    .where({id: req.params.id})
+    .returning('*')
+    .then(goal => res.json(goal[0]))
+    .catch(err => next(err))
 })
 
 router.delete('/:id', (req, res, next) => {
-  res.send(`delete goal with id of ${req.params.id}`);
-  // knex('posts')
-  //   .del()
-  //   .where({id: req.params.id})
-  //   .then(() => res.end())
-  //   .catch(err => next(err))
+  knex('goals')
+    .del()
+    .where({id: req.params.id})
+    .then(() => res.end())
+    .catch(err => next(err))
 })
 
-// function params(req) {
-//   return {
-//     title: req.body.title,
-//     body: req.body.body,
-//     author: req.body.author,
-//     image_url: req.body.image_url,
-//   }
-// }
-//
+function params(req) {
+  return {
+    name: req.body.name,
+    percent_to_complete: req.body.percent_to_complete,
+    user_id: req.body.user_id
+  }
+}
+
 function validate(req, res, next) {
   const errors = [];
 //   ['title', 'body', 'author', 'image_url'].forEach(field => {
