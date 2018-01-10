@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1920069ED000CAD6E2 /* LoginViewController.swift */; };
+		16224B1D2006A27900CAD6E2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */; };
+		16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1E2006A39400CAD6E2 /* HomeViewController.swift */; };
 		16471DBE2004EF36004CE4E4 /* EditGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16471DBD2004EF36004CE4E4 /* EditGoalController.swift */; };
 		1659CDF42005177400FE4604 /* EditGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF32005177400FE4604 /* EditGoalDelegate.swift */; };
 		1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */; };
@@ -27,9 +30,13 @@
 		16E846072003DAFC00BD7E99 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E846062003DAFC00BD7E99 /* User.swift */; };
 		16E84609200407BE00BD7E99 /* CreateGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E84608200407BE00BD7E99 /* CreateGoalController.swift */; };
 		16E8460C20041BFE00BD7E99 /* AddGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E8460B20041BFE00BD7E99 /* AddGoalDelegate.swift */; };
+		BA4F66EDBC34E2E3F276C102 /* Pods_Habitz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16224B1920069ED000CAD6E2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		16224B1E2006A39400CAD6E2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		16471DBD2004EF36004CE4E4 /* EditGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalController.swift; sourceTree = "<group>"; };
 		1659CDF32005177400FE4604 /* EditGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalDelegate.swift; sourceTree = "<group>"; };
 		1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +59,9 @@
 		16E846062003DAFC00BD7E99 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		16E84608200407BE00BD7E99 /* CreateGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalController.swift; sourceTree = "<group>"; };
 		16E8460B20041BFE00BD7E99 /* AddGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalDelegate.swift; sourceTree = "<group>"; };
+		26BFB2C80B6B317355D2FF80 /* Pods-Habitz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habitz.release.xcconfig"; path = "Pods/Target Support Files/Pods-Habitz/Pods-Habitz.release.xcconfig"; sourceTree = "<group>"; };
+		60B2FD8F07FC07FA063AE7A1 /* Pods-Habitz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habitz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Habitz/Pods-Habitz.debug.xcconfig"; sourceTree = "<group>"; };
+		AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habitz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,12 +69,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4F66EDBC34E2E3F276C102 /* Pods_Habitz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16224B1B2006A1A400CAD6E2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		1659CDF72005311000FE4604 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +110,8 @@
 			children = (
 				16E845EB2003CC6900BD7E99 /* Habitz */,
 				16E845EA2003CC6900BD7E99 /* Products */,
+				82829579C6FF82D50F0DBCBF /* Pods */,
+				D1BEAE24B74CBC61BB1D178C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +133,7 @@
 				16E846042003D0A000BD7E99 /* Controllers */,
 				16E846052003D0C300BD7E99 /* Views */,
 				16E845F32003CC6900BD7E99 /* Assets.xcassets */,
+				16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */,
 				16E845F82003CC6900BD7E99 /* Info.plist */,
 			);
 			path = Habitz;
@@ -147,6 +168,9 @@
 				1659CDFA20053BCF00FE4604 /* HabitsController.swift */,
 				1659CDFC200547D700FE4604 /* CreateHabitController.swift */,
 				1659CE0020055B6000FE4604 /* EditHabitController.swift */,
+				16224B1B2006A1A400CAD6E2 /* Login */,
+				16224B1920069ED000CAD6E2 /* LoginViewController.swift */,
+				16224B1E2006A39400CAD6E2 /* HomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -173,6 +197,23 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		82829579C6FF82D50F0DBCBF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60B2FD8F07FC07FA063AE7A1 /* Pods-Habitz.debug.xcconfig */,
+				26BFB2C80B6B317355D2FF80 /* Pods-Habitz.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D1BEAE24B74CBC61BB1D178C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -180,9 +221,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 16E845FB2003CC6900BD7E99 /* Build configuration list for PBXNativeTarget "Habitz" */;
 			buildPhases = (
+				4B3D350816F093336237F687 /* [CP] Check Pods Manifest.lock */,
 				16E845E52003CC6900BD7E99 /* Sources */,
 				16E845E62003CC6900BD7E99 /* Frameworks */,
 				16E845E72003CC6900BD7E99 /* Resources */,
+				3FB6FDCB396E845BEC6E56F1 /* [CP] Embed Pods Frameworks */,
+				55630EB12F0ECA7CB10DB7EB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -235,17 +279,78 @@
 				16E845F72003CC6900BD7E99 /* LaunchScreen.storyboard in Resources */,
 				16E845F42003CC6900BD7E99 /* Assets.xcassets in Resources */,
 				16E845F22003CC6900BD7E99 /* Main.storyboard in Resources */,
+				16224B1D2006A27900CAD6E2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3FB6FDCB396E845BEC6E56F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Habitz/Pods-Habitz-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Habitz/Pods-Habitz-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B3D350816F093336237F687 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Habitz-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		55630EB12F0ECA7CB10DB7EB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Habitz/Pods-Habitz-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		16E845E52003CC6900BD7E99 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */,
 				1659CDFB20053BCF00FE4604 /* HabitsController.swift in Sources */,
+				16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */,
 				1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */,
 				16471DBE2004EF36004CE4E4 /* EditGoalController.swift in Sources */,
 				1659CDFF200551A100FE4604 /* CreateHabitDelegate.swift in Sources */,
@@ -396,6 +501,7 @@
 		};
 		16E845FC2003CC6900BD7E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60B2FD8F07FC07FA063AE7A1 /* Pods-Habitz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -411,6 +517,7 @@
 		};
 		16E845FD2003CC6900BD7E99 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26BFB2C80B6B317355D2FF80 /* Pods-Habitz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
