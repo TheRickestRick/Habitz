@@ -3,7 +3,7 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      database: process.env.DATABASE_URL || 'habitz',
+      database: process.env.DATABASE_URL || 'habitz_dev',
     }
   },
 
