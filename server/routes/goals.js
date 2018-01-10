@@ -3,10 +3,10 @@ const router = express.Router()
 const knex = require('../db')
 
 router.get('/', (req, res, next) => {
-  // query string to search by user_id
-  if (req.query.user_id !== undefined) {
+  // query string to search by user_uid
+  if (req.query.user_uid !== undefined) {
     knex('goals')
-      .where({user_id: req.query.user_id})
+      .where({user_uid: req.query.user_uid})
       .then(goals => res.json(goals))
       .catch(err => next(err))
     return;
@@ -54,7 +54,7 @@ function params(req) {
   return {
     name: req.body.name,
     percent_to_complete: req.body.percent_to_complete,
-    user_id: req.body.user_id
+    user_uid: req.body.user_uid
   }
 }
 
