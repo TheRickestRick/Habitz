@@ -60,6 +60,17 @@ router.delete('/:id', (req, res, next) => {
     .catch(err => next(err))
 })
 
+
+// COMPLETIONS
+router.post('/:id/complete', (req, res, next) => {
+  knex('completions')
+    .insert({habit_id: req.params.id})
+    .returning('*')
+    .then(completions => res.json(completions[0]))
+    .catch(err => next(err))
+})
+
+
 function params(req) {
   return {
     name: req.body.name,
