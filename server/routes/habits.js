@@ -9,28 +9,22 @@ router.get('/', (req, res, next) => {
       .where({goal_id: req.query.goal_id})
       .then(habits => res.json(habits))
       .catch(err => next(err))
-  } else {
-    knex('habits')
+    return;
+  }
+
+  // query string to search by user_id
+  if (req.query.user_id !== undefined) {
+    knex.from('habits').innerJoin('goals', 'habits.goal_id', 'goals.id')
+      .select('habits.id', 'habits.name')
+      .where({user_id: req.query.user_id})
       .then(habits => res.json(habits))
       .catch(err => next(err))
+    return;
   }
-  // knex('posts')
-  //   .then(posts => {
-  //     return knex('comments')
-  //       .whereIn('post_id', posts.map(p => p.id))
-  //       .then((comments) => {
-  //         const commentsByPostId = comments.reduce((result, comment) => {
-  //           result[comment.post_id] = result[comment.post_id] || []
-  //           result[comment.post_id].push(comment)
-  //           return result
-  //         }, {})
-  //         posts.forEach(post => {
-  //           post.comments = commentsByPostId[post.id] || []
-  //         })
-  //         res.json(posts)
-  //       })
-  //   })
-  //   .catch(err => next(err))
+
+  knex('habits')
+    .then(habits => res.json(habits))
+    .catch(err => next(err))
 })
 
 router.post('/', validate, (req, res, next) => {

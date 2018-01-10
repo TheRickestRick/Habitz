@@ -9,11 +9,12 @@ router.get('/', (req, res, next) => {
       .where({user_id: req.query.user_id})
       .then(goals => res.json(goals))
       .catch(err => next(err))
-  } else {
-    knex('goals')
-      .then(goals => res.json(goals))
-      .catch(err => next(err))
+    return;
   }
+
+  knex('goals')
+    .then(goals => res.json(goals))
+    .catch(err => next(err))
 })
 
 router.post('/', validate, (req, res, next) => {
