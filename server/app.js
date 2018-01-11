@@ -6,8 +6,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
 app.use('/api/goals', require('./routes/goals'));
@@ -16,15 +16,15 @@ app.use('/api/users', require('./routes/users'));
 
 
 app.get('/', (req, res) => {
-  res.send("Hello world");
+  res.send('Hello world');
 });
 
 // routes not found
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
-})
+});
 
 
 // internal server errors

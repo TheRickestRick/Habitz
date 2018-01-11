@@ -1,0 +1,9 @@
+{
+  "name": "habitzlambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "pg": "^7.4.1"
+  }
+}
