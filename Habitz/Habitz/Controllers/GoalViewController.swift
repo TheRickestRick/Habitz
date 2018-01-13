@@ -8,22 +8,25 @@
 
 import UIKit
 
-class GoalViewController: UIViewController {
+class GoalViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var nameLabel: UITextField!
-    @IBOutlet weak var percentToBeCompleteLabel: UITextField!
-    @IBOutlet weak var completedStreakLabel: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var percentToBeCompleteTextField: UITextField!
+    @IBOutlet weak var completedStreakTextField: UITextField!
     
     // passed in by GoalTableViewController or constructed as part of adding a new goal
     var goal: Goal?
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        nameTextField.delegate = self
+        updateSaveButtonState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,11 +46,29 @@ class GoalViewController: UIViewController {
         }
         
         let id = 4
-        guard let name = nameLabel.text else {return}
-        guard let percentToBeComplete = Int(percentToBeCompleteLabel.text!) else {return}
+        guard let name = nameTextField.text else {return}
+        guard let percentToBeComplete = Int(percentToBeCompleteTextField.text!) else {return}
         let completedStreak = 0
         
         goal = Goal(id: id, name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak)
     }
-
+    
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) -> Void {
+        saveButton.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) -> Void {
+        updateSaveButtonState()
+        navigationItem.title = textField.text
+    }
+    
+    
+    // MARK: - Private Methods
+    func updateSaveButtonState() -> Void {
+        // disable the save button if the text field is empty
+        let text = nameTextField.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
 }

@@ -348,9 +348,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="W8e-rx-nEl" id="ZaS-X9-iBV"/>
-                        <outlet property="completedStreakLabel" destination="gSY-I5-qG7" id="qRT-Yd-BVt"/>
-                        <outlet property="nameLabel" destination="66M-2y-cjM" id="WyB-eT-KUx"/>
-                        <outlet property="percentToBeCompleteLabel" destination="OEG-eJ-3Xq" id="ogD-FN-SVm"/>
+                        <outlet property="completedStreakTextField" destination="gSY-I5-qG7" id="tYr-or-WZe"/>
+                        <outlet property="nameTextField" destination="66M-2y-cjM" id="Uv6-aE-yWL"/>
+                        <outlet property="percentToBeCompleteTextField" destination="OEG-eJ-3Xq" id="dob-gO-DCc"/>
                         <outlet property="saveButton" destination="0gX-4e-8HP" id="tVR-5W-m83"/>
                     </connections>
                 </viewController>
