@@ -339,7 +339,11 @@
                         <viewLayoutGuide key="safeArea" id="LW1-Xe-E0M"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Goal" id="ohY-53-wA4">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="W8e-rx-nEl"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="W8e-rx-nEl">
+                            <connections>
+                                <action selector="cancel:" destination="wtc-X1-4y5" id="vMB-dW-jhA"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="0gX-4e-8HP">
                             <connections>
                                 <segue destination="Lfk-nf-pxB" kind="unwind" unwindAction="undwindToGoalListWithSender:" id="dXS-V2-8pY"/>
