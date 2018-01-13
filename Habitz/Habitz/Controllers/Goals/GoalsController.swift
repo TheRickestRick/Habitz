@@ -15,10 +15,10 @@ class GoalsController: UIViewController, AddGoalDelegate, EditGoalDelegate, Dele
     
     // TODO: replace with API call
     var goals = [
-        Goal(id: 1, name: "Be healthier in body and mind", percentToBeComplete: 100),
-        Goal(id: 2, name: "Strengthen relationships with friends", percentToBeComplete: 50),
-        Goal(id: 3, name: "Start a new career in software engineering", percentToBeComplete: 75),
-        Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50)
+        Goal(id: 1, name: "Be healthier in body and mind", percentToBeComplete: 100, completedStreak: 3),
+        Goal(id: 2, name: "Strengthen relationships with friends", percentToBeComplete: 50, completedStreak: 0),
+        Goal(id: 3, name: "Start a new career in software engineering", percentToBeComplete: 75, completedStreak: 1),
+        Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50, completedStreak: 0)
     ]
     
     @IBOutlet weak var goalsContainer: UIView!

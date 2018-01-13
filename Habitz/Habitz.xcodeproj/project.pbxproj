@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16190E98200A5AA60089FE80 /* GoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16190E97200A5AA60089FE80 /* GoalsTableViewController.swift */; };
+		16190E9A200A5AB70089FE80 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16190E99200A5AB70089FE80 /* GoalTableViewCell.swift */; };
 		16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1920069ED000CAD6E2 /* LoginViewController.swift */; };
 		16224B1D2006A27900CAD6E2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */; };
 		16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1E2006A39400CAD6E2 /* HomeViewController.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16190E97200A5AA60089FE80 /* GoalsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsTableViewController.swift; sourceTree = "<group>"; };
+		16190E99200A5AB70089FE80 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		16224B1920069ED000CAD6E2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16224B1E2006A39400CAD6E2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -76,11 +80,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		16224B1B2006A1A400CAD6E2 /* Login */ = {
+		16190E93200A59C30089FE80 /* Goals */ = {
+			isa = PBXGroup;
+			children = (
+				16E845EE2003CC6900BD7E99 /* GoalsController.swift */,
+				16E84608200407BE00BD7E99 /* CreateGoalController.swift */,
+				16471DBD2004EF36004CE4E4 /* EditGoalController.swift */,
+			);
+			path = Goals;
+			sourceTree = "<group>";
+		};
+		16190E94200A59E70089FE80 /* Habits */ = {
+			isa = PBXGroup;
+			children = (
+				1659CDFA20053BCF00FE4604 /* HabitsController.swift */,
+				1659CDFC200547D700FE4604 /* CreateHabitController.swift */,
+				1659CE0020055B6000FE4604 /* EditHabitController.swift */,
+			);
+			path = Habits;
+			sourceTree = "<group>";
+		};
+		16190E95200A59EC0089FE80 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				16224B1920069ED000CAD6E2 /* LoginViewController.swift */,
+				16224B1E2006A39400CAD6E2 /* HomeViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		16190E96200A5A0C0089FE80 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Login;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		1659CDF72005311000FE4604 /* Classes */ = {
@@ -89,20 +122,6 @@
 				1659CDF82005312B00FE4604 /* LabelRenderer.swift */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		1659CE0220055B7000FE4604 /* Goals */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Goals;
-			sourceTree = "<group>";
-		};
-		1659CE0320055B7600FE4604 /* Habits */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Habits;
 			sourceTree = "<group>";
 		};
 		16E845E02003CC6900BD7E99 = {
@@ -129,7 +148,7 @@
 				1659CDF72005311000FE4604 /* Classes */,
 				16E8460A20041BD300BD7E99 /* Protocols */,
 				16E845FE2003CFB200BD7E99 /* Models */,
-				16E846032003D08C00BD7E99 /* ViewModel */,
+				16190E96200A5A0C0089FE80 /* ViewModels */,
 				16E846042003D0A000BD7E99 /* Controllers */,
 				16E846052003D0C300BD7E99 /* Views */,
 				16E845F32003CC6900BD7E99 /* Assets.xcassets */,
@@ -149,28 +168,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		16E846032003D08C00BD7E99 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		16E846042003D0A000BD7E99 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				16E845EC2003CC6900BD7E99 /* AppDelegate.swift */,
-				1659CE0220055B7000FE4604 /* Goals */,
-				16E845EE2003CC6900BD7E99 /* GoalsController.swift */,
-				16E84608200407BE00BD7E99 /* CreateGoalController.swift */,
-				16471DBD2004EF36004CE4E4 /* EditGoalController.swift */,
-				1659CE0320055B7600FE4604 /* Habits */,
-				1659CDFA20053BCF00FE4604 /* HabitsController.swift */,
-				1659CDFC200547D700FE4604 /* CreateHabitController.swift */,
-				1659CE0020055B6000FE4604 /* EditHabitController.swift */,
-				16224B1B2006A1A400CAD6E2 /* Login */,
-				16224B1920069ED000CAD6E2 /* LoginViewController.swift */,
-				16224B1E2006A39400CAD6E2 /* HomeViewController.swift */,
+				16190E93200A59C30089FE80 /* Goals */,
+				16190E94200A59E70089FE80 /* Habits */,
+				16190E95200A59EC0089FE80 /* Login */,
+				16190E97200A5AA60089FE80 /* GoalsTableViewController.swift */,
+				16190E99200A5AB70089FE80 /* GoalTableViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -349,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */,
+				16190E9A200A5AB70089FE80 /* GoalTableViewCell.swift in Sources */,
 				1659CDFB20053BCF00FE4604 /* HabitsController.swift in Sources */,
 				16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */,
 				1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */,
@@ -358,6 +365,7 @@
 				16E845EF2003CC6900BD7E99 /* GoalsController.swift in Sources */,
 				16E846002003CFC000BD7E99 /* Goal.swift in Sources */,
 				16E84609200407BE00BD7E99 /* CreateGoalController.swift in Sources */,
+				16190E98200A5AA60089FE80 /* GoalsTableViewController.swift in Sources */,
 				16E846022003CFC700BD7E99 /* Habit.swift in Sources */,
 				16E8460C20041BFE00BD7E99 /* AddGoalDelegate.swift in Sources */,
 				1659CDF42005177400FE4604 /* EditGoalDelegate.swift in Sources */,

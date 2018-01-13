@@ -43,7 +43,8 @@ class CreateGoalController: UIViewController, UIPickerViewDataSource, UIPickerVi
         //TODO: change from hardcoded id to use API and returned ID
         let newGoal = Goal(id: 5,
                            name: newGoalName,
-                           percentToBeComplete: pickerData[pickerIndex])
+                           percentToBeComplete: pickerData[pickerIndex],
+                           completedStreak: 0)
         
         delegate?.addNewGoal(newGoal: newGoal)
         

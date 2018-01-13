@@ -54,8 +54,9 @@ class EditGoalController: UIViewController, UIPickerViewDataSource, UIPickerView
         guard let editGoalName = formGoalName.text else { return }
         guard let editGoalPercent = formGoalPercentComplete.text else { return }
         guard let editGoalId = goalToEdit?.id else { return }
+        guard let editCompletedStreak = goalToEdit?.completedStreak else {return}
         
-        let editGoal = Goal(id: editGoalId, name: editGoalName, percentToBeComplete: Int(editGoalPercent)!)
+        let editGoal = Goal(id: editGoalId, name: editGoalName, percentToBeComplete: Int(editGoalPercent)!, completedStreak: editCompletedStreak)
         
         editDelegate?.editGoal(for: editGoal)
         

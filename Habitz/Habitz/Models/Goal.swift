@@ -8,10 +8,18 @@
 
 import Foundation
 
-struct Goal {
+class Goal {
     let id: Int
     var name: String
     var percentToBeComplete: Int
+    var completedStreak: Int
+    
+    init(id: Int, name: String, percentToBeComplete: Int, completedStreak: Int) {
+        self.id = id
+        self.name = name
+        self.percentToBeComplete = percentToBeComplete
+        self.completedStreak = completedStreak
+    }
 }
 
 // TODO: startDate, endDate
