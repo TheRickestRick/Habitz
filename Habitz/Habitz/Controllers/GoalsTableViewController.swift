@@ -18,6 +18,7 @@ class GoalsTableViewController: UITableViewController {
         Goal(id: 3, name: "Start a new career in software engineering and web development", percentToBeComplete: 75, completedStreak: 1),
         Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50, completedStreak: 0)
     ]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,14 +99,21 @@ class GoalsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
+    
+    //MARK: Actions
+    @IBAction func undwindToGoalList(sender: UIStoryboardSegue) -> Void {
+        if let sourceViewController = sender.source as? GoalViewController, let goal = sourceViewController.goal {
+            let newIndexPath = IndexPath(row: goals.count, section: 0)
+            goals.append(goal)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
 
 }
