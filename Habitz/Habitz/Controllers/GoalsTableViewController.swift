@@ -75,6 +75,10 @@ class GoalsTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             goals.remove(at: indexPath.row)
+            
+            let goalToDelete = goals[indexPath.row]
+            goalToDelete.deleteEntry()
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -121,6 +125,7 @@ class GoalsTableViewController: UITableViewController {
             let selectedGoal = goals[indexPath.row]
             
             goalDetailViewController.goal = selectedGoal
+        
         default:
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
@@ -128,18 +133,20 @@ class GoalsTableViewController: UITableViewController {
     
     
     //MARK: - Actions
-    @IBAction func undwindToGoalList(sender: UIStoryboardSegue) -> Void {
+    @IBAction func unwindToGoalList(sender: UIStoryboardSegue) -> Void {
         
         if let sourceViewController = sender.source as? GoalViewController, let goal = sourceViewController.goal {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // updates an existing goal
                 goals[selectedIndexPath.row] = goal
+                goal.editEntry()
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
             } else {
                 // add a new goal
                 let newIndexPath = IndexPath(row: goals.count, section: 0)
                 goals.append(goal)
+                goal.createEntry()
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }

@@ -20,6 +20,18 @@ class Goal {
         self.percentToBeComplete = percentToBeComplete
         self.completedStreak = completedStreak
     }
+    
+    func createEntry() -> Void {
+        print("add this goal to the database")
+    }
+    
+    func editEntry() -> Void {
+        print("edit this goal in the database")
+    }
+    
+    func deleteEntry() -> Void {
+        print("delete this goal from the database")
+    }
 }
 
 // TODO: startDate, endDate

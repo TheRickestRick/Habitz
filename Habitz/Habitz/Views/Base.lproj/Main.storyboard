@@ -346,7 +346,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="0gX-4e-8HP">
                             <connections>
-                                <segue destination="Lfk-nf-pxB" kind="unwind" unwindAction="undwindToGoalListWithSender:" id="dXS-V2-8pY"/>
+                                <segue destination="Lfk-nf-pxB" kind="unwind" unwindAction="unwindToGoalListWithSender:" id="dXS-V2-8pY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
