@@ -25,7 +25,18 @@ class GoalViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // handle the text field's input through delegate callbacks
         nameTextField.delegate = self
+        
+        // sets up views if editing an existing goal
+        if let goal = goal {
+            navigationItem.title = goal.name
+            nameTextField.text = goal.name
+            percentToBeCompleteTextField.text = String(goal.percentToBeComplete)
+            completedStreakTextField.text = String(goal.completedStreak)
+        }
+        
+        // enable save button only if the text field has a valid goal name
         updateSaveButtonState()
     }
 
@@ -37,7 +48,18 @@ class GoalViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Navigation
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        // depending on style of presentation (modal or push presentation)
+        // this view controller needs to be dismissed in two different ways
+        let isPresentingInAddGoalMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddGoalMode {
+            self.dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("The GoalViewController is not inside a navigation controller.")
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

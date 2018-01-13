@@ -10,7 +10,7 @@ import UIKit
 
 class GoalsTableViewController: UITableViewController {
     
-    // MARK: Properties
+    // MARK: - Properties
     // TODO: replace with API call
     var goals = [
         Goal(id: 1, name: "Be healthier in body and mind", percentToBeComplete: 100, completedStreak: 3),
@@ -37,8 +37,8 @@ class GoalsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -48,7 +48,6 @@ class GoalsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return goals.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "GoalTableViewCell"
@@ -102,17 +101,49 @@ class GoalsTableViewController: UITableViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+        case "createGoal":
+            print("creating a new goal")
+
+        case "showGoalDetail":
+            guard let goalDetailViewController = segue.destination as? GoalViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedGoalCell = sender as? GoalTableViewCell else {
+                fatalError("Unexpected sender: \(sender)")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedGoalCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedGoal = goals[indexPath.row]
+            
+            goalDetailViewController.goal = selectedGoal
+        default:
+            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
     
     
-    //MARK: Actions
+    //MARK: - Actions
     @IBAction func undwindToGoalList(sender: UIStoryboardSegue) -> Void {
+        
         if let sourceViewController = sender.source as? GoalViewController, let goal = sourceViewController.goal {
-            let newIndexPath = IndexPath(row: goals.count, section: 0)
-            goals.append(goal)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                // updates an existing goal
+                goals[selectedIndexPath.row] = goal
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            } else {
+                // add a new goal
+                let newIndexPath = IndexPath(row: goals.count, section: 0)
+                goals.append(goal)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
     }
 

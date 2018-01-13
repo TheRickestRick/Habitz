@@ -361,7 +361,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iq4-4c-01a" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Lfk-nf-pxB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-170" y="1272"/>
+            <point key="canvasLocation" x="-145" y="1405"/>
         </scene>
         <!--Habits Controller-->
         <scene sceneID="86S-cT-wr5">
@@ -578,6 +578,7 @@
                                 <connections>
                                     <outlet property="completedStreakLabel" destination="xry-v8-i6N" id="gWb-0P-SXb"/>
                                     <outlet property="nameLabel" destination="V2M-iO-TpC" id="7Jy-N2-ew5"/>
+                                    <segue destination="wtc-X1-4y5" kind="show" identifier="showGoalDetail" id="LCd-yb-SeC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -808,7 +809,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tqr-2U-jNh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-935" y="1272"/>
+            <point key="canvasLocation" x="-929" y="1751"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="LCd-yb-SeC"/>
+    </inferredMetricsTieBreakers>
 </document>
