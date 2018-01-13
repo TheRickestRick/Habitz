@@ -125,7 +125,8 @@ class GoalsTableViewController: UITableViewController {
             let selectedGoal = goals[indexPath.row]
             
             goalDetailViewController.goal = selectedGoal
-        
+        case "showHabits":
+            print("navigating to habits list view")
         default:
             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
         }
