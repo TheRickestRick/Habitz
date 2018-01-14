@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
-let URL = "http://localhost:3000/api/goals"
+import Alamofire
+import SwiftyJSON
 
 class Goal {
     let id: Int

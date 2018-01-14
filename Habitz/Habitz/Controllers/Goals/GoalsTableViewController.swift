@@ -19,6 +19,8 @@ class GoalsTableViewController: UITableViewController {
         Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50, completedStreak: 0)
     ]
     
+    let goalsAPI = GoalsAPI()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,7 +150,10 @@ class GoalsTableViewController: UITableViewController {
                 // add a new goal
                 let newIndexPath = IndexPath(row: goals.count, section: 0)
                 goals.append(goal)
-                goal.createEntry()
+                
+//                goal.createEntry()
+                goalsAPI.create(goal: goal)
+                
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }
