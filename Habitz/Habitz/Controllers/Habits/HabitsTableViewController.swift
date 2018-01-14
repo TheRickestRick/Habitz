@@ -11,15 +11,8 @@ import UIKit
 class HabitsTableViewController: UITableViewController {
     
     // MARK: - Properties
-    // TODO: replace with API call
-    var habits: [Habit] = [
-        Habit(id: 1, name: "Drink a green smoothie", isComplete: true, goalId: 1, completedStreak: 2),
-        Habit(id: 2, name: "Meditate for 15 minutes", isComplete: false, goalId: 1, completedStreak: 4),
-        Habit(id: 3, name: "Call or text an old friend", isComplete: true, goalId: 2, completedStreak: 0),
-        Habit(id: 4, name: "Go to a networking event", isComplete: false, goalId: 3, completedStreak: 1),
-        Habit(id: 5, name: "Send mom an email", isComplete: true, goalId: 2, completedStreak: 2),
-        Habit(id: 6, name: "Message a new contact on LinkedIn or Facebook", isComplete: false, goalId: 3, completedStreak: 1)
-    ]
+    var habits: [Habit] = []
+    let habitsAPI = HabitsAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +21,12 @@ class HabitsTableViewController: UITableViewController {
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        // get all habits to populate table
+        habitsAPI.getAll { (allHabits) in
+            self.habits = allHabits
+            self.tableView.reloadData()
+        }
         
         
         // Uncomment the following line to preserve selection between presentations

@@ -12,7 +12,6 @@ class GoalsTableViewController: UITableViewController {
     
     // MARK: - Properties
     var goals: [Goal] = []
-    
     let goalsAPI = GoalsAPI()
     
 
