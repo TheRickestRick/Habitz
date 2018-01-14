@@ -19,10 +19,7 @@
 		1659CDF42005177400FE4604 /* EditGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF32005177400FE4604 /* EditGoalDelegate.swift */; };
 		1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */; };
 		1659CDF92005312B00FE4604 /* LabelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDF82005312B00FE4604 /* LabelRenderer.swift */; };
-		1659CDFB20053BCF00FE4604 /* HabitsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDFA20053BCF00FE4604 /* HabitsController.swift */; };
-		1659CDFD200547D700FE4604 /* CreateHabitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDFC200547D700FE4604 /* CreateHabitController.swift */; };
 		1659CDFF200551A100FE4604 /* CreateHabitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CDFE200551A100FE4604 /* CreateHabitDelegate.swift */; };
-		1659CE0120055B6000FE4604 /* EditHabitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CE0020055B6000FE4604 /* EditHabitController.swift */; };
 		1659CE05200564F000FE4604 /* EditHabitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CE04200564F000FE4604 /* EditHabitDelegate.swift */; };
 		1659CE07200564FE00FE4604 /* DeleteHabitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659CE06200564FE00FE4604 /* DeleteHabitDelegate.swift */; };
 		16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E845EC2003CC6900BD7E99 /* AppDelegate.swift */; };
@@ -49,10 +46,7 @@
 		1659CDF32005177400FE4604 /* EditGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalDelegate.swift; sourceTree = "<group>"; };
 		1659CDF52005177E00FE4604 /* DeleteGoalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalDelegate.swift; sourceTree = "<group>"; };
 		1659CDF82005312B00FE4604 /* LabelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelRenderer.swift; sourceTree = "<group>"; };
-		1659CDFA20053BCF00FE4604 /* HabitsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsController.swift; sourceTree = "<group>"; };
-		1659CDFC200547D700FE4604 /* CreateHabitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitController.swift; sourceTree = "<group>"; };
 		1659CDFE200551A100FE4604 /* CreateHabitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitDelegate.swift; sourceTree = "<group>"; };
-		1659CE0020055B6000FE4604 /* EditHabitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitController.swift; sourceTree = "<group>"; };
 		1659CE04200564F000FE4604 /* EditHabitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHabitDelegate.swift; sourceTree = "<group>"; };
 		1659CE06200564FE00FE4604 /* DeleteHabitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteHabitDelegate.swift; sourceTree = "<group>"; };
 		16E845E92003CC6900BD7E99 /* Habitz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habitz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,9 +89,9 @@
 		16190E94200A59E70089FE80 /* Habits */ = {
 			isa = PBXGroup;
 			children = (
-				1659CDFA20053BCF00FE4604 /* HabitsController.swift */,
-				1659CDFC200547D700FE4604 /* CreateHabitController.swift */,
-				1659CE0020055B6000FE4604 /* EditHabitController.swift */,
+				16190E9D200AD4310089FE80 /* HabitsTableViewController.swift */,
+				16190EA1200AD4540089FE80 /* HabitTableViewCell.swift */,
+				16190E9F200AD4450089FE80 /* HabitViewController.swift */,
 			);
 			path = Habits;
 			sourceTree = "<group>";
@@ -177,9 +171,6 @@
 				16190E93200A59C30089FE80 /* Goals */,
 				16190E94200A59E70089FE80 /* Habits */,
 				16190E95200A59EC0089FE80 /* Login */,
-				16190E9D200AD4310089FE80 /* HabitsTableViewController.swift */,
-				16190EA1200AD4540089FE80 /* HabitTableViewCell.swift */,
-				16190E9F200AD4450089FE80 /* HabitViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -359,7 +350,6 @@
 			files = (
 				16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */,
 				16190E9A200A5AB70089FE80 /* GoalTableViewCell.swift in Sources */,
-				1659CDFB20053BCF00FE4604 /* HabitsController.swift in Sources */,
 				16190E9E200AD4310089FE80 /* HabitsTableViewController.swift in Sources */,
 				16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */,
 				1659CDF62005177E00FE4604 /* DeleteGoalDelegate.swift in Sources */,
@@ -375,10 +365,8 @@
 				1659CE05200564F000FE4604 /* EditHabitDelegate.swift in Sources */,
 				16E846072003DAFC00BD7E99 /* User.swift in Sources */,
 				16190EA0200AD4450089FE80 /* HabitViewController.swift in Sources */,
-				1659CDFD200547D700FE4604 /* CreateHabitController.swift in Sources */,
 				16190E9C200A63100089FE80 /* GoalViewController.swift in Sources */,
 				16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */,
-				1659CE0120055B6000FE4604 /* EditHabitController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
