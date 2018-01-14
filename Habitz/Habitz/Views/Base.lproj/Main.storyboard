@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lTo-yk-sGW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vSK-Wd-DzG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -192,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62w-yb-vgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4094" y="1773"/>
+            <point key="canvasLocation" x="-4902" y="1773"/>
         </scene>
         <!--Your Goals-->
         <scene sceneID="OW7-g3-CGZ">
@@ -254,14 +253,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Your Goals" id="7hQ-qM-IIZ">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="Vg8-EK-PVw">
-                                <connections>
-                                    <segue destination="0zy-Em-AL7" kind="presentation" identifier="createGoal" id="Bsa-8s-Ey9"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="HABITS" id="10g-t0-oBi"/>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Vg8-EK-PVw">
+                            <connections>
+                                <segue destination="0zy-Em-AL7" kind="presentation" identifier="createGoal" id="Bsa-8s-Ey9"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gek-Rq-KPI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -290,12 +286,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-0D-nuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3346" y="1773"/>
+            <point key="canvasLocation" x="-4127" y="1773"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Goals-->
         <scene sceneID="8dD-Qd-CYX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u0x-dX-6Qu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Goals" id="kGt-Io-qNZ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3QJ-rl-SLb">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -519,10 +516,11 @@
             </objects>
             <point key="canvasLocation" x="-930" y="1110"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Habits-->
         <scene sceneID="xhC-o8-cnt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lTo-yk-sGW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Habits" id="WU9-rF-gtj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ife-0C-r02">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -536,6 +534,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X8N-kz-IKP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2466" y="2137"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="FqW-7b-Ffi">
+            <objects>
+                <tabBarController id="vSK-Wd-DzG" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yyo-MI-llV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="u0x-dX-6Qu" kind="relationship" relationship="viewControllers" id="wGv-qb-K8v"/>
+                        <segue destination="lTo-yk-sGW" kind="relationship" relationship="viewControllers" id="nyZ-si-awO"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rrP-eK-JLS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3268" y="1773"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RpC-W3-kq1">
@@ -557,7 +573,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="16Y-0t-zan"/>
-        <segue reference="dAw-up-ZkN"/>
+        <segue reference="dYA-51-SPU"/>
+        <segue reference="LCd-yb-SeC"/>
     </inferredMetricsTieBreakers>
 </document>

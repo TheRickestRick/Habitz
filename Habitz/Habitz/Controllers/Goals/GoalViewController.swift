@@ -81,12 +81,14 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // depending on style of presentation (modal or push presentation)
         // this view controller needs to be dismissed in two different ways
-        let isPresentingInAddGoalMode = presentingViewController is UINavigationController
+        let isPresentingInAddGoalMode = presentingViewController is UITabBarController
         
         if isPresentingInAddGoalMode {
             self.dismiss(animated: true, completion: nil)
+            
         } else if let owningNavigationController = navigationController {
             owningNavigationController.popViewController(animated: true)
+            
         } else {
             fatalError("The GoalViewController is not inside a navigation controller.")
         }
