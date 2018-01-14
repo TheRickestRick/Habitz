@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
   }
 
   knex('goals')
+    .orderBy('id', 'asc')
     .then(goals => res.json(goals))
     .catch(err => next(err))
 })
