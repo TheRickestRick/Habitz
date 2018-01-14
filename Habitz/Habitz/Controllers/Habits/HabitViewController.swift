@@ -84,7 +84,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         let goalId = pickerData[pickerIndex].id
         let completedStreak = 0
         
-        habit = Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak)
+        habit = Habit(id: id, name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
     }
 
     

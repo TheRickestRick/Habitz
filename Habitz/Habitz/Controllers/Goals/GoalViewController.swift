@@ -67,13 +67,19 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
             return
         }
         
-        //TODO: TODO - get ID from database
-        let id = 4
+        // set up values for new goal
         guard let name = nameTextField.text else {return}
         guard let percentToBeComplete = Int(percentToBeCompleteTextField.text!) else {return}
         let completedStreak = 0
         
-        goal = Goal(id: id, name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak)
+        // if an id is present, this means it is being edited so create a new goal instance with that id
+        // otherwise this is creating a new goal, so leave id blank and let vc populate from API post call
+        if let id = goal?.id {
+            goal = Goal(id: id, name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak)
+        } else {
+            goal = Goal(name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak)
+        }
+        
     }
     
     

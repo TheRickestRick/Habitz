@@ -11,13 +11,7 @@ import UIKit
 class GoalsTableViewController: UITableViewController {
     
     // MARK: - Properties
-    // TODO: replace with API call
-    var goals = [
-        Goal(id: 1, name: "Be healthier in body and mind", percentToBeComplete: 100, completedStreak: 3),
-        Goal(id: 2, name: "Strengthen relationships with friends", percentToBeComplete: 50, completedStreak: 0),
-        Goal(id: 3, name: "Start a new career in software engineering and web development", percentToBeComplete: 75, completedStreak: 1),
-        Goal(id: 4, name: "Spend more time on hobbies", percentToBeComplete: 50, completedStreak: 0)
-    ]
+    var goals: [Goal] = []
     
     let goalsAPI = GoalsAPI()
     
@@ -28,7 +22,14 @@ class GoalsTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        // get all goals to populate table
+        goalsAPI.getAll { (allGoals) in
+            self.goals = allGoals
+            self.tableView.reloadData()
+        }
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -44,12 +45,10 @@ class GoalsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return goals.count
     }
 
@@ -76,10 +75,12 @@ class GoalsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            // Delete the row from the data source
             let goalToDelete = goals[indexPath.row]
-            goalToDelete.deleteEntry()
             
+            // delete goal from database
+            goalsAPI.delete(goal: goalToDelete)
+            
+            // Delete the row from the data source
             goals.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
@@ -118,20 +119,22 @@ class GoalsTableViewController: UITableViewController {
             }
             
             guard let selectedGoalCell = sender as? GoalTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedGoalCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
+            // pass tapped goal to detail vc
             let selectedGoal = goals[indexPath.row]
-            
             goalDetailViewController.goal = selectedGoal
+        
         case "showHabits":
             print("navigating to habits list view")
+        
         default:
-            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
     
@@ -142,19 +145,23 @@ class GoalsTableViewController: UITableViewController {
         if let sourceViewController = sender.source as? GoalViewController, let goal = sourceViewController.goal {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // updates an existing goal
+                
+                // edit goal in the database
+                goalsAPI.edit(goal: goal)
+                
+                // updates an existing goal in the array and view
                 goals[selectedIndexPath.row] = goal
-                goal.editEntry()
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                
             } else {
-                // add a new goal
-                let newIndexPath = IndexPath(row: goals.count, section: 0)
-                goals.append(goal)
                 
-//                goal.createEntry()
-                goalsAPI.create(goal: goal)
-                
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
+                // add a new goal to the database
+                goalsAPI.create(goal: goal, completion: { (goal) in
+                    // add a new goal to the goals array and update the view
+                    let newIndexPath = IndexPath(row: self.goals.count, section: 0)
+                    self.goals.append(goal)
+                    self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+                })
             }
         }
     }

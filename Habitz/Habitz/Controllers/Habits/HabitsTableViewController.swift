@@ -126,7 +126,7 @@ class HabitsTableViewController: UITableViewController {
             }
             
             guard let selectedHabitCell = sender as? HabitTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedHabitCell) else {
@@ -137,7 +137,7 @@ class HabitsTableViewController: UITableViewController {
             habitDetailViewController.habit = selectedHabit
         
         default:
-            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
   
