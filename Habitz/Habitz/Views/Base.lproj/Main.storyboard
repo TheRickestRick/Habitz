@@ -619,6 +619,7 @@
                                     <outlet property="completedStreakLabel" destination="t8M-lN-dHT" id="sEr-aL-WAw"/>
                                     <outlet property="isCompleteLabel" destination="JY3-rP-IYv" id="C97-bY-FM3"/>
                                     <outlet property="nameLabel" destination="UPJ-ht-ivz" id="Rge-5E-6DS"/>
+                                    <segue destination="wu1-Yj-Xs5" kind="show" identifier="showHabitDetail" id="16Y-0t-zan"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -628,9 +629,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Your Habits" id="qQV-Ce-tSR">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="zGb-6b-teh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zGb-6b-teh">
                             <connections>
-                                <segue destination="4ZP-qT-eWK" kind="presentation" id="qb2-mL-UBI"/>
+                                <segue destination="4ZP-qT-eWK" kind="presentation" identifier="createHabit" id="qb2-mL-UBI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -792,10 +793,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zDU-hB-HTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-930" y="2259"/>
+            <point key="canvasLocation" x="-930" y="1846"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dAw-up-ZkN"/>
+        <segue reference="16Y-0t-zan"/>
+        <segue reference="LCd-yb-SeC"/>
     </inferredMetricsTieBreakers>
 </document>

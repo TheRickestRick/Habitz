@@ -43,6 +43,21 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         
         // setup initial view
         associatedGoalTextField.text = String(pickerData[0].name)
+        
+        // set up views if editing an existing habit
+        if let habit = habit {
+            navigationItem.title = habit.name
+            nameTextField.text = habit.name
+            isCompletedTextField.text = String(habit.isComplete)
+            completedStreakTextField.text = String(habit.completedStreak)
+            
+            if let i = pickerData.index(where: { $0.id == habit.goalId }) {
+                associatedGoalTextField.text = pickerData[i].name
+            }
+        }
+        
+        // enable save button only if the text field has a valid habit name
+        updateSaveButtonState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +90,16 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
     
     // MARK: - Actions
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        let isPresentingInAddHabitMode = presentedViewController is UINavigationController
+        
+        if isPresentingInAddHabitMode {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("The HabitViewController is not inside a navigation controller.")
+        }
+        
     }
     
     

@@ -26,6 +26,10 @@ class HabitsTableViewController: UITableViewController {
 
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        // Use the edit button item provided by the table view controller.
+        navigationItem.leftBarButtonItem = editButtonItem
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -69,26 +73,27 @@ class HabitsTableViewController: UITableViewController {
         return cell
     }
 
-
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
             // Delete the row from the data source
+            let habitToDelete = habits[indexPath.row]
+            habitToDelete.deleteEntry()
+            
+            habits.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -105,15 +110,36 @@ class HabitsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier ?? "" {
+        case "createHabit":
+            print("create a new habit")
+        
+        case "showHabitDetail":
+            guard let habitDetailViewController = segue.destination as? HabitViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedHabitCell = sender as? HabitTableViewCell else {
+                fatalError("Unexpected sender: \(sender)")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedHabitCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedHabit = habits[indexPath.row]
+            habitDetailViewController.habit = selectedHabit
+        
+        default:
+            fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
-    */
+  
     
     //MARK: - Actions
     @IBAction func unwindToHabitlList(sender: UIStoryboardSegue) -> Void {
