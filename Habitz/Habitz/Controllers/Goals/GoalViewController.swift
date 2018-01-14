@@ -34,8 +34,6 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         // handle selecting percentToComplete through delegate callbacks
         percentToCompletePicker.dataSource = self
         percentToCompletePicker.delegate = self
-        
-        
         percentToBeCompleteTextField.inputView = percentToCompletePicker
         
         // sets up views if editing an existing goal
@@ -45,6 +43,7 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
             percentToBeCompleteTextField.text = String(goal.percentToBeComplete)
             completedStreakTextField.text = String(goal.completedStreak)
         } else {
+            // sets up views if creating a new goal
             percentToBeCompleteTextField.text = String(pickerData[0])
         }
         
@@ -59,6 +58,26 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     
 
     // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        // configure controller only when the save button is pressed
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            print("The save button was not pressed, cancelling")
+            return
+        }
+        
+        //TODO: TODO - get ID from database
+        let id = 4
+        guard let name = nameTextField.text else {return}
+        guard let percentToBeComplete = Int(percentToBeCompleteTextField.text!) else {return}
+        let completedStreak = 0
+        
+        goal = Goal(id: id, name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak)
+    }
+    
+    
+    // MARK: - Actions
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // depending on style of presentation (modal or push presentation)
         // this view controller needs to be dismissed in two different ways
@@ -72,23 +91,6 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
             fatalError("The GoalViewController is not inside a navigation controller.")
         }
         
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        // configure controller only when the save button is pressed
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            print("The save button was not pressed, cancelling")
-            return
-        }
-        
-        let id = 4
-        guard let name = nameTextField.text else {return}
-        guard let percentToBeComplete = Int(percentToBeCompleteTextField.text!) else {return}
-        let completedStreak = 0
-        
-        goal = Goal(id: id, name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak)
     }
     
     

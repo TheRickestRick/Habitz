@@ -1,5 +1,5 @@
 //
-//  GoalTableViewCell.swift
+//  HabitViewCell.swift
 //  Habitz
 //
 //  Created by Ryan Wittrup on 1/13/18.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class GoalTableViewCell: UITableViewCell {
+class HabitTableViewCell: UITableViewCell {
 
     //MARK: - Properties
     @IBOutlet weak var completedStreakLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var isCompleteLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

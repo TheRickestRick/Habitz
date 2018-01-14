@@ -15,12 +15,12 @@ class HabitsController: UIViewController, CreateHabitDelegate, EditHabitDelegate
     
     // TODO: replace with API call
     var habits: [Habit] = [
-        Habit(id: 1, name: "Drink a green smoothie", isComplete: true, goalId: 1),
-        Habit(id: 2, name: "Meditate for 15 minutes", isComplete: true, goalId: 1),
-        Habit(id: 3, name: "Call or text an old friend", isComplete: true, goalId: 2),
-        Habit(id: 4, name: "Go to a networking event", isComplete: true, goalId: 3),
-        Habit(id: 5, name: "Send mom an email", isComplete: true, goalId: 2),
-        Habit(id: 6, name: "Message a new contact on LinkedIn", isComplete: true, goalId: 3)
+        Habit(id: 1, name: "Drink a green smoothie", isComplete: true, goalId: 1, completedStreak: 2),
+        Habit(id: 2, name: "Meditate for 15 minutes", isComplete: true, goalId: 1, completedStreak: 2),
+        Habit(id: 3, name: "Call or text an old friend", isComplete: true, goalId: 2, completedStreak: 2),
+        Habit(id: 4, name: "Go to a networking event", isComplete: true, goalId: 3, completedStreak: 2),
+        Habit(id: 5, name: "Send mom an email", isComplete: true, goalId: 2, completedStreak: 2),
+        Habit(id: 6, name: "Message a new contact on LinkedIn", isComplete: true, goalId: 3, completedStreak: 2)
     ]
     
     @IBOutlet weak var habitsContainer: UIView!

@@ -53,7 +53,7 @@ class CreateHabitController: UIViewController, UIPickerViewDataSource, UIPickerV
         let newHabit = Habit(id: 7,
                              name: newHabitName,
                              isComplete: false,
-                             goalId: pickerData[pickerIndex].id)
+                             goalId: pickerData[pickerIndex].id, completedStreak: 4)
         
         delegate?.addNewHabit(forHabit: newHabit)
         

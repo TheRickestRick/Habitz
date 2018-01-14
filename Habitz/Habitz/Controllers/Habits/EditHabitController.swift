@@ -70,7 +70,7 @@ class EditHabitController: UIViewController, UIPickerViewDataSource, UIPickerVie
         let editedHabit = Habit(id: editHabitId,
                                 name: editHabitName,
                                 isComplete: editHabitIsComplete,
-                                goalId: pickerData[pickerIndex].id)
+                                goalId: pickerData[pickerIndex].id, completedStreak: 0)
         
         editDelegate?.editHabit(for: editedHabit)
         
