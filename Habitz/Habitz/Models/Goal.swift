@@ -8,6 +8,8 @@
 
 import Foundation
 
+let URL = "http://localhost:3000/api/goals"
+
 class Goal {
     let id: Int
     var name: String

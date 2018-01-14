@@ -8,5 +8,7 @@ target 'Habitz' do
   # Pods for Habitz
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-  
+  pod 'SwiftyJSON'
+  pod 'Alamofire'
+
 end
