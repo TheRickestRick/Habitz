@@ -20,6 +20,7 @@ class GoalsTableViewController: UITableViewController {
         
         navigationItem.leftBarButtonItem = editButtonItem
         
+        // auto adjust height for goals that have multiple lines of text
         tableView.rowHeight = UITableViewAutomaticDimension
         
         // get all goals to populate table
