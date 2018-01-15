@@ -78,9 +78,10 @@ class LoginViewController: UIViewController {
                 if let u = user {
                     // go to home screen
                     self.uid = u.uid
-                    self.performSegue(withIdentifier: "goToHome", sender: self)
+                    self.performSegue(withIdentifier: "showHome", sender: self)
                 } else {
                     // TODO: handle error for login
+                    print(error)
                 }
             }
             
@@ -90,9 +91,10 @@ class LoginViewController: UIViewController {
                 if let u = user {
                     // go to home screen
                     self.uid = u.uid
-                    self.performSegue(withIdentifier: "goToHome", sender: self)
+                    self.performSegue(withIdentifier: "showHome", sender: self)
                 } else {
                     // TODO: handle error for login
+                    print(error)
                 }
             }
         }

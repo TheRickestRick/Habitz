@@ -7,26 +7,35 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HabitsTableViewController: UITableViewController {
     
     // MARK: - Properties
     var habits: [Habit] = []
     let habitsAPI = HabitsAPI()
+    var userUid: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // get current user uid
+        if let user = Auth.auth().currentUser {
+            userUid = user.uid
+            
+            // get all habits to populate table
+            habitsAPI.getAllForUser(havingUid: userUid!, completion: { (allHabits) in
+                self.habits = allHabits
+                self.tableView.reloadData()
+            })
+        }
+        
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
-        
-        // get all habits to populate table
-        habitsAPI.getAll { (allHabits) in
-            self.habits = allHabits
-            self.tableView.reloadData()
-        }
         
         
         // Uncomment the following line to preserve selection between presentations

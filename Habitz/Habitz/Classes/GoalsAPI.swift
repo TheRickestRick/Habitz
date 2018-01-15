@@ -11,13 +11,13 @@ import Alamofire
 import SwiftyJSON
 
 class GoalsAPI {
-    let baseURLString = "http://localhost:3000/api/goals"
-    let URL = "http://localhost:3000/api/goals"
+    let baseURL = "http://localhost:3000/api/goals"
     
-    func getAll(completion: @escaping([Goal]) -> ()) -> Void {
+    func getAllforUser(havingUserUid uid: String, completion: @escaping([Goal]) -> ()) -> Void {
         var allGoals: [Goal] = []
+        let userGoalsURL = baseURL + "?user_uid=\(uid)"
         
-        Alamofire.request(URL, method: .get).responseJSON {
+        Alamofire.request(userGoalsURL, method: .get).responseJSON {
             response in
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
@@ -43,7 +43,7 @@ class GoalsAPI {
         ]
         var newGoal: Goal? = nil
         
-        Alamofire.request(URL, method: .post, parameters: parameters).responseJSON {
+        Alamofire.request(baseURL, method: .post, parameters: parameters).responseJSON {
             response in
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
@@ -57,11 +57,11 @@ class GoalsAPI {
     
     func getGoalHaving(id: Int) -> Void {
         print("get goal at endpoint: ")
-        print(URL + "/\(id)")
+        print(baseURL + "/\(id)")
     }
     
     func edit(goal: Goal) -> Void {
-        let editURL = URL + "/\(goal.id!)"
+        let editURL = baseURL + "/\(goal.id!)"
         
         let parameters: Parameters = [
             "name": goal.name,
@@ -78,7 +78,7 @@ class GoalsAPI {
     }
     
     func delete(goal: Goal) -> Void {
-        let deleteURL = URL + "/\(goal.id!)"
+        let deleteURL = baseURL + "/\(goal.id!)"
         
         Alamofire.request(deleteURL, method: .delete).response { (response) in
             if response.error != nil {

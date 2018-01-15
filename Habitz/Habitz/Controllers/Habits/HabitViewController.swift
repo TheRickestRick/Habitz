@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
@@ -23,6 +24,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
     // data for picker to restrict values, populated by api call
     var pickerData: [Goal] = []
     let goalIdPicker: UIPickerView! = UIPickerView()
+    var userUid: String?
     
     let goalsAPI = GoalsAPI()
     
@@ -32,32 +34,40 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         // handle the text field's input through delegate callbacks
         nameTextField.delegate = self
         
+        
         // handle selecting goalId through delegate callbacks
         goalIdPicker.dataSource = self
         goalIdPicker.delegate = self
         associatedGoalTextField.inputView = goalIdPicker
         
-        // get goals from db to populate picker list
-        goalsAPI.getAll { (goals) in
-            self.pickerData = goals
+        
+        // get current user uid
+        if let user = Auth.auth().currentUser {
+            userUid = user.uid
             
-            // setup initial view
-            self.associatedGoalTextField.text = String(self.pickerData[0].name)
-            
-            // set up views if editing an existing habit
-            if let habit = self.habit {
-                self.navigationItem.title = habit.name
-                self.nameTextField.text = habit.name
-                self.isCompletedTextField.text = String(habit.isComplete)
-                self.completedStreakTextField.text = String(habit.completedStreak)
+            // get goals from db to populate picker list
+            goalsAPI.getAllforUser(havingUserUid: userUid!, completion:  { (goals) in
+                self.pickerData = goals
                 
-                if let i = self.pickerData.index(where: { $0.id == habit.goalId }) {
-                    self.associatedGoalTextField.text = self.pickerData[i].name
+                // setup initial view
+                self.associatedGoalTextField.text = String(self.pickerData[0].name)
+                
+                // set up views if editing an existing habit
+                if let habit = self.habit {
+                    self.navigationItem.title = habit.name
+                    self.nameTextField.text = habit.name
+                    self.isCompletedTextField.text = String(habit.isComplete)
+                    self.completedStreakTextField.text = String(habit.completedStreak)
+                    
+                    if let i = self.pickerData.index(where: { $0.id == habit.goalId }) {
+                        self.associatedGoalTextField.text = self.pickerData[i].name
+                    }
                 }
-            }
-            // enable save button only if the text field has a valid habit name
-            self.updateSaveButtonState()
+                // enable save button only if the text field has a valid habit name
+                self.updateSaveButtonState()
+            })
         }
+
     }
 
     override func didReceiveMemoryWarning() {

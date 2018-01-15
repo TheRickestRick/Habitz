@@ -7,27 +7,34 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class GoalsTableViewController: UITableViewController {
     
     // MARK: - Properties
     var goals: [Goal] = []
     let goalsAPI = GoalsAPI()
+    var userUid: String?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // get current user uid
+        if let user = Auth.auth().currentUser {
+            userUid = user.uid
+            
+            // get all goals to populate table
+            goalsAPI.getAllforUser(havingUserUid: userUid!, completion: { (allGoals) in
+                self.goals = allGoals
+                self.tableView.reloadData()
+            })
+        }
+        
         navigationItem.leftBarButtonItem = editButtonItem
         
         // auto adjust height for goals that have multiple lines of text
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        // get all goals to populate table
-        goalsAPI.getAll { (allGoals) in
-            self.goals = allGoals
-            self.tableView.reloadData()
-        }
 
         
         // Uncomment the following line to preserve selection between presentations

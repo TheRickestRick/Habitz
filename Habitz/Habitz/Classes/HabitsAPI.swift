@@ -11,12 +11,13 @@ import Alamofire
 import SwiftyJSON
 
 class HabitsAPI {
-    let URL = "http://localhost:3000/api/habits"
+    let baseURL = "http://localhost:3000/api/habits"
     
-    func getAll(completion: @escaping([Habit]) -> ()) -> Void {
+    func getAllForUser(havingUid uid: String, completion: @escaping([Habit]) -> ()) -> Void {
         var allHabits: [Habit] = []
+        let userHabitsURL = baseURL + "?user_uid=\(uid)"
         
-        Alamofire.request(URL, method: .get).responseJSON {
+        Alamofire.request(userHabitsURL, method: .get).responseJSON {
             response in
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
@@ -41,7 +42,7 @@ class HabitsAPI {
         ]
         var newHabit: Habit? = nil
         
-        Alamofire.request(URL, method: .post, parameters: parameters).responseJSON {
+        Alamofire.request(baseURL, method: .post, parameters: parameters).responseJSON {
             response in
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
@@ -55,11 +56,11 @@ class HabitsAPI {
     
     func getHabitHaving(id: Int) -> Void {
         print("get habit at endpoint: ")
-        print(URL + "/\(id)")
+        print(baseURL + "/\(id)")
     }
     
     func edit(habit: Habit) -> Void {
-        let editURL = URL + "/\(habit.id!)"
+        let editURL = baseURL + "/\(habit.id!)"
         
         let parameters: Parameters = [
             "name": habit.name,
@@ -75,7 +76,7 @@ class HabitsAPI {
     }
     
     func delete(habit: Habit) -> Void {
-        let deleteURL = URL + "/\(habit.id!)"
+        let deleteURL = baseURL + "/\(habit.id!)"
         
         Alamofire.request(deleteURL, method: .delete).response { (response) in
             if response.error != nil {

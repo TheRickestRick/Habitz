@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vSK-Wd-DzG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ock-kj-fc2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -187,11 +187,12 @@
                         <outlet property="signInButton" destination="phU-5f-44F" id="D4a-PH-8pc"/>
                         <outlet property="toggleSignInControl" destination="JWF-oi-okQ" id="TEF-aZ-8aa"/>
                         <segue destination="MC2-UE-44u" kind="show" identifier="goToHome" id="q3w-Hu-ckK"/>
+                        <segue destination="vSK-Wd-DzG" kind="show" identifier="showHome" id="H5f-E5-f34"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62w-yb-vgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4902" y="1773"/>
+            <point key="canvasLocation" x="-4796" y="1802"/>
         </scene>
         <!--Your Goals-->
         <scene sceneID="OW7-g3-CGZ">
@@ -286,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-0D-nuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4127" y="1773"/>
+            <point key="canvasLocation" x="-3993" y="2219"/>
         </scene>
         <!--Goals-->
         <scene sceneID="8dD-Qd-CYX">
