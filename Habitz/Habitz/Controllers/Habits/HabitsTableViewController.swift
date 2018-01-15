@@ -11,8 +11,6 @@ import FirebaseAuth
 
 class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate {
     
-    
-    
     // MARK: - Properties
     var habits: [Habit] = []
     let habitsAPI = HabitsAPI()
@@ -93,11 +91,10 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
         cell.completionUpdateDelegate = self
         
         if habit.isComplete {
-            cell.isCompleteLabel.text = "(X)"
-            cell.completeCheckBox.on = true
+            cell.completeCheckBox.setOn(true, animated: true)
+            
         } else {
-            cell.isCompleteLabel.text = "(O)"
-            cell.completeCheckBox.on = false
+            cell.completeCheckBox.setOn(false, animated: true)
         }
 
         return cell
@@ -202,11 +199,7 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
     
     //MARK: - CompletionUpdateDelegate
     func toggleCompletion(for toggledHabit: Habit) {
-        print("toggle complete / incomplete for habit, \(toggledHabit.name)")
-        
         toggledHabit.isComplete = !toggledHabit.isComplete
-        
-        self.tableView.reloadData()
     }
     
     

@@ -14,7 +14,6 @@ class HabitTableViewCell: UITableViewCell {
     //MARK: - Properties
     @IBOutlet weak var completedStreakLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var isCompleteLabel: UILabel!
     @IBOutlet weak var completeCheckBox: BEMCheckBox!
     
     var habit: Habit?
@@ -22,11 +21,13 @@ class HabitTableViewCell: UITableViewCell {
     
     var completionUpdateDelegate: CompletionUpdateDelegate?
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         completeCheckBox.onAnimationType = BEMAnimationType.bounce
+        completeCheckBox.offAnimationType = BEMAnimationType.fade
         
     }
 
@@ -41,12 +42,14 @@ class HabitTableViewCell: UITableViewCell {
         
         // mark as complete or incomplete based on the change of state in the checkbox
         if completeCheckBox.on {
+            // update database for completion status
             completionsAPI.markComplete(habit)
             
             // update table vc for completion status
             completionUpdateDelegate.toggleCompletion(for: habit)
             
         } else {
+            // update database for completion status
             completionsAPI.markIncomplete(habit)
             
             // update table vc for completion status
