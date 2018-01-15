@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
   // query string to search by user_uid
   if (req.query.user_uid !== undefined) {
     knex.from('habits').innerJoin('goals', 'habits.goal_id', 'goals.id')
-      .select('habits.id', 'habits.name')
+      .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak')
       .where({user_uid: req.query.user_uid})
       .orderBy('id', 'asc')
       .then(habits => res.json(habits))
