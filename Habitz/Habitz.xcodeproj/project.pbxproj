@@ -17,6 +17,7 @@
 		16224B1D2006A27900CAD6E2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */; };
 		16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1E2006A39400CAD6E2 /* HomeViewController.swift */; };
 		16231ABA200D265D00E242F6 /* CompletionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16231AB9200D265D00E242F6 /* CompletionsAPI.swift */; };
+		16231ABC200D457C00E242F6 /* CompletionUpdateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16231ABB200D457C00E242F6 /* CompletionUpdateDelegate.swift */; };
 		16928A89200C12FC0047ECA8 /* HabitsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16928A88200C12FC0047ECA8 /* HabitsAPI.swift */; };
 		16B91D26200BA8E800AD17D3 /* GoalsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B91D25200BA8E800AD17D3 /* GoalsAPI.swift */; };
 		16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E845EC2003CC6900BD7E99 /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 		16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16224B1E2006A39400CAD6E2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		16231AB9200D265D00E242F6 /* CompletionsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionsAPI.swift; sourceTree = "<group>"; };
+		16231ABB200D457C00E242F6 /* CompletionUpdateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionUpdateDelegate.swift; sourceTree = "<group>"; };
 		16928A88200C12FC0047ECA8 /* HabitsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsAPI.swift; sourceTree = "<group>"; };
 		16B91D25200BA8E800AD17D3 /* GoalsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsAPI.swift; sourceTree = "<group>"; };
 		16E845E92003CC6900BD7E99 /* Habitz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habitz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 		16E8460A20041BD300BD7E99 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				16231ABB200D457C00E242F6 /* CompletionUpdateDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */,
+				16231ABC200D457C00E242F6 /* CompletionUpdateDelegate.swift in Sources */,
 				16190E9A200A5AB70089FE80 /* GoalTableViewCell.swift in Sources */,
 				16190E9E200AD4310089FE80 /* HabitsTableViewController.swift in Sources */,
 				16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */,

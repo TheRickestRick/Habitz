@@ -9,7 +9,9 @@
 import UIKit
 import FirebaseAuth
 
-class HabitsTableViewController: UITableViewController {
+class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate {
+    
+    
     
     // MARK: - Properties
     var habits: [Habit] = []
@@ -31,26 +33,19 @@ class HabitsTableViewController: UITableViewController {
             // get all habits to populate table
             habitsAPI.getAllForUser(havingUid: userUid!, completion: { (allHabits) in
                 self.habits = allHabits
-//                self.tableView.reloadData()
-                
-                print("all habits", self.habits)
                 
                 // get completed habits to compare against ALL habits
                 self.completionsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
                     self.completions = completedHabits
                     
-                    print("completions", self.completions)
-                    
-                    
-                    print("comparing all habits to completed habits")
+                    // update all habits to have correct completion status based on
+                    // comparing against the completed habits array
                     self.compare(allHabits: self.habits, completedHabits: self.completions)
-                    
                     
                     self.tableView.reloadData()
                 })
                 
             })
-            
             
         }
         
@@ -95,11 +90,14 @@ class HabitsTableViewController: UITableViewController {
         cell.completedStreakLabel.text = "(\(habit.completedStreak))"
         cell.nameLabel.text = habit.name
         cell.habit = habit
+        cell.completionUpdateDelegate = self
         
         if habit.isComplete {
             cell.isCompleteLabel.text = "(X)"
+            cell.completeCheckBox.on = true
         } else {
             cell.isCompleteLabel.text = "(O)"
+            cell.completeCheckBox.on = false
         }
 
         return cell
@@ -126,7 +124,6 @@ class HabitsTableViewController: UITableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
-        //TODO: TODO - mark as complete on swipe right
     }
 
     /*
@@ -201,6 +198,17 @@ class HabitsTableViewController: UITableViewController {
             }
         }
     }
+    
+    
+    //MARK: - CompletionUpdateDelegate
+    func toggleCompletion(for toggledHabit: Habit) {
+        print("toggle complete / incomplete for habit, \(toggledHabit.name)")
+        
+        toggledHabit.isComplete = !toggledHabit.isComplete
+        
+        self.tableView.reloadData()
+    }
+    
     
     //MARK: - Private Methods
     func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
