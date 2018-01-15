@@ -73,6 +73,15 @@ router.post('/:id/complete', (req, res, next) => {
     .catch(err => next(err))
 })
 
+router.delete('/:id/complete', (req, res, next) => {
+  knex('completions')
+    .del()
+    .where({habit_id: req.params.id})
+    .andWhere(knex.raw('created_at >= CURRENT_DATE'))
+    .then(() => res.end())
+    .catch(err => next(err))
+})
+
 
 function params(req) {
   return {

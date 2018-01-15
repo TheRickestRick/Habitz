@@ -3,14 +3,14 @@ const router = express.Router()
 const knex = require('../db')
 
 router.get('/', (req, res, next) => {
-  // query string to search by user_uid
-  if (req.query.user_uid !== undefined) {
-    knex('completions')
-      .where({user_uid: req.query.user_uid})
-      .then(goals => res.json(goals))
-      .catch(err => next(err))
-    return;
-  }
+  // TODO - query string to search by user_uid
+  // if (req.query.user_uid !== undefined) {
+  //   knex('completions')
+  //     .where({user_uid: req.query.user_uid})
+  //     .then(goals => res.json(goals))
+  //     .catch(err => next(err))
+  //   return;
+  // }
 
   // return only completions for the current date
   if (req.query.today === 'true') {
@@ -28,14 +28,5 @@ router.get('/', (req, res, next) => {
     .then(completions => res.json(completions))
     .catch(err => next(err))
 })
-
-router.delete('/:id', (req, res, next) => {
-  knex('completions')
-    .del()
-    .where({id: req.params.id})
-    .then(() => res.end())
-    .catch(err => next(err))
-})
-
 
 module.exports = router
