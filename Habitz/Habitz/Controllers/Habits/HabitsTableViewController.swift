@@ -89,7 +89,7 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
         cell.nameLabel.text = habit.name
         cell.habit = habit
         cell.completionUpdateDelegate = self
-        
+
         if habit.isComplete {
             cell.completeCheckBox.setOn(true, animated: true)
             
