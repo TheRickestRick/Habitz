@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BEMCheckBox
 
 class HabitTableViewCell: UITableViewCell {
 
@@ -14,10 +15,13 @@ class HabitTableViewCell: UITableViewCell {
     @IBOutlet weak var completedStreakLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var isCompleteLabel: UILabel!
+    @IBOutlet weak var completeCheckBox: BEMCheckBox!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        completeCheckBox.onAnimationType = BEMAnimationType.bounce
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -25,5 +29,13 @@ class HabitTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func toggleCheckBox(_ sender: BEMCheckBox) {
+        print("toggled checkbox")
+        if !completeCheckBox.on {
+            print("toggled from on to off, mark as incomplete")
+        } else {
+            print("toggled from off to on, mark as completed")
+        }
+    }
 }

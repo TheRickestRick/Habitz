@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ock-kj-fc2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vSK-Wd-DzG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -192,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62w-yb-vgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4796" y="1802"/>
+            <point key="canvasLocation" x="-4412" y="1773"/>
         </scene>
         <!--Your Goals-->
         <scene sceneID="OW7-g3-CGZ">
@@ -287,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-0D-nuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3993" y="2219"/>
+            <point key="canvasLocation" x="-3993" y="2544"/>
         </scene>
         <!--Goals-->
         <scene sceneID="8dD-Qd-CYX">
@@ -337,11 +337,44 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a HABIT being tracked" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPJ-ht-ivz">
-                                                    <rect key="frame" x="50" y="0.0" width="268" height="22"/>
+                                                    <rect key="frame" x="50" y="0.0" width="243" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6k-gi-buW" customClass="BEMCheckBox">
+                                                    <rect key="frame" x="293" y="0.0" width="25" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="5yP-2M-D7L"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="size" keyPath="minimumTouchSize">
+                                                            <size key="value" width="10" height="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="offFillColor">
+                                                            <color key="value" red="1" green="0.29906281608495977" blue="0.28578687560986182" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
+                                                            <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="onFillColor">
+                                                            <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
+                                                            <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
+                                                            <real key="value" value="0.25"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                                            <color key="value" red="1" green="0.29906281610000002" blue="0.28578687559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="toggleCheckBox:" destination="LJp-ol-UEi" eventType="valueChanged" id="2SN-0M-BtN"/>
+                                                    </connections>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(X)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JY3-rP-IYv">
                                                     <rect key="frame" x="318" y="0.0" width="25" height="22"/>
                                                     <constraints>
@@ -356,10 +389,11 @@
                                                 <constraint firstAttribute="bottom" secondItem="t8M-lN-dHT" secondAttribute="bottom" id="3Tl-Et-Mza"/>
                                                 <constraint firstItem="t8M-lN-dHT" firstAttribute="top" secondItem="6f5-Rl-mxQ" secondAttribute="top" id="62G-i1-K6u"/>
                                                 <constraint firstItem="UPJ-ht-ivz" firstAttribute="top" secondItem="6f5-Rl-mxQ" secondAttribute="top" id="A4X-ZX-vKu"/>
+                                                <constraint firstItem="JY3-rP-IYv" firstAttribute="leading" secondItem="q6k-gi-buW" secondAttribute="trailing" id="GO1-By-yaT"/>
                                                 <constraint firstItem="UPJ-ht-ivz" firstAttribute="leading" secondItem="t8M-lN-dHT" secondAttribute="trailing" id="NqC-mP-qdf"/>
                                                 <constraint firstItem="t8M-lN-dHT" firstAttribute="leading" secondItem="6f5-Rl-mxQ" secondAttribute="leading" id="Urw-ci-ec0"/>
                                                 <constraint firstAttribute="trailing" secondItem="JY3-rP-IYv" secondAttribute="trailing" id="dfw-66-oGh"/>
-                                                <constraint firstItem="JY3-rP-IYv" firstAttribute="leading" secondItem="UPJ-ht-ivz" secondAttribute="trailing" id="eCV-vF-Ose"/>
+                                                <constraint firstItem="q6k-gi-buW" firstAttribute="leading" secondItem="UPJ-ht-ivz" secondAttribute="trailing" id="eec-Sp-ljD"/>
                                                 <constraint firstAttribute="bottom" secondItem="UPJ-ht-ivz" secondAttribute="bottom" id="fDf-Nb-ox2"/>
                                                 <constraint firstAttribute="bottom" secondItem="JY3-rP-IYv" secondAttribute="bottom" id="i8b-yn-wdZ"/>
                                                 <constraint firstItem="JY3-rP-IYv" firstAttribute="top" secondItem="6f5-Rl-mxQ" secondAttribute="top" id="mx0-uq-dTO"/>
@@ -374,6 +408,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="completeCheckBox" destination="q6k-gi-buW" id="30c-U2-5LW"/>
                                     <outlet property="completedStreakLabel" destination="t8M-lN-dHT" id="sEr-aL-WAw"/>
                                     <outlet property="isCompleteLabel" destination="JY3-rP-IYv" id="C97-bY-FM3"/>
                                     <outlet property="nameLabel" destination="UPJ-ht-ivz" id="Rge-5E-6DS"/>
@@ -396,7 +431,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CRY-VH-HVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1719" y="2137"/>
+            <point key="canvasLocation" x="-1719.2" y="2136.88155922039"/>
         </scene>
         <!--New Habit-->
         <scene sceneID="u2s-fc-IhT">
@@ -574,7 +609,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dYA-51-SPU"/>
+        <segue reference="16Y-0t-zan"/>
         <segue reference="LCd-yb-SeC"/>
     </inferredMetricsTieBreakers>
 </document>

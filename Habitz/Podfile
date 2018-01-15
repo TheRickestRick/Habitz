@@ -10,5 +10,7 @@ target 'Habitz' do
   pod 'Firebase/Auth'
   pod 'SwiftyJSON'
   pod 'Alamofire'
+  pod 'M13Checkbox'
+  pod 'BEMCheckBox'
 
 end
