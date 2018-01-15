@@ -7,6 +7,7 @@ router.get('/', (req, res, next) => {
   if (req.query.goal_id !== undefined) {
     knex('habits')
       .where({goal_id: req.query.goal_id})
+      .orderBy('id', 'asc')
       .then(habits => res.json(habits))
       .catch(err => next(err))
     return;
@@ -17,12 +18,14 @@ router.get('/', (req, res, next) => {
     knex.from('habits').innerJoin('goals', 'habits.goal_id', 'goals.id')
       .select('habits.id', 'habits.name')
       .where({user_uid: req.query.user_uid})
+      .orderBy('id', 'asc')
       .then(habits => res.json(habits))
       .catch(err => next(err))
     return;
   }
 
   knex('habits')
+    .orderBy('id', 'asc')
     .then(habits => res.json(habits))
     .catch(err => next(err))
 })
