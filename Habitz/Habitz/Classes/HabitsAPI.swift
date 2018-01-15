@@ -54,10 +54,10 @@ class HabitsAPI {
         }
     }
     
-    func getHabitHaving(id: Int) -> Void {
-        print("get habit at endpoint: ")
-        print(baseURL + "/\(id)")
-    }
+//    func getHabitHaving(id: Int) -> Void {
+//        print("get habit at endpoint: ")
+//        print(baseURL + "/\(id)")
+//    }
     
     func edit(habit: Habit) -> Void {
         let editURL = baseURL + "/\(habit.id!)"

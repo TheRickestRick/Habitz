@@ -54,16 +54,15 @@ class GoalsAPI {
         }
     }
     
-    func getGoalHaving(id: Int) -> Void {
-        print("get goal at endpoint: ")
-        print(baseURL + "/\(id)")
-    }
+//    func getGoalHaving(id: Int) -> Void {
+//        print("get goal at endpoint: ")
+//        print(baseURL + "/\(id)")
+//    }
     
     func edit(goal: Goal) -> Void {
         let editURL = baseURL + "/\(goal.id!)"
         
         let parameters: Parameters = [
-            "id": goal.id!,
             "name": goal.name,
             "percent_to_complete": goal.percentToBeComplete
         ]
