@@ -203,7 +203,6 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
     //MARK: - CompletionUpdateDelegate
     func toggleCompletion(for toggledHabit: Habit) {
         toggledHabit.isComplete = !toggledHabit.isComplete
-        tableView.reloadData()
     }
     
     

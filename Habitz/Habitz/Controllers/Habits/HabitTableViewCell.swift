@@ -48,6 +48,7 @@ class HabitTableViewCell: UITableViewCell {
             
             
             // increase habit streak for vc and to database
+            self.completedStreakLabel.text = "(\(habit.completedStreak + 1))"
             habit.completedStreak += 1
             habitsAPI.edit(habit: habit)
             
@@ -62,9 +63,10 @@ class HabitTableViewCell: UITableViewCell {
             
             // decrease habit streak for vc and to database
             if habit.completedStreak > 0 {
+                self.completedStreakLabel.text = "(\(habit.completedStreak - 1))"
                 habit.completedStreak -= 1
+                habitsAPI.edit(habit: habit)
             }
-            habitsAPI.edit(habit: habit)
             
             
             // update table vc for completion status
