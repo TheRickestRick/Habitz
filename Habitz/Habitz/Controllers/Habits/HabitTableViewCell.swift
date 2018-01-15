@@ -18,6 +18,7 @@ class HabitTableViewCell: UITableViewCell {
     
     var habit: Habit?
     let completionsAPI = CompletionsAPI()
+    let habitsAPI = HabitsAPI()
     
     var completionUpdateDelegate: CompletionUpdateDelegate?
     
@@ -45,12 +46,26 @@ class HabitTableViewCell: UITableViewCell {
             // update database for completion status
             completionsAPI.markComplete(habit)
             
+            
+            // increase habit streak for vc and to database
+            habit.completedStreak += 1
+            habitsAPI.edit(habit: habit)
+            
+            
             // update table vc for completion status
             completionUpdateDelegate.toggleCompletion(for: habit)
             
         } else {
             // update database for completion status
             completionsAPI.markIncomplete(habit)
+            
+            
+            // decrease habit streak for vc and to database
+            if habit.completedStreak > 0 {
+                habit.completedStreak -= 1
+            }
+            habitsAPI.edit(habit: habit)
+            
             
             // update table vc for completion status
             completionUpdateDelegate.toggleCompletion(for: habit)

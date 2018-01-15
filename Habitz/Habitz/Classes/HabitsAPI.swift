@@ -65,7 +65,7 @@ class HabitsAPI {
         let parameters: Parameters = [
             "name": habit.name,
             "goal_id": habit.goalId,
-            "completed_streak": 0
+            "completed_streak": habit.completedStreak
         ]
         
         Alamofire.request(editURL, method: .patch, parameters: parameters).responseJSON { (response) in

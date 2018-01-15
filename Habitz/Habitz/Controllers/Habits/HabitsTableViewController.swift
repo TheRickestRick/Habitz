@@ -32,7 +32,7 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
             habitsAPI.getAllForUser(havingUid: userUid!, completion: { (allHabits) in
                 self.habits = allHabits
                 
-                // get completed habits to compare against ALL habits
+                // get completed habits from TODAY to compare against ALL habits
                 self.completionsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
                     self.completions = completedHabits
                     
@@ -42,6 +42,9 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
                     
                     self.tableView.reloadData()
                 })
+                
+                //TODO: TODO - get completed habits from YESTERDAY, to compare to all habits, and
+                // reset streak count to zero if a habit was not completed yesterday
                 
             })
             
@@ -200,6 +203,7 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
     //MARK: - CompletionUpdateDelegate
     func toggleCompletion(for toggledHabit: Habit) {
         toggledHabit.isComplete = !toggledHabit.isComplete
+        tableView.reloadData()
     }
     
     
