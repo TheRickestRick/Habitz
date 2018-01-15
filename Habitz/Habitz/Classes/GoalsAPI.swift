@@ -38,7 +38,6 @@ class GoalsAPI {
         let parameters: Parameters = [
             "name": goal.name,
             "percent_to_complete": goal.percentToBeComplete,
-            //TODO: TODO - replace with currently logged in user ID
             "user_uid": uid
         ]
         var newGoal: Goal? = nil
@@ -64,10 +63,9 @@ class GoalsAPI {
         let editURL = baseURL + "/\(goal.id!)"
         
         let parameters: Parameters = [
+            "id": goal.id!,
             "name": goal.name,
-            "percent_to_complete": goal.percentToBeComplete,
-            //TODO: TODO - replace with currently logged in user ID
-            "user_uid": "FCewGYWopDh31UsekV8gqgD16lq1"
+            "percent_to_complete": goal.percentToBeComplete
         ]
         
         Alamofire.request(editURL, method: .patch, parameters: parameters).responseJSON { (response) in
