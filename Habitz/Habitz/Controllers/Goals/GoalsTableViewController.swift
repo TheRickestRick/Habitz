@@ -25,7 +25,7 @@ class GoalsTableViewController: UITableViewController {
             userUid = user.uid
             
             // get all goals to populate table
-            goalsAPI.getAllforUser(havingUserUid: userUid!, completion: { (allGoals) in
+            goalsAPI.getAllForUser(havingUserUid: userUid!, completion: { (allGoals) in
                 self.goals = allGoals
                 self.tableView.reloadData()
             })
@@ -163,7 +163,7 @@ class GoalsTableViewController: UITableViewController {
             } else {
                 
                 // add a new goal to the database
-                goalsAPI.create(goal: goal, completion: { (goal) in
+                goalsAPI.createForUser(havingUserUid:userUid!, goal: goal, completion: { (goal) in
                     // add a new goal to the goals array and update the view
                     let newIndexPath = IndexPath(row: self.goals.count, section: 0)
                     self.goals.append(goal)

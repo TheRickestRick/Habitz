@@ -46,7 +46,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
             userUid = user.uid
             
             // get goals from db to populate picker list
-            goalsAPI.getAllforUser(havingUserUid: userUid!, completion:  { (goals) in
+            goalsAPI.getAllForUser(havingUserUid: userUid!, completion:  { (goals) in
                 self.pickerData = goals
                 
                 // setup initial view

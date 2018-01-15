@@ -13,7 +13,7 @@ import SwiftyJSON
 class GoalsAPI {
     let baseURL = "http://localhost:3000/api/goals"
     
-    func getAllforUser(havingUserUid uid: String, completion: @escaping([Goal]) -> ()) -> Void {
+    func getAllForUser(havingUserUid uid: String, completion: @escaping([Goal]) -> ()) -> Void {
         var allGoals: [Goal] = []
         let userGoalsURL = baseURL + "?user_uid=\(uid)"
         
@@ -34,12 +34,12 @@ class GoalsAPI {
         }
     }
     
-    func create(goal: Goal, completion: @escaping(Goal) -> ()) -> Void {
+    func createForUser(havingUserUid uid: String, goal: Goal, completion: @escaping(Goal) -> ()) -> Void {
         let parameters: Parameters = [
             "name": goal.name,
             "percent_to_complete": goal.percentToBeComplete,
             //TODO: TODO - replace with currently logged in user ID
-            "user_uid": "FCewGYWopDh31UsekV8gqgD16lq1"
+            "user_uid": uid
         ]
         var newGoal: Goal? = nil
         
