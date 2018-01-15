@@ -16,12 +16,15 @@ class HabitTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var isCompleteLabel: UILabel!
     @IBOutlet weak var completeCheckBox: BEMCheckBox!
+    var habit: Habit?
+    let completionsAPI = CompletionsAPI()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         completeCheckBox.onAnimationType = BEMAnimationType.bounce
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,11 +34,14 @@ class HabitTableViewCell: UITableViewCell {
     }
     
     @IBAction func toggleCheckBox(_ sender: BEMCheckBox) {
-        print("toggled checkbox")
-        if !completeCheckBox.on {
-            print("toggled from on to off, mark as incomplete")
+        guard let habit = habit else {return}
+        
+        // mark as complete or incomplete based on the change of state in the checkbox
+        if completeCheckBox.on {
+            completionsAPI.markComplete(habit)
+            
         } else {
-            print("toggled from off to on, mark as completed")
+            completionsAPI.markIncomplete(habit)
         }
     }
 }

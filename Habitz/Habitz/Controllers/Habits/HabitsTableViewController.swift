@@ -71,6 +71,7 @@ class HabitsTableViewController: UITableViewController {
 
         cell.completedStreakLabel.text = "(\(habit.completedStreak))"
         cell.nameLabel.text = habit.name
+        cell.habit = habit
         
         if habit.isComplete {
             cell.isCompleteLabel.text = "(X)"
