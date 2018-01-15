@@ -82,10 +82,11 @@ class HabitsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            // Delete the row from the data source
             let habitToDelete = habits[indexPath.row]
-            habitToDelete.deleteEntry()
+            // delete habit from database
+            habitsAPI.delete(habit: habitToDelete)
             
+            // Delete the row from the data source
             habits.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
@@ -148,7 +149,7 @@ class HabitsTableViewController: UITableViewController {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 
-                // edit goal in the database
+                // edit habit in the database
                 habitsAPI.edit(habit: habit)
                 
                 // updates an existing habit in the array and view

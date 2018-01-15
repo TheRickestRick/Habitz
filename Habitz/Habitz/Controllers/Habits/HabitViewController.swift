@@ -96,16 +96,16 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         // depending on style of presentation (modal or push presentation)
         // this view controller needs to be dismissed in two different ways
-        let isPresentingInAddGoalMode = presentingViewController is UITabBarController
+        let isPresentingInAddHabitMode = presentingViewController is UITabBarController
         
-        if isPresentingInAddGoalMode {
+        if isPresentingInAddHabitMode {
             self.dismiss(animated: true, completion: nil)
             
         } else if let owningNavigationController = navigationController {
             owningNavigationController.popViewController(animated: true)
             
         } else {
-            fatalError("The GoalViewController is not inside a navigation controller.")
+            fatalError("The HabitViewController is not inside a navigation controller.")
         }
         
     }
