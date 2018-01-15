@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.table('goals', table => {
+  return knex.schema.table('habits', table => {
     table.dropColumn("completed_streak");
   });
 };

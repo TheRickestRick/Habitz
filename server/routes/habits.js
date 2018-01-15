@@ -74,7 +74,7 @@ router.post('/:id/complete', (req, res, next) => {
 function params(req) {
   return {
     name: req.body.name,
-    is_completed: req.body.is_completed,
+    completed_streak: req.body.completed_streak,
     goal_id: req.body.goal_id
   }
 }
