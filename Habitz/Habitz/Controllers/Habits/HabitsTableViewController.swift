@@ -14,7 +14,11 @@ class HabitsTableViewController: UITableViewController {
     // MARK: - Properties
     var habits: [Habit] = []
     let habitsAPI = HabitsAPI()
+    
     var userUid: String?
+    
+    var completions: [Habit] = []
+    let completionsAPI = CompletionsAPI()
     
     
     override func viewDidLoad() {
@@ -27,8 +31,27 @@ class HabitsTableViewController: UITableViewController {
             // get all habits to populate table
             habitsAPI.getAllForUser(havingUid: userUid!, completion: { (allHabits) in
                 self.habits = allHabits
-                self.tableView.reloadData()
+//                self.tableView.reloadData()
+                
+                print("all habits", self.habits)
+                
+                // get completed habits to compare against ALL habits
+                self.completionsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
+                    self.completions = completedHabits
+                    
+                    print("completions", self.completions)
+                    
+                    
+                    print("comparing all habits to completed habits")
+                    self.compare(allHabits: self.habits, completedHabits: self.completions)
+                    
+                    
+                    self.tableView.reloadData()
+                })
+                
             })
+            
+            
         }
         
         
@@ -175,6 +198,21 @@ class HabitsTableViewController: UITableViewController {
                     self.habits.append(habit)
                     self.tableView.insertRows(at: [newIndexPath], with: .automatic)
                 })
+            }
+        }
+    }
+    
+    //MARK: - Private Methods
+    func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
+        
+        // loop through completed habits
+        for habit in allHabits {
+            // find the habits in all habits that match the completed ones
+            if completedHabits.contains(where: { (completedHabit) -> Bool in
+                return completedHabit.name == habit.name
+            }) {
+                // set that habit to completed in the all habits array
+                habit.isComplete = true
             }
         }
     }
