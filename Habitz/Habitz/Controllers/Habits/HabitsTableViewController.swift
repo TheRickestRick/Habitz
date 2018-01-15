@@ -148,10 +148,13 @@ class HabitsTableViewController: UITableViewController {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 
-                // updates an existing habit
+                // edit goal in the database
+                habitsAPI.edit(habit: habit)
+                
+                // updates an existing habit in the array and view
                 habits[selectedIndexPath.row] = habit
-                habit.editEntry()
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
+
                 
             } else {
                 // add a new habit to the database
