@@ -147,17 +147,22 @@ class HabitsTableViewController: UITableViewController {
         if let sourceViewController = sender.source as? HabitViewController, let habit = sourceViewController.habit {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                
                 // updates an existing habit
                 habits[selectedIndexPath.row] = habit
                 habit.editEntry()
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                
             } else {
-                // add a new habit
-                let newIndexPath = IndexPath(row: habits.count, section: 0)
-                habits.append(habit)
-                habit.createEntry()
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
+                // add a new habit to the database
+                habitsAPI.create(habit: habit, completion: { (habit) in
+                    // add a new habit to the habits array and update the view
+                    let newIndexPath = IndexPath(row: self.habits.count, section: 0)
+                    self.habits.append(habit)
+                    self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+                })
             }
         }
     }
+    
 }

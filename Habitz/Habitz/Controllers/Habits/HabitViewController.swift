@@ -75,16 +75,20 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
             return
         }
         
-        // get data for creating new habit
-        //TODO: TODO - update to ID from database
-        let id = 23
+        // setup data for creating new habit
         guard let name = nameTextField.text else { return }
         let isComplete = false
         let pickerIndex = goalIdPicker.selectedRow(inComponent: 0)
         let goalId = pickerData[pickerIndex].id
         let completedStreak = 0
         
-        habit = Habit(id: id, name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
+        // if an id is present, this means it is being edited so create a new habit instance with that id
+        // otherwise this is creating a new habit, so leave id blank and let vc populate from API post call
+        if let id = habit?.id {
+            habit = Habit(id: id, name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
+        } else {
+            habit = Habit(name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
+        }
     }
 
     

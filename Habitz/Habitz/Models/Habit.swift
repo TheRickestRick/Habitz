@@ -39,8 +39,10 @@ class Habit {
         self.id = json.1["id"].intValue
         self.name = json.1["name"].stringValue
         
+        
         //TODO: TODO - update to computed value
         self.isComplete = false
+        
         
         self.goalId = json.1["goal_id"].intValue
         self.completedStreak = json.1["completed_streak"].intValue
@@ -51,18 +53,15 @@ class Habit {
         self.id = json["id"].intValue
         self.name = json["name"].stringValue
         
+        
         //TODO: TODO - update to computed value
         self.isComplete = false
+        
         
         self.goalId = json["goal_id"].intValue
         self.completedStreak = json["completed_streak"].intValue
     }
-    
-    
-    func createEntry() -> Void {
-        print("add this goal to the database")
-    }
-    
+ 
     func editEntry() -> Void {
         print("edit this goal in the database")
     }
