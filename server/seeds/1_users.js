@@ -5,10 +5,10 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        {id: 1, user_uid: 'FCewGYWopDh31UsekV8gqgD16lq1'},
-        {id: 2, user_uid: 'HHGIegwwDTRgZX1Lami1DyBieAI3'},
-        {id: 3, user_uid: 'FCewGYWopDLamWopDh31Useki1DyB'},
-        {id: 4, user_uid: 'IegwwDWopDh31TRgWopDh31UsekV8'}
+        {user_uid: 'qFxdg6Ra3AWF7o33TbbaGwG1pXU2'},
+        {user_uid: 'jlIosFahjvh9d0P0oJjSIs6ydud2'},
+        {user_uid: 'QDwfEF6NXDMgUKPS0uHxlFpLML72'},
+        {user_uid: 'R5QaZAzjB1dQcPCPsA5WtleSiKk2'}
       ]);
     });
 };

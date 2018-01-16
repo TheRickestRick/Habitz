@@ -7,6 +7,7 @@ router.get('/', (req, res, next) => {
   if (req.query.goal_id !== undefined) {
     knex('habits')
       .where({goal_id: req.query.goal_id})
+      .orderBy('id', 'asc')
       .then(habits => res.json(habits))
       .catch(err => next(err))
     return;
@@ -15,14 +16,16 @@ router.get('/', (req, res, next) => {
   // query string to search by user_uid
   if (req.query.user_uid !== undefined) {
     knex.from('habits').innerJoin('goals', 'habits.goal_id', 'goals.id')
-      .select('habits.id', 'habits.name')
+      .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak')
       .where({user_uid: req.query.user_uid})
+      .orderBy('id', 'asc')
       .then(habits => res.json(habits))
       .catch(err => next(err))
     return;
   }
 
   knex('habits')
+    .orderBy('id', 'asc')
     .then(habits => res.json(habits))
     .catch(err => next(err))
 })
@@ -70,11 +73,20 @@ router.post('/:id/complete', (req, res, next) => {
     .catch(err => next(err))
 })
 
+router.delete('/:id/complete', (req, res, next) => {
+  knex('completions')
+    .del()
+    .where({habit_id: req.params.id})
+    .andWhere(knex.raw('created_at >= CURRENT_DATE'))
+    .then(() => res.end())
+    .catch(err => next(err))
+})
+
 
 function params(req) {
   return {
     name: req.body.name,
-    is_completed: req.body.is_completed,
+    completed_streak: req.body.completed_streak,
     goal_id: req.body.goal_id
   }
 }
