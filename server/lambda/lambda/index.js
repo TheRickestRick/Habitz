@@ -15,7 +15,13 @@ exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   console.log('event received: ', event);
+  console.log(event);
 
+  if (event.queryStringParameters === null) {
+    goals.getGoals(knex, callback);
+  } else if (event.queryStringParameters.user_uid) {
+    goals.getGoalsForUser(knex, callback, event.queryStringParameters.user_uid);
+  }
   // knex('goals')
   //   .then((goals) => {
   //     console.log('received goals: ', goals);
@@ -25,5 +31,5 @@ exports.handler = (event, context, callback) => {
   //     console.log('error occurred: ', err);
   //     callback(err);
   //   });
-  goals.getGoals(knex, callback);
+
 };
