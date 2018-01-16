@@ -15,12 +15,53 @@ exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   console.log('event received: ', event);
-  console.log(event);
 
-  if (event.queryStringParameters === null) {
-    goals.getGoals(knex, callback);
-  } else if (event.queryStringParameters.user_uid) {
-    goals.getGoalsForUser(knex, callback, event.queryStringParameters.user_uid);
+  if (event.pathParameters !== null) {
+    console.log('handle request for id: ', event.pathParameters.id);
+    let goalId = event.pathParameters.id
+
+    switch (event.httpMethod) {
+      case 'GET':
+        goals.get(knex, callback, goalId);
+        break;
+
+      case 'PATCH':
+        let goalToEdit = {
+
+        };
+
+        goals.patch(knex, callback, goalId, goalToEdit);
+        break;
+
+      case 'DELETE':
+        goals.delete(knex, callback, goalId)
+        break
+
+      default:
+        callback('ERROR: invalid method');
+    }
+
+  } else if (event.queryStringParameters) {
+    // check for a query string
+
+    // check for a user_uid
+    if (event.queryStringParameters.user_uid) {
+      goals.getAll(knex, callback, event.queryStringParameters.user_uid);
+    }
+
+  } else {
+    switch (event.httpMethod) {
+      case 'GET':
+        goals.getAll(knex, callback);
+        break;
+
+      case 'POST':
+        goals.post(knex, callback, event.body)
+        break;
+
+      default:
+        callback('ERROR: invalid method');
+    }
   }
   // knex('goals')
   //   .then((goals) => {
