@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.table('goals', table => {
-    table.integer("completed_streak")
+    table.integer("completed_streak").defaultTo(0);
   });
 };
 

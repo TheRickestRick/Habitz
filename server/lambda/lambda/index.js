@@ -14,10 +14,8 @@ const goals = require('goals')
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
-  console.log('event received: ', event);
-
+  // check if a path parameter is present aka goals/:id
   if (event.pathParameters !== null) {
-    console.log('handle request for id: ', event.pathParameters.id);
     let goalId = event.pathParameters.id
 
     switch (event.httpMethod) {
@@ -46,6 +44,7 @@ exports.handler = (event, context, callback) => {
     }
 
   } else {
+    // otherwise this is to the main /goals route
     switch (event.httpMethod) {
       case 'GET':
         goals.getAll(knex, callback);
