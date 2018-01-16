@@ -40,11 +40,14 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
                     // comparing against the completed habits array
                     self.compare(allHabits: self.habits, completedHabits: self.completions)
                     
-                    self.tableView.reloadData()
+                    
+                    // get completed habits from YESTERDAY, to compare to all habits, and
+                    // reset streak count to zero if a habit was not completed yesterday
+                    self.resetMissedCompletions(for: allHabits, completion: {
+                        self.tableView.reloadData()
+                    })
+
                 })
-                
-                //TODO: TODO - get completed habits from YESTERDAY, to compare to all habits, and
-                // reset streak count to zero if a habit was not completed yesterday
                 
             })
             
@@ -218,6 +221,28 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
                 // set that habit to completed in the all habits array
                 habit.isComplete = true
             }
+        }
+    }
+    
+    func resetMissedCompletions(for allHabits: [Habit], completion: @escaping () -> Void) -> Void {
+        completionsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedHabits) in
+            
+            // loop through completed habits from yesterday
+            for habit in allHabits {
+                
+                // find the habits in all habits that are NOT in completed aka they were missed
+                if !completedHabits.contains(where: { (completedHabit) -> Bool in
+                    return completedHabit.name == habit.name
+                }) {
+                    // set that habit completed streak to zero in the all habits array
+                    if habit.isComplete {
+                        habit.completedStreak = 1
+                    } else {
+                        habit.completedStreak = 0
+                    }
+                }
+            }
+            completion()
         }
     }
     

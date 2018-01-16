@@ -69,4 +69,38 @@ class CompletionsAPI {
     }
     
     
+    // find all completions for the PREVIOUS day based on user
+    // to help build list of completed and incomplete habits
+    func getYesterdaysCompletionsForUser(havingUid uid: String, completion: @escaping([Habit]) -> ()) -> Void {
+        let yesterdaysCompletionsURL = "http://localhost:3000/api/completions?day=yesterday&user_uid=\(uid)"
+        
+        var completions: [Habit] = []
+        
+        Alamofire.request(yesterdaysCompletionsURL, method: .get).responseJSON { (response) in
+            if response.result.isFailure {
+                print("Error \(String(describing: response.result.error))")
+            } else {
+                let responseJSON: JSON = JSON(response.result.value!)
+                
+                // check that the response is an array type for looping
+                if let jsonArray = responseJSON.array {
+                    for completion in jsonArray {
+                        
+                        // setup properties for initializing habit
+                        let id = completion["id"].intValue
+                        let name = completion["name"].stringValue
+                        let isComplete = true
+                        let goalId = completion["goal_id"].intValue
+                        let completedStreak = completion["completed_streak"].intValue
+                        
+                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak))
+                    }
+                    completion(completions)
+                }
+            }
+        }
+    }
+    
+    
+    
 }
