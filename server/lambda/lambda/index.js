@@ -26,11 +26,7 @@ exports.handler = (event, context, callback) => {
         break;
 
       case 'PATCH':
-        let goalToEdit = {
-
-        };
-
-        goals.patch(knex, callback, goalId, goalToEdit);
+        goals.patch(knex, callback, goalId, event.body);
         break;
 
       case 'DELETE':

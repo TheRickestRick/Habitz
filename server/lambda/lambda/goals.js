@@ -60,22 +60,27 @@ module.exports.get = function(knex, callback, goal_id) {
 }
 
 
-module.exports.patch = function(knex, callback, goal_id, params) {
+module.exports.patch = function(knex, callback, goal_id, body) {
   const response = {
     statusCode: 200,
     body: null,
   };
 
+  console.log(params(JSON.parse(body)));
+
   knex('goals')
-    .update(params(req))
-    .where({ id: req.params.id })
+    .update(params(JSON.parse(body)))
+    .where({ id: goal_id })
     .returning('*')
-    .then(goals => res.json(goals[0]))
+    .then(goals => {
+      response.body = JSON.stringify(goals[0]);
+      callback(null, response);
+    })
     .catch(err => callback(err));
 }
 
 
-module.exports.delete = function(knex, callback, goal_id, params) {
+module.exports.delete = function(knex, callback, goal_id) {
   const response = {
     statusCode: 200,
     body: null,
@@ -83,8 +88,10 @@ module.exports.delete = function(knex, callback, goal_id, params) {
 
   knex('goals')
     .del()
-    .where({ id: req.params.id })
-    .then(() => res.end())
+    .where({ id: goal_id })
+    .then(() => {
+      callback(null, response);
+    })
     .catch(err => callback(err));
 }
 
