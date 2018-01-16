@@ -9,24 +9,21 @@ const knex = require('knex')({
   },
 });
 
-// const goals = require('goals');
+const goals = require('goals')
 
 exports.handler = (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+
   console.log('event received: ', event);
-  console.log('knex connection: ', knex);
 
-  // goals.getGoals(knex, callback);
-  // knex.destroy();
-
-  knex('goals')
-    .then((goals) => {
-      console.log('received goals: ', goals);
-      knex.destroy();
-      return callback(null, goals);
-    })
-    .catch((err) => {
-      console.log('error occurred: ', err);
-      knex.destroy();
-      return callback(err);
-    });
+  // knex('goals')
+  //   .then((goals) => {
+  //     console.log('received goals: ', goals);
+  //     callback(null, goals);
+  //   })
+  //   .catch((err) => {
+  //     console.log('error occurred: ', err);
+  //     callback(err);
+  //   });
+  goals.getGoals(knex, callback);
 };
