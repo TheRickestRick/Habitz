@@ -20,6 +20,7 @@ router.get('/', (req, res, next) => {
     return;
   }
 
+  // TODO: update endpoint to take a day query string for 'today'
   // search by user_uid, returning only completions for the current day
   if (req.query.user_uid !== undefined) {
     knex.from('completions')
@@ -35,9 +36,6 @@ router.get('/', (req, res, next) => {
       .catch(err => next(err))
     return;
   }
-
-  //TODO - or update endpoint to get all goals completed at CURRENT_DATE - 1
-
 
   // return only completions for the current date
   // if (req.query.today === 'true') {
