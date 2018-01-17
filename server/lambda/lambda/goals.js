@@ -66,8 +66,6 @@ module.exports.patch = function(knex, callback, goal_id, body) {
     body: null,
   };
 
-  console.log(params(JSON.parse(body)));
-
   knex('goals')
     .update(params(JSON.parse(body)))
     .where({ id: goal_id })

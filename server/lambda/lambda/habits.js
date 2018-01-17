@@ -152,7 +152,6 @@ module.exports.incomplete = function (knex, callback, habit_id) {
     .where({ habit_id: habit_id })
     .andWhere(knex.raw('created_at >= CURRENT_DATE'))
     .then(() => {
-      console.log('completed deletion');
       callback(null, response);
     })
     .catch(err => callback(err));

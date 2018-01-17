@@ -20,7 +20,6 @@ exports.handler = (event, context, callback) => {
   const { resourcePath } = event.requestContext;
 
   if (resourcePath === '/completions') {
-    console.log('completions route');
     completions.get(knex, callback, event.queryStringParameters);
   } else if (resourcePath === '/goals' || resourcePath === '/goals/{id}') {
     // check if a path parameter is present aka goals/:id
