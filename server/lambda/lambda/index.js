@@ -26,19 +26,19 @@ exports.handler = (event, context, callback) => {
 
       switch (event.httpMethod) {
         case 'GET':
-        goals.get(knex, callback, goalId);
-        break;
+          goals.get(knex, callback, goalId);
+          break;
 
         case 'PATCH':
-        goals.patch(knex, callback, goalId, event.body);
-        break;
+          goals.patch(knex, callback, goalId, event.body);
+          break;
 
         case 'DELETE':
-        goals.delete(knex, callback, goalId);
-        break;
+          goals.delete(knex, callback, goalId);
+          break;
 
         default:
-        callback('ERROR: invalid method');
+          callback('ERROR: invalid method');
       }
     } else if (event.queryStringParameters) {
       // check for a query string
@@ -51,15 +51,15 @@ exports.handler = (event, context, callback) => {
       // otherwise this is to the main /goals route
       switch (event.httpMethod) {
         case 'GET':
-        goals.getAll(knex, callback);
-        break;
+          goals.getAll(knex, callback);
+          break;
 
         case 'POST':
-        goals.post(knex, callback, event.body);
-        break;
+          goals.post(knex, callback, event.body);
+          break;
 
         default:
-        callback('ERROR: invalid method');
+          callback('ERROR: invalid method');
       }
     }
   }
@@ -73,33 +73,33 @@ exports.handler = (event, context, callback) => {
 
       switch (event.httpMethod) {
         case 'GET':
-        // goals.get(knex, callback, goalId);
-        break;
+          habits.get(knex, callback, habitId);
+          break;
 
         case 'PATCH':
-        // goals.patch(knex, callback, goalId, event.body);
-        break;
+          habits.patch(knex, callback, habitId, event.body);
+          break;
 
         case 'DELETE':
-        // goals.delete(knex, callback, goalId);
-        break;
+          habits.delete(knex, callback, habitId);
+          break;
 
         default:
-        callback('ERROR: invalid method');
+          callback('ERROR: invalid method');
       }
     } else {
       // otherwise this is to the main /goals route
       switch (event.httpMethod) {
         case 'GET':
-        habits.getAll(knex, callback, event.queryStringParameters);
-        break;
+          habits.getAll(knex, callback, event.queryStringParameters);
+          break;
 
         case 'POST':
-        habits.create(knex, callback, event.body);
-        break;
+          habits.create(knex, callback, event.body);
+          break;
 
         default:
-        callback('ERROR: invalid method');
+          callback('ERROR: invalid method');
       }
     }
   }

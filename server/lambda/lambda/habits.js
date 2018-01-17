@@ -1,10 +1,12 @@
+// GET habits/
+// get all habits, or filter based on query strings
 module.exports.getAll = function(knex, callback, queryStringParameters) {
   const response = {
     statusCode: 200,
     body: null,
   };
 
-  // query string to search by goal_id
+  // filter by goal_id
   if (queryStringParameters !== null && queryStringParameters.goal_id) {
     knex('habits')
       .where({goal_id: queryStringParameters.goal_id})
@@ -17,7 +19,7 @@ module.exports.getAll = function(knex, callback, queryStringParameters) {
     return;
   }
 
-  // query string to search by user_uid
+  // filter by user_uid
   if (queryStringParameters !== null && queryStringParameters.user_uid) {
     knex.from('habits').innerJoin('goals', 'habits.goal_id', 'goals.id')
       .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak')
@@ -31,6 +33,7 @@ module.exports.getAll = function(knex, callback, queryStringParameters) {
     return;
   }
 
+  // default to returning all
   knex('habits')
     .orderBy('id', 'asc')
     .then(habits => {
@@ -42,6 +45,8 @@ module.exports.getAll = function(knex, callback, queryStringParameters) {
 }
 
 
+// POST habits/
+// create a new habit
 module.exports.create = function(knex, callback, body) {
   const response = {
     statusCode: 201,
@@ -59,40 +64,63 @@ module.exports.create = function(knex, callback, body) {
 }
 
 
-// //TODO
-// module.exports.get = function() {}
-// router.get('/:id', (req, res, next) => {
-//   knex('habits')
-//     .where({id: req.params.id})
-//     .first()
-//     .then(habit => res.json(habit))
-//     .catch(err => next(err))
-// })
-//
-//
-// //TODO
-// module.exports.patch = function() {}
-// router.patch('/:id', validate, (req, res, next) => {
-//   knex('habits')
-//     .update(params(req))
-//     .where({id: req.params.id})
-//     .returning('*')
-//     .then(habits => res.json(habits[0]))
-//     .catch(err => next(err))
-// })
-//
-//
-// //TODO
-// module.exports.delete = function() {}
-// router.delete('/:id', (req, res, next) => {
-//   knex('habits')
-//     .del()
-//     .where({id: req.params.id})
-//     .then(() => res.end())
-//     .catch(err => next(err))
-// })
-//
-//
+// GET habits/:id
+// get habit by id
+module.exports.get = function(knex, callback, habit_id) {
+  const response = {
+    statusCode: 200,
+    body: null,
+  };
+
+  knex('habits')
+    .where({id: habit_id})
+    .first()
+    .then(habit => {
+      response.body = JSON.stringify(habit);
+      callback(null, response);
+    })
+    .catch(err => callback(err));
+}
+
+
+// PATCH habits/:id
+// update habit
+module.exports.patch = function(knex, callback, habit_id, body) {
+  const response = {
+    statusCode: 200,
+    body: null,
+  };
+
+  knex('habits')
+    .update(params(JSON.parse(body)))
+    .where({id: habit_id})
+    .returning('*')
+    .then(habits => {
+      response.body = JSON.stringify(habits[0]);
+      callback(null, response);
+    })
+    .catch(err => callback(err));
+}
+
+
+// DELETE habits/:id
+// delete habit
+module.exports.delete = function(knex, callback, habit_id) {
+  const response = {
+    statusCode: 200,
+    body: null,
+  };
+
+  knex('habits')
+    .del()
+    .where({id: habit_id})
+    .then(() => {
+      callback(null, response);
+    })
+    .catch(err => callback(err));
+}
+
+
 // // COMPLETIONS
 // //TODO
 // module.exports.complete = function() {}
