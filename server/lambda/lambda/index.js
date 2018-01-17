@@ -9,55 +9,102 @@ const knex = require('knex')({
   },
 });
 
-const goals = require('goals')
+const goals = require('goals');
+const habits = require('habits');
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
+  console.log(event);
 
-  // check if a path parameter is present aka goals/:id
-  if (event.pathParameters !== null) {
-    let goalId = event.pathParameters.id
+  const { resourcePath } = event.requestContext;
 
-    switch (event.httpMethod) {
-      case 'GET':
+  if (resourcePath === '/goals' || resourcePath === '/goals/{id}') {
+    console.log('goals route');
+    // check if a path parameter is present aka goals/:id
+    if (event.pathParameters !== null) {
+      const goalId = event.pathParameters.id;
+
+      switch (event.httpMethod) {
+        case 'GET':
         goals.get(knex, callback, goalId);
         break;
 
-      case 'PATCH':
+        case 'PATCH':
         goals.patch(knex, callback, goalId, event.body);
         break;
 
-      case 'DELETE':
-        goals.delete(knex, callback, goalId)
-        break
+        case 'DELETE':
+        goals.delete(knex, callback, goalId);
+        break;
 
-      default:
+        default:
         callback('ERROR: invalid method');
-    }
+      }
+    } else if (event.queryStringParameters) {
+      // check for a query string
 
-  } else if (event.queryStringParameters) {
-    // check for a query string
-
-    // check for a user_uid
-    if (event.queryStringParameters.user_uid) {
-      goals.getAll(knex, callback, event.queryStringParameters.user_uid);
-    }
-
-  } else {
-    // otherwise this is to the main /goals route
-    switch (event.httpMethod) {
-      case 'GET':
+      // check for a user_uid
+      if (event.queryStringParameters.user_uid) {
+        goals.getAll(knex, callback, event.queryStringParameters.user_uid);
+      }
+    } else {
+      // otherwise this is to the main /goals route
+      switch (event.httpMethod) {
+        case 'GET':
         goals.getAll(knex, callback);
         break;
 
-      case 'POST':
-        goals.post(knex, callback, event.body)
+        case 'POST':
+        goals.post(knex, callback, event.body);
         break;
 
-      default:
+        default:
         callback('ERROR: invalid method');
+      }
     }
   }
+
+  if (resourcePath === '/habits' || resourcePath === '/habits/{id}') {
+    console.log('habits route');
+
+
+    if (event.pathParameters !== null) {
+      const habitId = event.pathParameters.id;
+
+      switch (event.httpMethod) {
+        case 'GET':
+        // goals.get(knex, callback, goalId);
+        break;
+
+        case 'PATCH':
+        // goals.patch(knex, callback, goalId, event.body);
+        break;
+
+        case 'DELETE':
+        // goals.delete(knex, callback, goalId);
+        break;
+
+        default:
+        callback('ERROR: invalid method');
+      }
+    } else {
+      // otherwise this is to the main /goals route
+      switch (event.httpMethod) {
+        case 'GET':
+        habits.getAll(knex, callback, event.queryStringParameters);
+        break;
+
+        case 'POST':
+        habits.create(knex, callback, event.body);
+        break;
+
+        default:
+        callback('ERROR: invalid method');
+      }
+    }
+  }
+
+
   // knex('goals')
   //   .then((goals) => {
   //     console.log('received goals: ', goals);
@@ -67,5 +114,4 @@ exports.handler = (event, context, callback) => {
   //     console.log('error occurred: ', err);
   //     callback(err);
   //   });
-
 };
