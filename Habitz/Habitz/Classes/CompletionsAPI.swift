@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class CompletionsAPI {
-    let baseURL = "http://localhost:3000/api/habits"
+    let baseURL = "https://hg1bdyur16.execute-api.us-east-1.amazonaws.com/dev/completions"
     
     // add completion to database
     func markComplete(_ habit: Habit) -> Void {
@@ -39,7 +39,7 @@ class CompletionsAPI {
     // find all completions for the current day based on user
     // to help build list of completed and incomplete habits
     func getTodaysCompletionsForUser(havingUid uid: String, completion: @escaping([Habit]) -> ()) -> Void {
-        let todaysCompletionsURL = "http://localhost:3000/api/completions?user_uid=\(uid)"
+        let todaysCompletionsURL = baseURL + "?user_uid=\(uid)"
         
         var completions: [Habit] = []
         
@@ -72,7 +72,7 @@ class CompletionsAPI {
     // find all completions for the PREVIOUS day based on user
     // to help build list of completed and incomplete habits
     func getYesterdaysCompletionsForUser(havingUid uid: String, completion: @escaping([Habit]) -> ()) -> Void {
-        let yesterdaysCompletionsURL = "http://localhost:3000/api/completions?day=yesterday&user_uid=\(uid)"
+        let yesterdaysCompletionsURL = baseURL + "?day=yesterday&user_uid=\(uid)"
         
         var completions: [Habit] = []
         

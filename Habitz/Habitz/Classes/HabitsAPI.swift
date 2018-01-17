@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class HabitsAPI {
-    let baseURL = "http://localhost:3000/api/habits"
+    let baseURL = "https://hg1bdyur16.execute-api.us-east-1.amazonaws.com/dev/habits"
     
     func getAllForUser(havingUid uid: String, completion: @escaping([Habit]) -> ()) -> Void {
         var allHabits: [Habit] = []
@@ -42,7 +42,7 @@ class HabitsAPI {
         ]
         var newHabit: Habit? = nil
         
-        Alamofire.request(baseURL, method: .post, parameters: parameters).responseJSON {
+        Alamofire.request(baseURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON {
             response in
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
@@ -68,7 +68,7 @@ class HabitsAPI {
             "completed_streak": habit.completedStreak
         ]
         
-        Alamofire.request(editURL, method: .patch, parameters: parameters).responseJSON { (response) in
+        Alamofire.request(editURL, method: .patch, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
             if response.result.isFailure {
                 print("Error \(String(describing: response.result.error))")
             }

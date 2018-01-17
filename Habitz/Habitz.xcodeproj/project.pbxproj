@@ -99,13 +99,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		16190E96200A5A0C0089FE80 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		1659CDF72005311000FE4604 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +133,6 @@
 				1659CDF72005311000FE4604 /* Classes */,
 				16E8460A20041BD300BD7E99 /* Protocols */,
 				16E845FE2003CFB200BD7E99 /* Models */,
-				16190E96200A5A0C0089FE80 /* ViewModels */,
 				16E846042003D0A000BD7E99 /* Controllers */,
 				16E846052003D0C300BD7E99 /* Views */,
 				16E845F32003CC6900BD7E99 /* Assets.xcassets */,

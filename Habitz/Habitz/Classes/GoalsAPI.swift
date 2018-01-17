@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class GoalsAPI {
-    let baseURL = "http://localhost:3000/api/goals"
+    let baseURL = "https://hg1bdyur16.execute-api.us-east-1.amazonaws.com/dev/goals"
     
     func getAllForUser(havingUserUid uid: String, completion: @escaping([Goal]) -> ()) -> Void {
         var allGoals: [Goal] = []
@@ -42,7 +42,7 @@ class GoalsAPI {
         ]
         var newGoal: Goal? = nil
         
-        Alamofire.request(baseURL, method: .post, parameters: parameters).responseJSON {
+        Alamofire.request(baseURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON {
             response in
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
@@ -67,7 +67,7 @@ class GoalsAPI {
             "percent_to_complete": goal.percentToBeComplete
         ]
         
-        Alamofire.request(editURL, method: .patch, parameters: parameters).responseJSON { (response) in
+        Alamofire.request(editURL, method: .patch, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
             if response.result.isFailure {
                 print("Error \(String(describing: response.result.error))")
             }
