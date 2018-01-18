@@ -101,8 +101,8 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         
         // if an id is present, this means it is being edited so create a new habit instance with that id
         // otherwise this is creating a new habit, so leave id blank and let vc populate from API post call
-        if let id = habit?.id {
-            habit = Habit(id: id, name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
+        if let editHabit = habit {
+            habit = Habit(id: editHabit.id!, name: name, isComplete: editHabit.isComplete, goalId: goalId!, completedStreak: completedStreak)
         } else {
             habit = Habit(name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
         }

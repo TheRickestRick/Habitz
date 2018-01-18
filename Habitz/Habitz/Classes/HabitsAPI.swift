@@ -86,5 +86,28 @@ class HabitsAPI {
         }
     }
     
+    
+    // add completion to database
+    func markComplete(_ habit: Habit) -> Void {
+        let habitCompleteURL = baseURL + "/\(habit.id!)/complete"
+        
+        Alamofire.request(habitCompleteURL, method: .post).responseJSON { (response) in
+            if response.result.isFailure {
+                print("Error \(String(describing: response.result.error))")
+            }
+        }
+    }
+    
+    // deletes completion from database
+    func markIncomplete(_ habit: Habit) -> Void {
+        let habitDeleteURL = baseURL + "/\(habit.id!)/complete"
+        
+        Alamofire.request(habitDeleteURL, method: .delete).response { (response) in
+            if response.error != nil {
+                print("Error \(String(describing: response.error))")
+            }
+        }
+    }
+    
 }
 

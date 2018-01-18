@@ -71,6 +71,12 @@ class GoalsTableViewController: UITableViewController {
         cell.completedStreakLabel.text = "(\(goal.completedStreak))"
         cell.nameLabel.text = goal.name
         
+        if goal.isComplete {
+            cell.isCompletedLabel.text = "(X)"
+        } else {
+            cell.isCompletedLabel.text = "(O)"
+        }
+        
         return cell
     }
 

@@ -44,7 +44,7 @@ class HabitTableViewCell: UITableViewCell {
         // mark as complete or incomplete based on the change of state in the checkbox
         if completeCheckBox.on {
             // update database for completion status
-            completionsAPI.markComplete(habit)
+            habitsAPI.markComplete(habit)
             
             
             // increase habit streak for vc and to database
@@ -55,7 +55,13 @@ class HabitTableViewCell: UITableViewCell {
             
             
             //TODO: TODO - check if the goal is completed
-            // if it is, update the db and refresh the goals table
+            // get the goal that owns this habit
+            // get that goal's associated habits
+            // get that goal's completed habits
+            // if it is complete
+                // update the goal's isCompleted status
+                // update the db
+                // refresh the goals table
             
             
             
@@ -64,7 +70,7 @@ class HabitTableViewCell: UITableViewCell {
             
         } else {
             // update database for completion status
-            completionsAPI.markIncomplete(habit)
+            habitsAPI.markIncomplete(habit)
             
             
             // decrease habit streak for vc and to database

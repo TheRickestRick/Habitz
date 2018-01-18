@@ -214,23 +214,41 @@
                                             <rect key="frame" x="16" y="11" width="343" height="22"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(10)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xry-v8-i6N">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="5oS-hD-VwA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(X)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEn-oH-g3e">
+                                                    <rect key="frame" x="40" y="0.0" width="40" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="Hic-Om-1zr"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is some goal being tracked" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2M-iO-TpC">
-                                                    <rect key="frame" x="50" y="0.0" width="293" height="22"/>
+                                                    <rect key="frame" x="80" y="0.0" width="263" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="leading" secondItem="xry-v8-i6N" secondAttribute="trailing" id="FTo-7v-08a"/>
-                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="leading" secondItem="xcD-2w-ciy" secondAttribute="leading" constant="50" id="I6Y-Tk-QIg"/>
-                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="T6D-Ld-XBJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="V2M-iO-TpC" secondAttribute="bottom" id="X1S-8B-ftl"/>
+                                                <constraint firstItem="xry-v8-i6N" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="3vw-xb-yXC"/>
+                                                <constraint firstItem="VEn-oH-g3e" firstAttribute="leading" secondItem="xry-v8-i6N" secondAttribute="trailing" id="DDD-9g-UVL"/>
+                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="EJ7-DE-dej"/>
+                                                <constraint firstAttribute="bottom" secondItem="xry-v8-i6N" secondAttribute="bottom" id="GWU-xb-zkZ"/>
+                                                <constraint firstItem="xry-v8-i6N" firstAttribute="leading" secondItem="xcD-2w-ciy" secondAttribute="leading" id="HEw-gN-yR0"/>
+                                                <constraint firstItem="VEn-oH-g3e" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="KXF-Id-EdQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="V2M-iO-TpC" secondAttribute="trailing" id="kED-aG-gI6"/>
+                                                <constraint firstAttribute="bottom" secondItem="V2M-iO-TpC" secondAttribute="bottom" id="nTs-sa-mQ1"/>
+                                                <constraint firstAttribute="bottom" secondItem="VEn-oH-g3e" secondAttribute="bottom" id="oAQ-fh-hRJ"/>
+                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="leading" secondItem="VEn-oH-g3e" secondAttribute="trailing" id="xns-nI-mI1"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -243,6 +261,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="completedStreakLabel" destination="xry-v8-i6N" id="gWb-0P-SXb"/>
+                                    <outlet property="isCompletedLabel" destination="VEn-oH-g3e" id="8e4-bJ-azB"/>
                                     <outlet property="nameLabel" destination="V2M-iO-TpC" id="7Jy-N2-ew5"/>
                                     <segue destination="wtc-X1-4y5" kind="show" identifier="showGoalDetail" id="LCd-yb-SeC"/>
                                 </connections>
