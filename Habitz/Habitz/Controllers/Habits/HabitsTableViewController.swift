@@ -18,12 +18,15 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     var userUid: String?
     
     var completions: [Habit] = []
-    let completionsAPI = CompletionsAPI()
+    let completedHabitsAPI = CompletedHabitsAPI()
     
+    var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // store a reference to the current tab bar controller
+        goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
         
         // get current user uid
         if let user = Auth.auth().currentUser {
@@ -34,7 +37,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 self.habits = allHabits
                 
                 // get completed habits from TODAY to compare against ALL habits
-                self.completionsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
+                self.completedHabitsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
                     self.completions = completedHabits
                     
                     // update all habits to have correct completion status based on
@@ -99,7 +102,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         
         
         // pass goals to view cell
-        let goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
+//        let goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
         cell.goals = goalsHabitsTabBarController.goals
         
 
@@ -204,6 +207,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                     let newIndexPath = IndexPath(row: self.habits.count, section: 0)
                     self.habits.append(habit)
                     self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+                    
                 })
             }
         }
@@ -232,7 +236,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
     
     func resetMissedCompletions(for allHabits: [Habit], completion: @escaping () -> Void) -> Void {
-        completionsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedHabits) in
+        completedHabitsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedHabits) in
             
             // loop through completed habits from yesterday
             for habit in allHabits {

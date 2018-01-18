@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Habitz/Controllers/Habits/HabitTableViewCell.swift"
-            timestampString = "537976606.144493"
+            filePath = "Habitz/Controllers/Habits/HabitsTableViewController.swift"
+            timestampString = "537988472.912055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "toggleCheckBox(_:)"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

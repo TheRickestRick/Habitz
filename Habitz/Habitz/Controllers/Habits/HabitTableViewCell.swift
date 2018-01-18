@@ -17,10 +17,10 @@ class HabitTableViewCell: UITableViewCell {
     @IBOutlet weak var completeCheckBox: BEMCheckBox!
     
     var habit: Habit?
-    let completionsAPI = CompletionsAPI()
-    let habitsAPI = HabitsAPI()
-    
     var goals: [Goal] = []
+    
+    let completedHabitsAPI = CompletedHabitsAPI()
+    let habitsAPI = HabitsAPI()
     
     var habitCompletionUpdateDelegate: HabitCompletionUpdateDelegate?
     
@@ -46,43 +46,44 @@ class HabitTableViewCell: UITableViewCell {
         // mark as complete or incomplete based on the change of state in the checkbox
         if completeCheckBox.on {
             // update database for completion status
-            habitsAPI.markComplete(habit)
+            habitsAPI.markComplete(habit, completion: { () in
+                
+                //TODO: TODO - check if the goal is completed
+                // get the goal that owns this habit
+                let parentGoal = self.goals.first(where: { (goal) -> Bool in
+                    return goal.id == habit.goalId
+                })
+                
+                
+                // get that goal's associated habits
+                var goalHabitsAll: [Habit] = []
+                self.habitsAPI.getAllForGoal(havingId: parentGoal!.id!, completion: { (habits) in
+                    goalHabitsAll = habits
+                })
+                
+                // get that goal's completed habits
+                // let goalHabitsCompleted =
+                var goalHabitsCompleted: [Habit] = []
+                self.completedHabitsAPI.getTodaysCompletionsForGoal(havingId: parentGoal!.id!, completion: { (completedHabits) in
+                    goalHabitsCompleted = completedHabits
+                })
+                
+                // if it is complete
+                print(parentGoal?.checkIsComplete(allHabits: goalHabitsAll, completedHabits: goalHabitsCompleted))
+                
+                // update the goal's isCompleted status
+                // parentGoal?.isComplete = true
+                
+                // update the db
+                
+                // refresh the goals table
+            })
             
             
             // increase habit streak for vc and to database
             self.completedStreakLabel.text = "(\(habit.completedStreak + 1))"
             habit.completedStreak += 1
             habitsAPI.edit(habit: habit)
-            
-            
-            
-            //TODO: TODO - check if the goal is completed
-            // get the goal that owns this habit
-            let parentGoal = goals.first(where: { (goal) -> Bool in
-                return goal.id == habit.goalId
-            })
-            
-            print(parentGoal!.name)
-            
-            // get that goal's associated habits
-            var goalHabitsAll: [Habit] = []
-            habitsAPI.getAllForGoal(havingId: parentGoal!.id!, completion: { (habits) in
-                goalHabitsAll = habits
-                print(goalHabitsAll)
-            })
-            
-            // get that goal's completed habits
-            // let goalHabitsCompleted =
-            
-            // if it is complete
-            // parentGoal?.checkIsComplete(allHabits: goalHabitsAll, completedHabits: goalHabitsCompleted)
-            
-                // update the goal's isCompleted status
-                // parentGoal?.isComplete = true
-            
-                // update the db
-            
-                // refresh the goals table
             
             
             

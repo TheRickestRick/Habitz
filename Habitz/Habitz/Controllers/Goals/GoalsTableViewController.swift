@@ -13,12 +13,18 @@ class GoalsTableViewController: UITableViewController {
     
     // MARK: - Properties
     var goals: [Goal] = []
-    let goalsAPI = GoalsAPI()
     var userUid: String?
+    
+    let goalsAPI = GoalsAPI()
+    
+    var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // store the reference to the current tab bar controller
+        goalsHabitsTabBarController = self.tabBarController as! GoalsHabitsTabBarController
         
         // get current user uid
         if let user = Auth.auth().currentUser {
@@ -31,8 +37,7 @@ class GoalsTableViewController: UITableViewController {
                 
                 
                 // set the goals property on the parent tab bar controller
-                let goalsHabitsTabBarController = self.tabBarController as! GoalsHabitsTabBarController
-                goalsHabitsTabBarController.goals = allGoals
+                self.goalsHabitsTabBarController.goals = allGoals
                 
             })
         }
@@ -180,7 +185,11 @@ class GoalsTableViewController: UITableViewController {
                 goalsAPI.createForUser(havingUserUid:userUid!, goal: goal, completion: { (goal) in
                     // add a new goal to the goals array and update the view
                     let newIndexPath = IndexPath(row: self.goals.count, section: 0)
+                    
                     self.goals.append(goal)
+                    self.goalsHabitsTabBarController.goals = self.goals
+                    
+                    
                     self.tableView.insertRows(at: [newIndexPath], with: .automatic)
                 })
             }

@@ -112,13 +112,14 @@ class HabitsAPI {
     
     
     // add completion to database
-    func markComplete(_ habit: Habit) -> Void {
+    func markComplete(_ habit: Habit, completion: @escaping() -> ()) -> Void {
         let habitCompleteURL = baseURL + "/\(habit.id!)/complete"
         
         Alamofire.request(habitCompleteURL, method: .post).responseJSON { (response) in
             if response.result.isFailure {
                 print("Error \(String(describing: response.result.error))")
             }
+            completion()
         }
     }
     
