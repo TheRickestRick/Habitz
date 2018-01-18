@@ -13,9 +13,11 @@ class GoalsTableViewController: UITableViewController {
     
     // MARK: - Properties
     var goals: [Goal] = []
+    var completedGoals: [Goal] = []
     var userUid: String?
     
     let goalsAPI = GoalsAPI()
+    let completedGoalsAPI = CompletedGoalsAPI()
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
@@ -34,6 +36,28 @@ class GoalsTableViewController: UITableViewController {
             goalsAPI.getAllForUser(havingUserUid: userUid!, completion: { (allGoals) in
                 self.goals = allGoals
                 self.tableView.reloadData()
+                
+                
+                
+                // get completed habits from TODAY to compare against ALL habits
+                self.completedGoalsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedGoals) in
+                    self.completedGoals = completedGoals
+                    
+                    // update all habits to have correct completion status based on
+                    // comparing against the completed habits array
+                    self.compare(allGoals: self.goals, completedGoals: self.completedGoals)
+                    
+                    
+                    // get completed habits from YESTERDAY, to compare to all habits, and
+                    // reset streak count to zero if a habit was not completed yesterday
+                    self.resetMissedCompletions(for: allGoals, completion: {
+                        self.tableView.reloadData()
+                    })
+                    
+                })
+                
+                
+                
                 
                 
                 // set the goals property on the parent tab bar controller
@@ -202,6 +226,46 @@ class GoalsTableViewController: UITableViewController {
                     self.tableView.insertRows(at: [newIndexPath], with: .automatic)
                 })
             }
+        }
+    }
+    
+    
+    //MARK: - Private Methods
+    //TODO: TODO - these two methods are almost identical, in goals and habits table view
+    // either combine or come up with a new API endpoint that returns isComplete
+    func compare(allGoals: [Goal], completedGoals: [Goal]) -> Void {
+        
+        // loop through completed habits
+        for goal in allGoals {
+            // find the habits in all habits that match the completed ones
+            if completedGoals.contains(where: { (completedGoal) -> Bool in
+                return completedGoal.id == goal.id
+            }) {
+                // set that habit to completed in the all habits array
+                goal.isComplete = true
+            }
+        }
+    }
+    
+    func resetMissedCompletions(for allGoals: [Goal], completion: @escaping () -> Void) -> Void {
+        completedGoalsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedGoals) in
+            
+            // loop through completed habits from yesterday
+            for goal in allGoals {
+                
+                // find the habits in all habits that are NOT in completed aka they were missed
+                if !completedGoals.contains(where: { (completedGoal) -> Bool in
+                    return completedGoal.id == goal.id
+                }) {
+                    // set that habit completed streak to zero in the all habits array
+                    if goal.isComplete {
+                        goal.completedStreak = 1
+                    } else {
+                        goal.completedStreak = 0
+                    }
+                }
+            }
+            completion()
         }
     }
 

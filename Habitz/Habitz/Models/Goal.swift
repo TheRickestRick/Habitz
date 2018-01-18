@@ -48,6 +48,8 @@ class Goal {
     // check if the ratio of completed habits out of all associated habits
     // is greater than the target completion percentage
     func isCompleteHaving(all: [Habit], completed: [Habit]) -> Bool {
+        if all.count == 0 {return false}
+        
         return (Double(completed.count) / Double(all.count)) >= (Double(self.percentToBeComplete) / 100.0)
     }
 }
