@@ -102,7 +102,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         
         
         // pass goals to view cell
-//        let goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
         cell.goals = goalsHabitsTabBarController.goals
         
 

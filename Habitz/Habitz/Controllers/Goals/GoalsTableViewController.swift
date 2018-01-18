@@ -19,7 +19,7 @@ class GoalsTableViewController: UITableViewController {
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +55,14 @@ class GoalsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    
+    // to be run each time this tab is clicked
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
