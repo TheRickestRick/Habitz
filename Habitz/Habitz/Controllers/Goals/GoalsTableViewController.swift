@@ -31,22 +31,6 @@ class GoalsTableViewController: UITableViewController {
             })
         }
         
-        // TODO: TODO - DEVELOPMENT ONLY - DELETE ON DEPLOY
-        else {
-            print("development mode")
-            Auth.auth().signIn(withEmail: "ryan.wittrup@gmail.com", password: "gopher", completion: { (user, error) in
-                self.userUid = user!.uid
-                
-                // get all goals to populate table
-                self.goalsAPI.getAllForUser(havingUserUid: self.userUid!, completion: { (allGoals) in
-                    self.goals = allGoals
-                    self.tableView.reloadData()
-                })
-                print(user!.email)
-            })
-        }
-        // TODO: TODO - DEVELOPMENT ONLY - DELETE ON DEPLOY
-        
         
         navigationItem.leftBarButtonItem = editButtonItem
         
