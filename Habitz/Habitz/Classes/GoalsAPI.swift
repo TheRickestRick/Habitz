@@ -85,4 +85,25 @@ class GoalsAPI {
         }
     }
     
+    // add completion to database
+    func markComplete(_ goal: Goal) -> Void {
+        let goalCompleteURL = baseURL + "/\(goal.id!)/complete"
+        
+        Alamofire.request(goalCompleteURL, method: .post).responseJSON { (response) in
+            if response.result.isFailure {
+                print("Error \(String(describing: response.result.error))")
+            }
+        }
+    }
+    
+    // deletes completion from database
+    func markIncomplete(_ goal: Goal) -> Void {
+        let goalIncompleteURL = baseURL + "/\(goal.id!)/complete"
+        
+        Alamofire.request(goalIncompleteURL, method: .delete).response { (response) in
+            if response.error != nil {
+                print("Error \(String(describing: response.error))")
+            }
+        }
+    }
 }

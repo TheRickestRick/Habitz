@@ -184,6 +184,8 @@ class GoalsTableViewController: UITableViewController {
                 
                 // updates an existing goal in the array and view
                 goals[selectedIndexPath.row] = goal
+                self.goalsHabitsTabBarController.goals = self.goals
+                
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
                 
             } else {

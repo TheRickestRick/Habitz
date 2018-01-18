@@ -105,6 +105,7 @@ exports.handler = (event, context, callback) => {
           callback('ERROR: invalid method');
       }
     }
+
   } else if (resourcePath === '/habits/{id}/complete') {
     const habitId = event.pathParameters.id;
 
@@ -120,6 +121,23 @@ exports.handler = (event, context, callback) => {
       default:
         callback('ERROR: invalid method');
     }
+
+  } else if (resourcePath === '/goals/{id}/complete') {
+    const goaldId = event.pathParameters.id;
+
+    switch (event.httpMethod) {
+      case 'POST':
+        goals.complete(knex, callback, goaldId);
+        break;
+
+      case 'DELETE':
+        goals.incomplete(knex, callback, goaldId);
+        break;
+
+      default:
+        callback('ERROR: invalid method');
+    }
+
   } else {
     callback('ERROR: invalid path');
   }

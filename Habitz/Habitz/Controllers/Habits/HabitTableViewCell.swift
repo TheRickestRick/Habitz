@@ -19,8 +19,9 @@ class HabitTableViewCell: UITableViewCell {
     var habit: Habit?
     var goals: [Goal] = []
     
-    let completedHabitsAPI = CompletedHabitsAPI()
+    let goalsAPI = GoalsAPI()
     let habitsAPI = HabitsAPI()
+    let completedHabitsAPI = CompletedHabitsAPI()
     
     var habitCompletionUpdateDelegate: HabitCompletionUpdateDelegate?
     
@@ -43,19 +44,22 @@ class HabitTableViewCell: UITableViewCell {
     @IBAction func toggleCheckBox(_ sender: BEMCheckBox) {
         guard let habit = habit, let habitCompletionUpdateDelegate = habitCompletionUpdateDelegate else {return}
         
+        
+        // for updating goal isComplete status
+        // get the goal that owns this habit
+        let parentGoal = goals.first(where: { (goal) -> Bool in
+            return goal.id == habit.goalId
+        })
+        
+        var goalHabitsAll: [Habit]? = nil
+        var goalHabitsCompleted: [Habit]? = nil
+        
+        
         // mark as complete or incomplete based on the change of state in the checkbox
         if completeCheckBox.on {
             
             // update database for completion status
-            habitsAPI.markComplete(habit, completion: { () in
-                
-                // get the goal that owns this habit
-                let parentGoal = self.goals.first(where: { (goal) -> Bool in
-                    return goal.id == habit.goalId
-                })
-                
-                var goalHabitsAll: [Habit]? = nil
-                var goalHabitsCompleted: [Habit]? = nil
+            habitsAPI.markComplete(habit, completion: {
                 
                 // get ALL goals belonging to that habit
                 self.habitsAPI.getAllForGoal(havingId: parentGoal!.id!, completion: { (habits) in
@@ -67,7 +71,9 @@ class HabitTableViewCell: UITableViewCell {
                     // check if the habit is complete based on all habits and completed habits
                     // but only if both api calls are completed
                     if parentGoal.isCompleteHaving(all: goalHabitsAll!, completed: goalHabitsCompleted) {
-                        self.completeGoal(for: parentGoal)
+                        self.updateGoalCompleteStatus(for: parentGoal, updateTo: true, apiMethod: { (goal) in
+                            self.goalsAPI.markComplete(goal)
+                        })
                     }
                 })
                 
@@ -81,7 +87,9 @@ class HabitTableViewCell: UITableViewCell {
                     // check if the habit is complete based on all habits and completed habits
                     // but only if both api calls are completed
                     if parentGoal.isCompleteHaving(all: goalHabitsAll, completed: goalHabitsCompleted!) {
-                        self.completeGoal(for: parentGoal)
+                        self.updateGoalCompleteStatus(for: parentGoal, updateTo: true, apiMethod: { (goal) in
+                            self.goalsAPI.markComplete(goal)
+                        })
                     }
                 })
             })
@@ -98,7 +106,10 @@ class HabitTableViewCell: UITableViewCell {
             
         } else {
             // update database for completion status
-            habitsAPI.markIncomplete(habit)
+            habitsAPI.markIncomplete(habit, completion: {
+                //TODO: TODO - check if the goal is now incompleted
+                print("mark as incomplete")
+            })
             
             
             // decrease habit streak for vc and to database
@@ -108,24 +119,14 @@ class HabitTableViewCell: UITableViewCell {
                 habitsAPI.edit(habit: habit)
             }
             
-            
-            
-            //TODO: TODO - check if the goal is now incompleted
-            
-            
-            
             // update table vc for completion status
             habitCompletionUpdateDelegate.toggleCompletion(for: habit)
         }
     }
     
     //MARK: - Private
-    func completeGoal(for goal: Goal) -> Void {
-        // update the goal's isCompleted status
-        goal.isComplete = true
-        
-        //TODO: TODO - update the db
-        print("update db")
-        // goalsAPI.markComplete(havingID: parentGoal.id)
+    func updateGoalCompleteStatus(for goal: Goal, updateTo isComplete: Bool, apiMethod: (_ goal: Goal) -> Void) {
+        goal.isComplete = isComplete
+        apiMethod(goal)
     }
 }

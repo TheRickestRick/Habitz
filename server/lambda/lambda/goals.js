@@ -93,6 +93,45 @@ module.exports.delete = function(knex, callback, goal_id) {
     .catch(err => callback(err));
 }
 
+
+// ---------- COMPLETIONS ----------
+// POST goals/:id/complete
+// create a completion
+module.exports.complete = function (knex, callback, goal_id) {
+  const response = {
+    statusCode: 200,
+    body: null,
+  };
+
+  knex('completedgoals')
+    .insert({ goal_id })
+    .returning('*')
+    .then((completedgoals) => {
+      response.body = JSON.stringify(completedgoals[0]);
+      callback(null, response);
+    })
+    .catch(err => callback(err));
+};
+
+// DELETE goals/:id/complete
+// deletes a completion for the current day
+module.exports.incomplete = function (knex, callback, goal_id) {
+  const response = {
+    statusCode: 200,
+    body: null,
+  };
+
+  knex('completedgoals')
+    .del()
+    .where({ goal_id: goal_id })
+    .andWhere(knex.raw('created_at >= CURRENT_DATE'))
+    .then(() => {
+      callback(null, response);
+    })
+    .catch(err => callback(err));
+};
+
+
 function params(body) {
   return {
     name: body.name,
