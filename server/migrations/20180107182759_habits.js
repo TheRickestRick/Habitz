@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     table.integer("goal_id")
       .references("id")
       .inTable('goals')
+      .onDelete('CASCADE')
     table.timestamps(true, true);
   });
 };

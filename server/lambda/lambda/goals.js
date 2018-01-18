@@ -7,16 +7,18 @@ module.exports.getAll = function (knex, callback, user_uid) {
   if (user_uid) {
     // if user_uid is present, then filter by that
     knex('goals')
-    .where({ user_uid: user_uid })
-    .then((goals) => {
-      response.body = JSON.stringify(goals);
-      callback(null, response);
-    })
-    .catch(err => callback(err));
+      .where({ user_uid: user_uid })
+      .orderBy('id', 'asc')
+      .then((goals) => {
+        response.body = JSON.stringify(goals);
+        callback(null, response);
+      })
+      .catch(err => callback(err));
 
   } else {
     // otherwise return all goals
     knex('goals')
+      .orderBy('id', 'asc')
       .then((goals) => {
         response.body = JSON.stringify(goals);
         callback(null, response);
