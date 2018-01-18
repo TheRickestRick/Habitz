@@ -35,17 +35,6 @@ router.get('/', (req, res, next) => {
     return;
   }
 
-  // return only completions for the current date
-  // if (req.query.today === 'true') {
-  //   console.log('get all completions for current date');
-  //   knex('completions')
-  //     .orderBy('id', 'asc')
-  //     .where(knex.raw('created_at >= CURRENT_DATE'))
-  //     .then(completions => res.json(completions))
-  //     .catch(err => next(err))
-  //   return;
-  // }
-
   knex('completedgoals')
     .orderBy('id', 'asc')
     .then(completions => res.json(completions))

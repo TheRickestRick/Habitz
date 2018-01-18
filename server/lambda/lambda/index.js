@@ -11,7 +11,8 @@ const knex = require('knex')({
 
 const goals = require('goals');
 const habits = require('habits');
-const completions = require('completions');
+const completedHabits = require('completedHabits');
+const completedGoals = require('completedGoals');
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -19,8 +20,12 @@ exports.handler = (event, context, callback) => {
 
   const { resourcePath } = event.requestContext;
 
-  if (resourcePath === '/completions') {
-    completions.get(knex, callback, event.queryStringParameters);
+  if (resourcePath === '/completedhabits') {
+    completedHabits.get(knex, callback, event.queryStringParameters);
+
+  } else if (resourcePath === '/completedgoals')  {
+    completedGoals.get(knex, callback, event.queryStringParameters);
+
   } else if (resourcePath === '/goals' || resourcePath === '/goals/{id}') {
     // check if a path parameter is present aka goals/:id
     if (event.pathParameters !== null) {
@@ -64,6 +69,7 @@ exports.handler = (event, context, callback) => {
           callback('ERROR: invalid method');
       }
     }
+
   } else if (resourcePath === '/habits' || resourcePath === '/habits/{id}') {
     if (event.pathParameters !== null) {
       const habitId = event.pathParameters.id;
