@@ -22,9 +22,12 @@ class HabitsAPI {
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
                 
-                // loop through all received elements to create goals
-                for habit in responseJSON {
-                    allHabits.append(Habit(json: habit))
+                // check that the response is an array type for looping
+                if let jsonArray = responseJSON.array {
+                    // loop through all received elements to create habits
+                    for habit in jsonArray {
+                        allHabits.append(Habit(json: habit))
+                    }
                 }
                 
             } else {
@@ -33,6 +36,7 @@ class HabitsAPI {
             completion(allHabits)
         }
     }
+    
     
     func create(habit: Habit, completion: @escaping(Habit) -> ()) -> Void {
         let parameters: Parameters = [
@@ -53,11 +57,7 @@ class HabitsAPI {
             completion(newHabit!)
         }
     }
-    
-//    func getHabitHaving(id: Int) -> Void {
-//        print("get habit at endpoint: ")
-//        print(baseURL + "/\(id)")
-//    }
+
     
     func edit(habit: Habit) -> Void {
         let editURL = baseURL + "/\(habit.id!)"
@@ -74,6 +74,7 @@ class HabitsAPI {
             }
         }
     }
+  
     
     func delete(habit: Habit) -> Void {
         let deleteURL = baseURL + "/\(habit.id!)"
@@ -84,5 +85,6 @@ class HabitsAPI {
             }
         }
     }
+    
 }
 

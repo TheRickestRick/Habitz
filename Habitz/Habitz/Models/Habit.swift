@@ -33,22 +33,7 @@ class Habit {
         self.completedStreak = completedStreak
     }
     
-    // for parsing results back from api
-    // they come back as {"1", payload}, {"2", payload} etc, so use the second value in the tuple or .1
-    init(json: (String, JSON)) {
-        self.id = json.1["id"].intValue
-        self.name = json.1["name"].stringValue
-        
-        
-        //TODO: TODO - update to computed value
-        self.isComplete = false
-        
-        
-        self.goalId = json.1["goal_id"].intValue
-        self.completedStreak = json.1["completed_streak"].intValue
-    }
-    
-    // for parsing results to get an individual goal, which is as type JSON rather than a tuple
+    // for parsing results back from the api
     init(json: JSON) {
         self.id = json["id"].intValue
         self.name = json["name"].stringValue

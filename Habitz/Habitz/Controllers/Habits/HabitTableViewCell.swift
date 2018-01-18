@@ -53,6 +53,12 @@ class HabitTableViewCell: UITableViewCell {
             habitsAPI.edit(habit: habit)
             
             
+            
+            //TODO: TODO - check if the goal is completed
+            // if it is, update the db and refresh the goals table
+            
+            
+            
             // update table vc for completion status
             completionUpdateDelegate.toggleCompletion(for: habit)
             
@@ -67,6 +73,11 @@ class HabitTableViewCell: UITableViewCell {
                 habit.completedStreak -= 1
                 habitsAPI.edit(habit: habit)
             }
+            
+            
+            
+            //TODO: TODO - check if the goal is now incompleted
+            
             
             
             // update table vc for completion status

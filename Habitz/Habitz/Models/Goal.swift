@@ -30,21 +30,19 @@ class Goal {
         self.completedStreak = completedStreak
     }
     
-    // for parsing results back from api
-    // they come back as {"1", payload}, {"2", payload} etc, so use the second value in the tuple or .1
-    init(json: (String, JSON)) {
-        self.id = json.1["id"].intValue
-        self.name = json.1["name"].stringValue
-        self.percentToBeComplete = json.1["percent_to_complete"].intValue
-        self.completedStreak = json.1["completed_streak"].intValue
-    }
     
-    // for parsing results to get an individual goal, which is as type JSON rather than a tuple
+    // for parsing results coming from the api
     init(json: JSON) {
         self.id = json["id"].intValue
         self.name = json["name"].stringValue
         self.percentToBeComplete = json["percent_to_complete"].intValue
         self.completedStreak = json["completed_streak"].intValue
+    }
+    
+    // check if the ratio of completed habits out of all associated habits
+    // is greater than the target completion percentage
+    func checkIsComplete(allHabits: [Habit], completedHabits: [Habit]) -> Bool {
+        return (completedHabits.count / allHabits.count) >= (self.percentToBeComplete / 100)
     }
 }
 

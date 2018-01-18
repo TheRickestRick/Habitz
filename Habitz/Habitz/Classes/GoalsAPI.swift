@@ -22,9 +22,12 @@ class GoalsAPI {
             if response.result.isSuccess {
                 let responseJSON: JSON = JSON(response.result.value!)
                 
-                // loop through all received elements to create goals
-                for goal in responseJSON {
-                    allGoals.append(Goal(json: goal))
+                // check that the response is an array type for looping
+                if let jsonArray = responseJSON.array {
+                    // loop through all received elements to create goals
+                    for goal in jsonArray {
+                        allGoals.append(Goal(json: goal))
+                    }
                 }
                 
             } else {
@@ -33,6 +36,7 @@ class GoalsAPI {
             completion(allGoals)
         }
     }
+    
     
     func createForUser(havingUserUid uid: String, goal: Goal, completion: @escaping(Goal) -> ()) -> Void {
         let parameters: Parameters = [
@@ -54,10 +58,6 @@ class GoalsAPI {
         }
     }
     
-//    func getGoalHaving(id: Int) -> Void {
-//        print("get goal at endpoint: ")
-//        print(baseURL + "/\(id)")
-//    }
     
     func edit(goal: Goal) -> Void {
         let editURL = baseURL + "/\(goal.id!)"
@@ -74,6 +74,7 @@ class GoalsAPI {
         }
     }
     
+    
     func delete(goal: Goal) -> Void {
         let deleteURL = baseURL + "/\(goal.id!)"
         
@@ -83,4 +84,5 @@ class GoalsAPI {
             }
         }
     }
+    
 }
