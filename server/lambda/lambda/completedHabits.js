@@ -11,8 +11,8 @@ module.exports.get = function (knex, callback, queryStringParameters) {
         .join('habits', 'habits.id', 'completedhabits.habit_id')
         .join('goals', 'goals.id', 'habits.goal_id')
         .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak', 'completedhabits.created_at')
-        .where({ 'goals.user_uid': queryStringParameters.user_uid })
-        .andWhere(knex.raw('completedhabits.created_at >= CURRENT_DATE - 1 and completions.created_at < CURRENT_DATE'))
+        .where({'goals.user_uid': queryStringParameters.user_uid})
+        .andWhere(knex.raw('completedhabits.created_at >= CURRENT_DATE - 1 and completedhabits.created_at < CURRENT_DATE'))
         .orderBy('habits.id', 'asc')
         .then((habits) => {
           response.body = JSON.stringify(habits);

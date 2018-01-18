@@ -129,11 +129,11 @@ module.exports.complete = function (knex, callback, habit_id) {
     body: null,
   };
 
-  knex('completions')
+  knex('completedhabits')
     .insert({ habit_id })
     .returning('*')
-    .then((completions) => {
-      response.body = JSON.stringify(completions[0]);
+    .then((completedhabits) => {
+      response.body = JSON.stringify(completedhabits[0]);
       callback(null, response);
     })
     .catch(err => callback(err));
@@ -147,7 +147,7 @@ module.exports.incomplete = function (knex, callback, habit_id) {
     body: null,
   };
 
-  knex('completions')
+  knex('completedhabits')
     .del()
     .where({ habit_id: habit_id })
     .andWhere(knex.raw('created_at >= CURRENT_DATE'))
