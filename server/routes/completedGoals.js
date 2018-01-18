@@ -6,15 +6,14 @@ router.get('/', (req, res, next) => {
 
   // search by user_uid, returning only completions for the previous day
   if (req.query.user_uid !== undefined && req.query.day === 'yesterday') {
-    knex.from('completions')
-      .join('habits', 'habits.id', 'completions.habit_id')
-      .join('goals', 'goals.id', 'habits.goal_id')
-      .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak', 'completions.created_at')
+    knex.from('completedgoals')
+      .join('goals', 'goals.id', 'completedgoals.goal_id')
+      .select('goals.id', 'goals.name', 'goals.completed_streak', 'completedgoals.created_at')
       .where({'goals.user_uid': req.query.user_uid})
-      .andWhere(knex.raw('completions.created_at >= CURRENT_DATE - 1 and completions.created_at < CURRENT_DATE'))
-      .orderBy('habits.id', 'asc')
-      .then(habits => {
-        res.json(habits)
+      .andWhere(knex.raw('completedgoals.created_at >= CURRENT_DATE - 1 and completedgoals.created_at < CURRENT_DATE'))
+      .orderBy('goals.id', 'asc')
+      .then(goals => {
+        res.json(goals)
       })
       .catch(err => next(err))
     return;
@@ -23,15 +22,14 @@ router.get('/', (req, res, next) => {
   // TODO: update endpoint to take a day query string for 'today'
   // search by user_uid, returning only completions for the current day
   if (req.query.user_uid !== undefined) {
-    knex.from('completions')
-      .join('habits', 'habits.id', 'completions.habit_id')
-      .join('goals', 'goals.id', 'habits.goal_id')
-      .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak', 'completions.created_at')
+    knex.from('completedgoals')
+      .join('goals', 'goals.id', 'completedgoals.goal_id')
+      .select('goals.id', 'goals.name', 'goals.completed_streak', 'completedgoals.created_at')
       .where({'goals.user_uid': req.query.user_uid})
-      .andWhere(knex.raw('completions.created_at >= CURRENT_DATE'))
-      .orderBy('habits.id', 'asc')
-      .then(habits => {
-        res.json(habits)
+      .andWhere(knex.raw('completedgoals.created_at >= CURRENT_DATE'))
+      .orderBy('goals.id', 'asc')
+      .then(goals => {
+        res.json(goals)
       })
       .catch(err => next(err))
     return;
@@ -48,7 +46,7 @@ router.get('/', (req, res, next) => {
   //   return;
   // }
 
-  knex('completions')
+  knex('completedgoals')
     .orderBy('id', 'asc')
     .then(completions => res.json(completions))
     .catch(err => next(err))

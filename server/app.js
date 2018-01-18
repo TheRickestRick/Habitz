@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 
 app.use('/api/goals', require('./routes/goals'));
 app.use('/api/habits', require('./routes/habits'));
-app.use('/api/completions', require('./routes/completions'));
+app.use('/api/completedHabits', require('./routes/completedHabits'));
+app.use('/api/completedGoals', require('./routes/completedGoals'));
 
 
 app.get('/', (req, res) => {
