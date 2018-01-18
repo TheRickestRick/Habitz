@@ -138,6 +138,20 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         navigationItem.title = textField.text
     }
     
+    // handle what happens when hitting return on a text field
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Try to find next responder
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard.
+            textField.resignFirstResponder()
+        }
+        
+        // Do not add a line break
+        return false
+    }
+    
     
     // MARK: - UIPickerViewDelegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
