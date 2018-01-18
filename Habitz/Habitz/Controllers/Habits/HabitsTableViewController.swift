@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate {
+class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDelegate {
     
     // MARK: - Properties
     var habits: [Habit] = []
@@ -23,6 +23,7 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // get current user uid
         if let user = Auth.auth().currentUser {
@@ -94,7 +95,13 @@ class HabitsTableViewController: UITableViewController, CompletionUpdateDelegate
         cell.completedStreakLabel.text = "(\(habit.completedStreak))"
         cell.nameLabel.text = habit.name
         cell.habit = habit
-        cell.completionUpdateDelegate = self
+        cell.habitCompletionUpdateDelegate = self
+        
+        
+        // pass goals to view cell
+        let goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
+        cell.goals = goalsHabitsTabBarController.goals
+        
 
         if habit.isComplete {
             cell.completeCheckBox.setOn(true, animated: true)

@@ -570,10 +570,10 @@
             </objects>
             <point key="canvasLocation" x="-2466" y="2137"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Goals Habits Tab Bar Controller-->
         <scene sceneID="FqW-7b-Ffi">
             <objects>
-                <tabBarController id="vSK-Wd-DzG" sceneMemberID="viewController">
+                <tabBarController id="vSK-Wd-DzG" customClass="GoalsHabitsTabBarController" customModule="Habitz" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Yyo-MI-llV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

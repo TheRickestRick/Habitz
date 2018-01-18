@@ -73,13 +73,18 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         let completedStreak = 0
         let isComplete = false
         
-        // if an id is present, this means it is being edited so create a new goal instance with that id
+        
+        
+        //TODO: TODO - edit or create a new goal with isComplete field
+        // if an id is present, this means it is being edited so create a new goal instance with the
+        // same id, completed streak, and completion status - only allows updates to name and percentToBeComplete
         // otherwise this is creating a new goal, so leave id blank and let vc populate from API post call
         if let id = goal?.id {
             goal = Goal(id: id, name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak, isComplete: isComplete)
         } else {
             goal = Goal(name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak, isComplete: isComplete)
         }
+        
         
     }
     

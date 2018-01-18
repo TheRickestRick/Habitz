@@ -28,6 +28,12 @@ class GoalsTableViewController: UITableViewController {
             goalsAPI.getAllForUser(havingUserUid: userUid!, completion: { (allGoals) in
                 self.goals = allGoals
                 self.tableView.reloadData()
+                
+                
+                // set the goals property on the parent tab bar controller
+                let goalsHabitsTabBarController = self.tabBarController as! GoalsHabitsTabBarController
+                goalsHabitsTabBarController.goals = allGoals
+                
             })
         }
         
@@ -71,11 +77,15 @@ class GoalsTableViewController: UITableViewController {
         cell.completedStreakLabel.text = "(\(goal.completedStreak))"
         cell.nameLabel.text = goal.name
         
+        
+        //TODO: TODO - set text based on complete or not
         if goal.isComplete {
             cell.isCompletedLabel.text = "(X)"
         } else {
             cell.isCompletedLabel.text = "(O)"
         }
+  
+        
         
         return cell
     }
@@ -143,9 +153,6 @@ class GoalsTableViewController: UITableViewController {
             // pass tapped goal to detail vc
             let selectedGoal = goals[indexPath.row]
             goalDetailViewController.goal = selectedGoal
-        
-        case "showHabits":
-            print("navigating to habits list view")
         
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")

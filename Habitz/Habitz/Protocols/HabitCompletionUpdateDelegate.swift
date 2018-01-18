@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol CompletionUpdateDelegate {
+protocol HabitCompletionUpdateDelegate {
     func toggleCompletion(for toggledHabit: Habit)
 }

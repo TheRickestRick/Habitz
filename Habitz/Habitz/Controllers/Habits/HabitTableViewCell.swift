@@ -20,7 +20,9 @@ class HabitTableViewCell: UITableViewCell {
     let completionsAPI = CompletionsAPI()
     let habitsAPI = HabitsAPI()
     
-    var completionUpdateDelegate: CompletionUpdateDelegate?
+    var goals: [Goal] = []
+    
+    var habitCompletionUpdateDelegate: HabitCompletionUpdateDelegate?
     
     
     override func awakeFromNib() {
@@ -39,7 +41,7 @@ class HabitTableViewCell: UITableViewCell {
     }
     
     @IBAction func toggleCheckBox(_ sender: BEMCheckBox) {
-        guard let habit = habit, let completionUpdateDelegate = completionUpdateDelegate else {return}
+        guard let habit = habit, let habitCompletionUpdateDelegate = habitCompletionUpdateDelegate else {return}
         
         // mark as complete or incomplete based on the change of state in the checkbox
         if completeCheckBox.on {
@@ -56,17 +58,36 @@ class HabitTableViewCell: UITableViewCell {
             
             //TODO: TODO - check if the goal is completed
             // get the goal that owns this habit
+            let parentGoal = goals.first(where: { (goal) -> Bool in
+                return goal.id == habit.goalId
+            })
+            
+            print(parentGoal!.name)
+            
             // get that goal's associated habits
+            var goalHabitsAll: [Habit] = []
+            habitsAPI.getAllForGoal(havingId: parentGoal!.id!, completion: { (habits) in
+                goalHabitsAll = habits
+                print(goalHabitsAll)
+            })
+            
             // get that goal's completed habits
+            // let goalHabitsCompleted =
+            
             // if it is complete
+            // parentGoal?.checkIsComplete(allHabits: goalHabitsAll, completedHabits: goalHabitsCompleted)
+            
                 // update the goal's isCompleted status
+                // parentGoal?.isComplete = true
+            
                 // update the db
+            
                 // refresh the goals table
             
             
             
             // update table vc for completion status
-            completionUpdateDelegate.toggleCompletion(for: habit)
+            habitCompletionUpdateDelegate.toggleCompletion(for: habit)
             
         } else {
             // update database for completion status
@@ -87,7 +108,7 @@ class HabitTableViewCell: UITableViewCell {
             
             
             // update table vc for completion status
-            completionUpdateDelegate.toggleCompletion(for: habit)
+            habitCompletionUpdateDelegate.toggleCompletion(for: habit)
         }
     }
 }

@@ -37,6 +37,30 @@ class HabitsAPI {
         }
     }
     
+    func getAllForGoal(havingId id: Int, completion: @escaping([Habit]) -> ()) -> Void {
+        var allHabits: [Habit] = []
+        let userHabitsURL = baseURL + "?goal_id=\(id)"
+        
+        Alamofire.request(userHabitsURL, method: .get).responseJSON {
+            response in
+            if response.result.isSuccess {
+                let responseJSON: JSON = JSON(response.result.value!)
+                
+                // check that the response is an array type for looping
+                if let jsonArray = responseJSON.array {
+                    // loop through all received elements to create habits
+                    for habit in jsonArray {
+                        allHabits.append(Habit(json: habit))
+                    }
+                }
+                
+            } else {
+                print("Error \(String(describing: response.result.error))")
+            }
+            completion(allHabits)
+        }
+    }
+    
     
     func create(habit: Habit, completion: @escaping(Habit) -> ()) -> Void {
         let parameters: Parameters = [
