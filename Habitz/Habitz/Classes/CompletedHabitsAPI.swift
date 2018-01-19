@@ -37,7 +37,11 @@ class CompletedHabitsAPI {
                         let goalId = completion["goal_id"].intValue
                         let completedStreak = completion["completed_streak"].intValue
                         
-                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak))
+                        //TODO: TODO - update from hardcoded to db call after updating migrations
+                        // let timeOfDay = "completion["time_of_day"].stringValue"
+                        let timeOfDay = "afternoon"
+                        
+                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak, timeOfDay: timeOfDay))
                     }
                     completion(completions)
                 }
@@ -70,7 +74,11 @@ class CompletedHabitsAPI {
                         let goalId = completion["goal_id"].intValue
                         let completedStreak = completion["completed_streak"].intValue
                         
-                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak))
+                        //TODO: TODO - update from hardcoded to db call after updating migrations
+                        // let timeOfDay = "completion["time_of_day"].stringValue"
+                        let timeOfDay = "afternoon"
+                        
+                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak, timeOfDay: timeOfDay))
                     }
                     completion(completions)
                 }
@@ -102,7 +110,11 @@ class CompletedHabitsAPI {
                         let goalId = completion["goal_id"].intValue
                         let completedStreak = completion["completed_streak"].intValue
                         
-                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak))
+                        //TODO: TODO - update from hardcoded to db call after updating migrations
+                        // let timeOfDay = "completion["time_of_day"].stringValue"
+                        let timeOfDay = "afternoon"
+                        
+                        completions.append(Habit(id: id, name: name, isComplete: isComplete, goalId: goalId, completedStreak: completedStreak, timeOfDay: timeOfDay))
                     }
                     completion(completions)
                 }

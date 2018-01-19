@@ -9,24 +9,31 @@
 import UIKit
 import FirebaseAuth
 
-class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class HabitViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var isCompletedTextField: UITextField!
     @IBOutlet weak var completedStreakTextField: UITextField!
     @IBOutlet weak var associatedGoalTextField: UITextField!
+    @IBOutlet weak var timeOfDayTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // passed in by HabitTableViewController or constructed as part of adding a new habit
     var habit: Habit?
-    
-    // data for picker to restrict values, populated by api call
-    var pickerData: [Goal] = []
-    let goalIdPicker: UIPickerView! = UIPickerView()
     var userUid: String?
     
+    // data for picker to restrict values, populated by api call
+    let goalIdPicker: UIPickerView! = UIPickerView()
+    var goalIdPickerDelegate: GoalIdPickerDelegate?
+    
+    let timeOfDayPicker: UIPickerView! = UIPickerView()
+    var timeOfDayPickerDelegate: TimeOfDayPickerDelegate?
+
+    //
     let goalsAPI = GoalsAPI()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +43,20 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         
         
         // handle selecting goalId through delegate callbacks
-        goalIdPicker.dataSource = self
-        goalIdPicker.delegate = self
+        goalIdPickerDelegate = GoalIdPickerDelegate(forTextField: associatedGoalTextField,
+                                                        withData: [],
+                                                        forView: self.view)
+        goalIdPicker.dataSource = goalIdPickerDelegate
+        goalIdPicker.delegate = goalIdPickerDelegate
         associatedGoalTextField.inputView = goalIdPicker
+        
+        
+        timeOfDayPickerDelegate = TimeOfDayPickerDelegate(forTextField: timeOfDayTextField,
+                                                          forView: self.view)
+        timeOfDayPicker.dataSource = timeOfDayPickerDelegate
+        timeOfDayPicker.delegate = timeOfDayPickerDelegate
+        timeOfDayTextField.inputView = timeOfDayPicker
+        
         
         
         // get current user uid
@@ -47,10 +65,11 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
             
             // get goals from db to populate picker list
             goalsAPI.getAllForUser(havingUserUid: userUid!, completion:  { (goals) in
-                self.pickerData = goals
+                self.goalIdPickerDelegate!.pickerData = goals
+                
                 
                 // setup initial view
-                self.associatedGoalTextField.text = String(self.pickerData[0].name)
+                self.associatedGoalTextField.text = self.goalIdPickerDelegate!.pickerData[0].name
                 
                 // set up views if editing an existing habit
                 if let habit = self.habit {
@@ -59,8 +78,8 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
                     self.isCompletedTextField.text = String(habit.isComplete)
                     self.completedStreakTextField.text = String(habit.completedStreak)
                     
-                    if let i = self.pickerData.index(where: { $0.id == habit.goalId }) {
-                        self.associatedGoalTextField.text = self.pickerData[i].name
+                    if let i = self.goalIdPickerDelegate?.pickerData.index(where: { $0.id == habit.goalId }) {
+                        self.goalIdPickerDelegate!.textField.text = self.goalIdPickerDelegate!.pickerData[i].name
                     }
                 }
                 // enable save button only if the text field has a valid habit name
@@ -88,8 +107,15 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         // setup data for creating new habit
         guard let name = nameTextField.text else { return }
         let isComplete = false
-        let pickerIndex = goalIdPicker.selectedRow(inComponent: 0)
-        let goalId = pickerData[pickerIndex].id
+        
+        
+        let goalIdPickerIndex = goalIdPicker.selectedRow(inComponent: 0)
+        let goalId = goalIdPickerDelegate!.pickerData[goalIdPickerIndex].id
+        
+        
+        let timeOfDayPickerIndex = timeOfDayPicker.selectedRow(inComponent: 0)
+        let timeOfDay = timeOfDayPickerDelegate!.pickerData[timeOfDayPickerIndex]
+        
         
         var completedStreak: Int
         if let completedStreakText = completedStreakTextField.text, let completedStreakInt = Int(completedStreakText) {
@@ -102,9 +128,9 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         // if an id is present, this means it is being edited so create a new habit instance with that id
         // otherwise this is creating a new habit, so leave id blank and let vc populate from API post call
         if let editHabit = habit {
-            habit = Habit(id: editHabit.id!, name: name, isComplete: editHabit.isComplete, goalId: goalId!, completedStreak: completedStreak)
+            habit = Habit(id: editHabit.id!, name: name, isComplete: editHabit.isComplete, goalId: goalId!, completedStreak: completedStreak, timeOfDay: timeOfDay)
         } else {
-            habit = Habit(name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak)
+            habit = Habit(name: name, isComplete: isComplete, goalId: goalId!, completedStreak: completedStreak, timeOfDay: timeOfDay)
         }
     }
 
@@ -150,25 +176,6 @@ class HabitViewController: UIViewController, UITextFieldDelegate, UIPickerViewDa
         
         // Do not add a line break
         return false
-    }
-    
-    
-    // MARK: - UIPickerViewDelegate
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(pickerData[row].name)
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        associatedGoalTextField.text = String(pickerData[row].name)
-        self.view.endEditing(true)
     }
     
     

@@ -17,23 +17,39 @@ class Habit {
     var completedStreak: Int
     var timeOfDay: String?
     
-    init(id: Int, name: String, isComplete: Bool, goalId: Int, completedStreak: Int) {
+    //TODO: TODO - update to include timeOfDay
+    init(id: Int, name: String, isComplete: Bool, goalId: Int, completedStreak: Int, timeOfDay: String) {
         self.id = id
         self.name = name
         self.isComplete = isComplete
         self.goalId = goalId
         self.completedStreak = completedStreak
+        self.timeOfDay = timeOfDay
     }
+    
+//    //TODO: TODO - this could be deleted
+//    // id is omitted for creating new goals, since id will need to be assigned
+//    // after making a post call to the database
+//    init(name: String, isComplete: Bool, goalId: Int, completedStreak: Int) {
+//        self.name = name
+//        self.isComplete = isComplete
+//        self.goalId = goalId
+//        self.completedStreak = completedStreak
+//    }
+    
     
     // id is omitted for creating new goals, since id will need to be assigned
     // after making a post call to the database
-    init(name: String, isComplete: Bool, goalId: Int, completedStreak: Int) {
+    init(name: String, isComplete: Bool, goalId: Int, completedStreak: Int, timeOfDay: String) {
         self.name = name
         self.isComplete = isComplete
         self.goalId = goalId
         self.completedStreak = completedStreak
+        self.timeOfDay = timeOfDay
     }
     
+    
+    //TODO: TODO - update to include timeOfDay
     // for parsing results back from the api
     init(json: JSON) {
         self.id = json["id"].intValue
@@ -46,13 +62,6 @@ class Habit {
         
         self.goalId = json["goal_id"].intValue
         self.completedStreak = json["completed_streak"].intValue
-    }
- 
-    func editEntry() -> Void {
-        print("edit this goal in the database")
-    }
-    
-    func deleteEntry() -> Void {
-        print("delete this goal from the database")
+        self.timeOfDay = json["time_of_day"].stringValue
     }
 }

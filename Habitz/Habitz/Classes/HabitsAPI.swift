@@ -67,6 +67,7 @@ class HabitsAPI {
             "name": habit.name,
             "goal_id": habit.goalId,
             "completed_streak": 0
+            //TODO: TODO - add timeOfDay after db migrations
         ]
         var newHabit: Habit? = nil
         
@@ -90,6 +91,7 @@ class HabitsAPI {
             "name": habit.name,
             "goal_id": habit.goalId,
             "completed_streak": habit.completedStreak
+            //TODO: TODO - add timeOfDay after db migrations
         ]
         
         Alamofire.request(editURL, method: .patch, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in

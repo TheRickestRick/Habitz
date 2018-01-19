@@ -157,24 +157,17 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             fatalError("The dequeued cell is not an instance of HabitTableViewCell.")
         }
         
-        
         // first check if there is a valid section of table, then we check that for the section there is a row
         if let tableSection = TableSection(rawValue: indexPath.section), let habit = data[tableSection]?[indexPath.row] {
+            
             cell.completedStreakLabel.text = "(\(habit.completedStreak))"
             cell.nameLabel.text = habit.name
+            cell.completeCheckBox.setOn(habit.isComplete, animated: true)
+            
             cell.habit = habit
             cell.habitCompletionUpdateDelegate = self
             
-            
-            // pass goals to view cell
             cell.goals = goalsHabitsTabBarController.goals
-            
-            if habit.isComplete {
-                cell.completeCheckBox.setOn(true, animated: true)
-                
-            } else {
-                cell.completeCheckBox.setOn(false, animated: true)
-            }
         }
 
         return cell
@@ -192,7 +185,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             
             // get section from the index path, and use that to look up
             // the selected habit via the data dictionary
-            let deleteSection = TableSection.init(rawValue: indexPath.section)
+            let deleteSection = TableSection(rawValue: indexPath.section)
             let habitToDelete = data[deleteSection!]![indexPath.row]
             
             deleteHabit(for: habitToDelete)
@@ -311,7 +304,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     // update data array to group all habits by their time of day
     func sortData() {
         data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
-        data[.afternoon] = habits.filter({ $0.timeOfDay == "afternoon" || $0.timeOfDay == nil})
+        data[.afternoon] = habits.filter({ $0.timeOfDay == "afternoon" || $0.timeOfDay == nil || $0.timeOfDay == ""})
         data[.evening] = habits.filter({ $0.timeOfDay == "evening" })
     }
     
