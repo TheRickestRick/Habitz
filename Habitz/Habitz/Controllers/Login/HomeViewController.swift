@@ -13,16 +13,14 @@ class HomeViewController: UIViewController {
     // constants
     var userID: String?
     
+    let goalsAPI = GoalsAPI()
+    let habitsAPI = HabitsAPI()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // print user uid
-        if let userID = userID {
-            print("any information here is passed via segue")
-            print("user is signed in with id:")
-            print(userID)
-        }
+        
+        self.performSegue(withIdentifier: "goToHome", sender: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,14 +29,25 @@ class HomeViewController: UIViewController {
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "goToHome" {
+            let homeViewController = segue.destination as! GoalsHabitsTabBarController
+            
+            goalsAPI.getAllForUser(havingUserUid: userID!, completion: { (goals) in
+                homeViewController.goals = goals
+                
+                self.habitsAPI.getAllForUser(havingUid: self.userID!, completion: { (habits) in
+                    homeViewController.habits = habits
+                    
+                    Thread.sleep(forTimeInterval: 1)
+                    segue.perform()
+                })
+            })
+        }
     }
-    */
 
 }

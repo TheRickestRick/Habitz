@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vSK-Wd-DzG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ock-kj-fc2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -171,28 +171,40 @@
                                     <constraint firstAttribute="trailing" secondItem="u1G-38-FiK" secondAttribute="trailing" constant="30" id="lSn-2h-6gy"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIU-qd-mKp">
+                                <rect key="frame" x="0.0" y="507" width="375" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="wSY-8V-kMM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.61571400999308801" green="0.73072289680068159" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="4LW-jp-fAS" firstAttribute="centerX" secondItem="pWg-QR-Lu9" secondAttribute="centerX" id="8Qy-KG-lj5"/>
                             <constraint firstItem="KZw-0t-vIJ" firstAttribute="trailing" secondItem="4LW-jp-fAS" secondAttribute="trailing" id="APA-q5-4gx"/>
+                            <constraint firstItem="KZw-0t-vIJ" firstAttribute="trailing" secondItem="AIU-qd-mKp" secondAttribute="trailing" id="Dw8-ZC-hh7"/>
                             <constraint firstItem="4LW-jp-fAS" firstAttribute="leading" secondItem="KZw-0t-vIJ" secondAttribute="leading" id="K19-4y-5fD"/>
                             <constraint firstItem="4LW-jp-fAS" firstAttribute="centerY" secondItem="pWg-QR-Lu9" secondAttribute="centerY" id="id4-0E-V7x"/>
+                            <constraint firstItem="AIU-qd-mKp" firstAttribute="leading" secondItem="KZw-0t-vIJ" secondAttribute="leading" id="lFO-71-rzP"/>
+                            <constraint firstItem="AIU-qd-mKp" firstAttribute="top" secondItem="4LW-jp-fAS" secondAttribute="bottom" constant="20" id="opf-v1-cKV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KZw-0t-vIJ"/>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="2P3-YH-TFx" id="nm0-hF-B0k"/>
+                        <outlet property="errorLabel" destination="AIU-qd-mKp" id="XxE-Av-hUs"/>
                         <outlet property="passwordTextField" destination="JSM-0l-77d" id="i3V-gy-RpY"/>
                         <outlet property="signInButton" destination="phU-5f-44F" id="D4a-PH-8pc"/>
                         <outlet property="toggleSignInControl" destination="JWF-oi-okQ" id="TEF-aZ-8aa"/>
-                        <segue destination="MC2-UE-44u" kind="show" identifier="goToHome" id="q3w-Hu-ckK"/>
-                        <segue destination="vSK-Wd-DzG" kind="show" identifier="showHome" id="H5f-E5-f34"/>
+                        <segue destination="MC2-UE-44u" kind="show" identifier="goToSplash" id="q3w-Hu-ckK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62w-yb-vgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4412" y="1773"/>
+            <point key="canvasLocation" x="-4778" y="1773"/>
         </scene>
         <!--Your Goals-->
         <scene sceneID="OW7-g3-CGZ">
@@ -299,14 +311,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FETCHING DATA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av4-Yw-fuy">
+                                <rect key="frame" x="92" y="384" width="191" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.61571401000000003" green="0.73072289680000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="owJ-ti-6Ch"/>
                     </view>
+                    <connections>
+                        <segue destination="vSK-Wd-DzG" kind="show" identifier="showHome" id="Rkl-Rw-5mq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-0D-nuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3993" y="2544"/>
+            <point key="canvasLocation" x="-4022" y="1773"/>
         </scene>
         <!--Goals-->
         <scene sceneID="8dD-Qd-CYX">

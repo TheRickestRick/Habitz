@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
     
     // constants
     var isSignIn: Bool = true
@@ -24,6 +25,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        errorLabel.text = ""
         // Do any additional setup after loading the view.
     }
     
@@ -50,7 +53,7 @@ class LoginViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToHome" {
+        if segue.identifier == "goToSplash" {
             let homeViewController = segue.destination as! HomeViewController
             
             homeViewController.userID = uid
@@ -78,10 +81,21 @@ class LoginViewController: UIViewController {
                 if let u = user {
                     // go to home screen
                     self.uid = u.uid
-                    self.performSegue(withIdentifier: "showHome", sender: self)
+                    self.performSegue(withIdentifier: "goToSplash", sender: self)
                 } else {
-                    // TODO: handle error for login
-                    print(error)
+                    
+                    // handle error for login
+                    if let errorCode = AuthErrorCode(rawValue: error!._code) {
+                        switch errorCode {
+                            case .wrongPassword:
+                                self.displayError(withMessage: "Password and email do not match")
+                            case .invalidEmail:
+                                self.displayError(withMessage: "Email as entered is invalid")
+                            default:
+                                self.displayError(withMessage: "Unable to log in. Please try again later.")
+                                print("Register User Error: \(error!)")
+                        }
+                    }
                 }
             }
             
@@ -91,10 +105,21 @@ class LoginViewController: UIViewController {
                 if let u = user {
                     // go to home screen
                     self.uid = u.uid
-                    self.performSegue(withIdentifier: "showHome", sender: self)
+                    self.performSegue(withIdentifier: "goToSplash", sender: self)
                 } else {
-                    // TODO: handle error for login
-                    print(error)
+                    
+                    // handle error for registering
+                    if let errorCode = AuthErrorCode(rawValue: error!._code) {
+                        switch errorCode {
+                        case .invalidEmail:
+                            self.displayError(withMessage: "Email as entered is invalid")
+                        case .emailAlreadyInUse:
+                            self.displayError(withMessage: "Email as entered is already in use")
+                        default:
+                            self.displayError(withMessage: "Unable to register new user. Please try again later.")
+                            print("Register User Error: \(error!)")
+                        }
+                    }
                 }
             }
         }
@@ -104,5 +129,26 @@ class LoginViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+    }
+    
+    //MARK: - Private
+    // display error message if login/regsistration fails
+    func displayError(withMessage msg: String) -> Void {
+        errorLabel.alpha = 1.0
+        errorLabel.text = msg
+        fadeOut(view: errorLabel, delay: 0.5)
+    }
+    
+    // animate error message when displaying
+    func fadeOut(view : UIView, delay: TimeInterval) {
+        let animationDuration = 2.0
+            
+        // fade out the view after a delay
+        UIView.animate(withDuration: animationDuration,
+                       delay: delay,
+                       options: .curveEaseInOut,
+                       animations: { () -> Void in
+            view.alpha = 0
+        })
     }
 }
