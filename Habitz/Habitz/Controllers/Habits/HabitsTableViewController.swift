@@ -22,6 +22,20 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
+    
+    
+    
+    enum TableSection: Int {
+        case morning = 0, afternoon, evening, total
+    }
+    
+    var data = [TableSection: [Habit]]()
+    
+    let sectionHeaderHeight: CGFloat = 25
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +62,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                     // get completed habits from YESTERDAY, to compare to all habits, and
                     // reset streak count to zero if a habit was not completed yesterday
                     self.resetMissedCompletions(for: allHabits, completion: {
+                        self.sortData()
                         self.tableView.reloadData()
                     })
 
@@ -79,38 +94,105 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return TableSection.total.rawValue
     }
 
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habits.count
+        // Using Swift's optional lookup we first check if there is a valid section of table.
+        // Then we check that for the section there is data that goes with.
+        if let tableSection = TableSection(rawValue: section), let habitsData = data[tableSection] {
+            return habitsData.count
+        }
+        return 0
+    }
+    
+    
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // First check if there is a valid section of table.
+        // Then we check that for the section there is more than 1 row.
+        if let tableSection = TableSection(rawValue: section), let habitsData = data[tableSection], habitsData.count > 0 {
+            return sectionHeaderHeight
+        }
+        return 0
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
+        view.backgroundColor = UIColor(red: 253.0/255.0, green: 240.0/255.0, blue: 196.0/255.0, alpha: 1)
+        
+        let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 30, height: sectionHeaderHeight))
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.black
+        
+        if let tableSection = TableSection(rawValue: section) {
+            switch tableSection {
+            case .morning:
+                label.text = "Morning"
+            case .afternoon:
+                label.text = "Afternoon"
+            case .evening:
+                label.text = "Evening"
+            default:
+                label.text = ""
+            }
+        }
+        view.addSubview(label)
+        return view
     }
 
+    
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "HabitTableViewCell"
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? HabitTableViewCell else {
             fatalError("The dequeued cell is not an instance of HabitTableViewCell.")
         }
-
-        let habit = habits[indexPath.row]
-
-        cell.completedStreakLabel.text = "(\(habit.completedStreak))"
-        cell.nameLabel.text = habit.name
-        cell.habit = habit
-        cell.habitCompletionUpdateDelegate = self
         
         
-        // pass goals to view cell
-        cell.goals = goalsHabitsTabBarController.goals
         
-
-        if habit.isComplete {
-            cell.completeCheckBox.setOn(true, animated: true)
+        if let tableSection = TableSection(rawValue: indexPath.section), let habit = data[tableSection]?[indexPath.row] {
+            cell.completedStreakLabel.text = "(\(habit.completedStreak))"
+            cell.nameLabel.text = habit.name
+            cell.habit = habit
+            cell.habitCompletionUpdateDelegate = self
             
-        } else {
-            cell.completeCheckBox.setOn(false, animated: true)
+            
+            // pass goals to view cell
+            cell.goals = goalsHabitsTabBarController.goals
+            
+            
+            if habit.isComplete {
+                cell.completeCheckBox.setOn(true, animated: true)
+                
+            } else {
+                cell.completeCheckBox.setOn(false, animated: true)
+            }
         }
+
+//        let habit = habits[indexPath.row]
+
+//        cell.completedStreakLabel.text = "(\(habit.completedStreak))"
+//        cell.nameLabel.text = habit.name
+//        cell.habit = habit
+//        cell.habitCompletionUpdateDelegate = self
+//
+//
+//        // pass goals to view cell
+//        cell.goals = goalsHabitsTabBarController.goals
+//
+//
+//        if habit.isComplete {
+//            cell.completeCheckBox.setOn(true, animated: true)
+//
+//        } else {
+//            cell.completeCheckBox.setOn(false, animated: true)
+//        }
 
         return cell
     }
@@ -254,6 +336,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             }
             completion()
         }
+    }
+    
+    func sortData() {
+        data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
+        data[.afternoon] = habits.filter({ $0.timeOfDay == "afternoon" || $0.timeOfDay == nil})
+        data[.evening] = habits.filter({ $0.timeOfDay == "evening" })
     }
     
 }

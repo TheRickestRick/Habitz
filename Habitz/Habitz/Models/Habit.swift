@@ -15,6 +15,7 @@ class Habit {
     var isComplete: Bool
     var goalId: Int
     var completedStreak: Int
+    var timeOfDay: String?
     
     init(id: Int, name: String, isComplete: Bool, goalId: Int, completedStreak: Int) {
         self.id = id
