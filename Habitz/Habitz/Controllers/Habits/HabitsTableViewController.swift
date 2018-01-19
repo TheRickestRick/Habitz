@@ -22,8 +22,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
-    
-    
     // possible values for time of day, and section headers
     enum TableSection: Int {
         case morning = 0, afternoon, evening, total
@@ -33,8 +31,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     var data = [TableSection: [Habit]]()
     
     let sectionHeaderHeight: CGFloat = 25
-    
-    
     
     
     override func viewDidLoad() {
@@ -232,7 +228,16 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedHabit = habits[indexPath.row]
+            // get the selected habit using the index and section
+            // to lookup in the data dictionary
+            let selectedSection = TableSection(rawValue: indexPath.section)!
+            let selectedHabitId = data[selectedSection]![indexPath.row].id
+            
+            let selectedHabit = habits.first(where: { (habit) -> Bool in
+                return habit.id == selectedHabitId
+            })
+            
+            
             habitDetailViewController.habit = selectedHabit
         
         default:
@@ -304,7 +309,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     // update data array to group all habits by their time of day
     func sortData() {
         data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
-        data[.afternoon] = habits.filter({ $0.timeOfDay == "afternoon" || $0.timeOfDay == nil || $0.timeOfDay == ""})
+        data[.afternoon] = habits.filter({ $0.timeOfDay == "afternoon"})
         data[.evening] = habits.filter({ $0.timeOfDay == "evening" })
     }
     

@@ -67,21 +67,31 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
             goalsAPI.getAllForUser(havingUserUid: userUid!, completion:  { (goals) in
                 self.goalIdPickerDelegate!.pickerData = goals
                 
-                
-                // setup initial view
-                self.associatedGoalTextField.text = self.goalIdPickerDelegate!.pickerData[0].name
-                
-                // set up views if editing an existing habit
                 if let habit = self.habit {
+                    // set up views if editing an existing habit
                     self.navigationItem.title = habit.name
                     self.nameTextField.text = habit.name
                     self.isCompletedTextField.text = String(habit.isComplete)
                     self.completedStreakTextField.text = String(habit.completedStreak)
                     
-                    if let i = self.goalIdPickerDelegate?.pickerData.index(where: { $0.id == habit.goalId }) {
-                        self.goalIdPickerDelegate!.textField.text = self.goalIdPickerDelegate!.pickerData[i].name
-                    }
+                    // get index for time of day value, then update the text and pick the row
+                    let timeOfDayIndex = self.timeOfDayPickerDelegate!.pickerData.index(where: { (timeOfDay) -> Bool in
+                        return timeOfDay == habit.timeOfDay
+                    })
+                    self.timeOfDayTextField.text = habit.timeOfDay
+                    self.timeOfDayPicker.selectRow(timeOfDayIndex!, inComponent: 0, animated: false)
+                    
+                    // get index for goal id value, then update the text and pick the row
+                    let goalIdIndex = self.goalIdPickerDelegate!.pickerData.index(where: { $0.id == habit.goalId })
+                    self.goalIdPickerDelegate!.textField.text = self.goalIdPickerDelegate!.pickerData[goalIdIndex!].name
+                    self.goalIdPicker.selectRow(goalIdIndex!, inComponent: 0, animated: false)
+                    
+                } else {
+                    // setup initial view for create new
+                    self.associatedGoalTextField.text = self.goalIdPickerDelegate!.pickerData[0].name
+                    self.timeOfDayTextField.text = self.timeOfDayPickerDelegate?.pickerData[0]
                 }
+                
                 // enable save button only if the text field has a valid habit name
                 self.updateSaveButtonState()
             })

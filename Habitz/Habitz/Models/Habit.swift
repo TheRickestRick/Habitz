@@ -15,9 +15,8 @@ class Habit {
     var isComplete: Bool
     var goalId: Int
     var completedStreak: Int
-    var timeOfDay: String?
+    var timeOfDay: String
     
-    //TODO: TODO - update to include timeOfDay
     init(id: Int, name: String, isComplete: Bool, goalId: Int, completedStreak: Int, timeOfDay: String) {
         self.id = id
         self.name = name
@@ -26,16 +25,6 @@ class Habit {
         self.completedStreak = completedStreak
         self.timeOfDay = timeOfDay
     }
-    
-//    //TODO: TODO - this could be deleted
-//    // id is omitted for creating new goals, since id will need to be assigned
-//    // after making a post call to the database
-//    init(name: String, isComplete: Bool, goalId: Int, completedStreak: Int) {
-//        self.name = name
-//        self.isComplete = isComplete
-//        self.goalId = goalId
-//        self.completedStreak = completedStreak
-//    }
     
     
     // id is omitted for creating new goals, since id will need to be assigned
@@ -49,7 +38,6 @@ class Habit {
     }
     
     
-    //TODO: TODO - update to include timeOfDay
     // for parsing results back from the api
     init(json: JSON) {
         self.id = json["id"].intValue
