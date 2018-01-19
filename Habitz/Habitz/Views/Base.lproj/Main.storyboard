@@ -323,7 +323,7 @@
                         <viewLayoutGuide key="safeArea" id="owJ-ti-6Ch"/>
                     </view>
                     <connections>
-                        <segue destination="vSK-Wd-DzG" kind="show" identifier="showHome" id="Rkl-Rw-5mq"/>
+                        <segue destination="vSK-Wd-DzG" kind="show" identifier="goToHome" id="Rkl-Rw-5mq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-0D-nuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
