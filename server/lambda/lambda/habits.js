@@ -22,7 +22,7 @@ module.exports.getAll = function (knex, callback, queryStringParameters) {
   // filter by user_uid
   if (queryStringParameters !== null && queryStringParameters.user_uid) {
     knex.from('habits').innerJoin('goals', 'habits.goal_id', 'goals.id')
-      .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak')
+      .select('habits.id', 'habits.name', 'habits.goal_id', 'habits.completed_streak', 'habits.time_of_day')
       .where({ user_uid: queryStringParameters.user_uid })
       .orderBy('id', 'asc')
       .then((habits) => {
@@ -163,5 +163,6 @@ function params(body) {
     name: body.name,
     completed_streak: body.completed_streak,
     goal_id: body.goal_id,
+    time_of_day: body.time_of_day
   };
 }
