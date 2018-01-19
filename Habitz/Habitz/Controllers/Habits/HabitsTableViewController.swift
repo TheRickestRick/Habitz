@@ -24,11 +24,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     
     
-    
+    // possible values for time of day, and section headers
     enum TableSection: Int {
         case morning = 0, afternoon, evening, total
     }
     
+    // track habits sorted by time of day
     var data = [TableSection: [Habit]]()
     
     let sectionHeaderHeight: CGFloat = 25
@@ -94,6 +95,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
+        // total is the last case in the enum so it provides the total number of sections
         return TableSection.total.rawValue
     }
 
@@ -120,6 +122,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
     
     
+    // set up header views and properties
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
         view.backgroundColor = UIColor(red: 253.0/255.0, green: 240.0/255.0, blue: 196.0/255.0, alpha: 1)
@@ -155,7 +158,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         }
         
         
-        
+        // first check if there is a valid section of table, then we check that for the section there is a row
         if let tableSection = TableSection(rawValue: indexPath.section), let habit = data[tableSection]?[indexPath.row] {
             cell.completedStreakLabel.text = "(\(habit.completedStreak))"
             cell.nameLabel.text = habit.name
@@ -207,6 +210,8 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
+            
+            //TODO: TODO - update delete to use section
             let habitToDelete = habits[indexPath.row]
             // delete habit from database
             habitsAPI.delete(habit: habitToDelete)
@@ -214,6 +219,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             // Delete the row from the data source
             habits.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
             
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -257,6 +263,10 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 fatalError("The selected cell is not being displayed by the table")
             }
             
+            
+            print(tableView.indexPathForSelectedRow)
+            
+            
             let selectedHabit = habits[indexPath.row]
             habitDetailViewController.habit = selectedHabit
         
@@ -276,6 +286,8 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 // edit habit in the database
                 habitsAPI.edit(habit: habit)
                 
+                
+                //TODO: TODO - update edit to use section
                 // updates an existing habit in the array and view
                 habits[selectedIndexPath.row] = habit
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -284,11 +296,26 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             } else {
                 // add a new habit to the database
                 habitsAPI.create(habit: habit, completion: { (habit) in
-                    // add a new habit to the habits array and update the view
-                    let newIndexPath = IndexPath(row: self.habits.count, section: 0)
-                    self.habits.append(habit)
-                    self.tableView.insertRows(at: [newIndexPath], with: .automatic)
                     
+                    
+                    //TODO: TODO - update create to use section
+                    // add a new habit to the habits array and update the view
+                    
+                    // get section
+                    let sectionToInsertInto = 2
+                    
+                    
+                    // get number of rows currently in that section
+                    let rowToInsertInto = self.tableView.numberOfRows(inSection: sectionToInsertInto) + 1
+                    
+//                    let newIndexPath = IndexPath(row: self.habits.count, section: 0)
+                    let newIndexPath = IndexPath(row: rowToInsertInto, section: sectionToInsertInto)
+                    
+                    self.habits.append(habit)
+//                    self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+                    
+                    self.sortData()
+                    self.tableView.reloadData()
                 })
             }
         }
@@ -338,6 +365,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         }
     }
     
+    // update data array to group all habits by their time of day
     func sortData() {
         data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
         data[.afternoon] = habits.filter({ $0.timeOfDay == "afternoon" || $0.timeOfDay == nil})
