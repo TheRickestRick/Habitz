@@ -263,10 +263,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            
-            print(tableView.indexPathForSelectedRow)
-            
-            
             let selectedHabit = habits[indexPath.row]
             habitDetailViewController.habit = selectedHabit
         
@@ -281,42 +277,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         
         if let sourceViewController = sender.source as? HabitViewController, let habit = sourceViewController.habit {
             
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                
-                // edit habit in the database
-                habitsAPI.edit(habit: habit)
-                
-                
-                //TODO: TODO - update edit to use section
-                // updates an existing habit in the array and view
-                habits[selectedIndexPath.row] = habit
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-
-                
+            if tableView.indexPathForSelectedRow != nil {
+                // edit an existing habit in the database and update the table view
+                editHabit(for: habit)
             } else {
-                // add a new habit to the database
-                habitsAPI.create(habit: habit, completion: { (habit) in
-                    
-                    
-                    //TODO: TODO - update create to use section
-                    // add a new habit to the habits array and update the view
-                    
-                    // get section
-                    let sectionToInsertInto = 2
-                    
-                    
-                    // get number of rows currently in that section
-                    let rowToInsertInto = self.tableView.numberOfRows(inSection: sectionToInsertInto) + 1
-                    
-//                    let newIndexPath = IndexPath(row: self.habits.count, section: 0)
-                    let newIndexPath = IndexPath(row: rowToInsertInto, section: sectionToInsertInto)
-                    
-                    self.habits.append(habit)
-//                    self.tableView.insertRows(at: [newIndexPath], with: .automatic)
-                    
-                    self.sortData()
-                    self.tableView.reloadData()
-                })
+                // add a new habit to the database and update the table view
+                createHabit(for: habit)
             }
         }
     }
@@ -372,4 +338,33 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         data[.evening] = habits.filter({ $0.timeOfDay == "evening" })
     }
     
+    
+    
+    func createHabit(for habit: Habit) -> Void {
+        // add new habit to the database
+        habitsAPI.create(habit: habit, completion: { (habit) in
+            
+            // update stored array
+            self.habits.append(habit)
+            
+            // refresh and reload the data in the table view
+            self.sortData()
+            self.tableView.reloadData()
+        })
+    }
+    
+    func editHabit(for editedHabit: Habit) -> Void {
+        // edit habit in the database
+        habitsAPI.edit(habit: editedHabit)
+        
+        // updates an existing habit in the array and view
+        let indexToEdit = habits.index { (habit) -> Bool in
+            return habit.id == editedHabit.id
+        }
+        habits[indexToEdit!] = editedHabit
+        
+        // refresh and reload the data in the table view
+        self.sortData()
+        self.tableView.reloadData()
+    }
 }
