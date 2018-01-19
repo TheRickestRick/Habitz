@@ -169,7 +169,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             // pass goals to view cell
             cell.goals = goalsHabitsTabBarController.goals
             
-            
             if habit.isComplete {
                 cell.completeCheckBox.setOn(true, animated: true)
                 
@@ -177,25 +176,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 cell.completeCheckBox.setOn(false, animated: true)
             }
         }
-
-//        let habit = habits[indexPath.row]
-
-//        cell.completedStreakLabel.text = "(\(habit.completedStreak))"
-//        cell.nameLabel.text = habit.name
-//        cell.habit = habit
-//        cell.habitCompletionUpdateDelegate = self
-//
-//
-//        // pass goals to view cell
-//        cell.goals = goalsHabitsTabBarController.goals
-//
-//
-//        if habit.isComplete {
-//            cell.completeCheckBox.setOn(true, animated: true)
-//
-//        } else {
-//            cell.completeCheckBox.setOn(false, animated: true)
-//        }
 
         return cell
     }
@@ -210,16 +190,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
+            // get section from the index path, and use that to look up
+            // the selected habit via the data dictionary
+            let deleteSection = TableSection.init(rawValue: indexPath.section)
+            let habitToDelete = data[deleteSection!]![indexPath.row]
             
-            //TODO: TODO - update delete to use section
-            let habitToDelete = habits[indexPath.row]
-            // delete habit from database
-            habitsAPI.delete(habit: habitToDelete)
-            
-            // Delete the row from the data source
-            habits.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
+            deleteHabit(for: habitToDelete)
             
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -331,6 +307,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         }
     }
     
+    
     // update data array to group all habits by their time of day
     func sortData() {
         data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
@@ -357,11 +334,26 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         // edit habit in the database
         habitsAPI.edit(habit: editedHabit)
         
-        // updates an existing habit in the array and view
+        // updates an existing habit in the array
         let indexToEdit = habits.index { (habit) -> Bool in
             return habit.id == editedHabit.id
         }
         habits[indexToEdit!] = editedHabit
+        
+        // refresh and reload the data in the table view
+        self.sortData()
+        self.tableView.reloadData()
+    }
+    
+    func deleteHabit(for deletedHabit: Habit) -> Void {
+        // delete habit from database
+         habitsAPI.delete(habit: deletedHabit)
+        
+        // delete the habit from the array
+        let indexToDelete = habits.index { (habit) -> Bool in
+            return habit.id == deletedHabit.id
+        }
+        habits.remove(at: indexToDelete!)
         
         // refresh and reload the data in the table view
         self.sortData()
