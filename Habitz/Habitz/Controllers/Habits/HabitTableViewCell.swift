@@ -66,6 +66,7 @@ class HabitTableViewCell: UITableViewCell {
                     // set the isComplete status and update the database
                     if parentGoal.isCompleteHaving(all: allHabits, completed: completedHabits) {
                         parentGoal.isComplete = true
+                        parentGoal.completedStreak += 1
                         self.goalsAPI.markComplete(parentGoal)
                     }
                 })
@@ -93,6 +94,11 @@ class HabitTableViewCell: UITableViewCell {
                     // set the isComplete status and update the database
                     if !parentGoal.isCompleteHaving(all: allHabits, completed: completedHabits) {
                         parentGoal.isComplete = false
+                        
+                        if parentGoal.completedStreak > 0 {
+                            parentGoal.completedStreak -= 1
+                        }
+                        
                         self.goalsAPI.markIncomplete(parentGoal)
                     }
                 })
