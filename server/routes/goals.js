@@ -57,6 +57,7 @@ function params(req) {
     name: req.body.name,
     percent_to_complete: req.body.percent_to_complete,
     user_uid: req.body.user_uid,
+    completed_streak: req.body.completed_streak,
   };
 }
 

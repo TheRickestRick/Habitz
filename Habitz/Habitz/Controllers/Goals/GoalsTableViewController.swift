@@ -249,6 +249,7 @@ class GoalsTableViewController: UITableViewController {
                 if !completedGoals.contains(where: { (completedGoal) -> Bool in
                     return completedGoal.id == goal.id
                 }) {
+                    
                     // set that habit completed streak to zero in the all habits array
                     if goal.isComplete {
                         goal.completedStreak = 1
@@ -260,5 +261,5 @@ class GoalsTableViewController: UITableViewController {
             completion()
         }
     }
-
+    
 }

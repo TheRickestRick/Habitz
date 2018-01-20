@@ -300,12 +300,8 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 if !completedHabits.contains(where: { (completedHabit) -> Bool in
                     return completedHabit.name == habit.name
                 }) {
+                    
                     // set that habit completed streak to zero in the all habits array
-//                    if habit.isComplete {
-//                        habit.completedStreak = 1
-//                    } else {
-//                        habit.completedStreak = 0
-//                    }
                     if !habit.isComplete {
                         habit.completedStreak = 0
                     }

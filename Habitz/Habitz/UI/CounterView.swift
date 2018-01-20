@@ -56,7 +56,7 @@ class CounterView: UIView {
         case let x where x <= 0:
             self.backgroundColor = UIColor.yellow // warning
         
-        case let x where x < 10:
+        case let x where x <= 10:
             self.backgroundColor = ColorScheme.affirmation.value
         
         case let x where x > 10:

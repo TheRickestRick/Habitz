@@ -64,7 +64,8 @@ class GoalsAPI {
         
         let parameters: Parameters = [
             "name": goal.name,
-            "percent_to_complete": goal.percentToBeComplete
+            "percent_to_complete": goal.percentToBeComplete,
+            "completed_streak": goal.completedStreak
         ]
         
         Alamofire.request(editURL, method: .patch, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in

@@ -53,5 +53,3 @@ class Goal {
         return (Double(completed.count) / Double(all.count)) >= (Double(self.percentToBeComplete) / 100.0)
     }
 }
-
-// TODO: startDate, endDate

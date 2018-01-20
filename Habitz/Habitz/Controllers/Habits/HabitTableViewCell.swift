@@ -72,6 +72,7 @@ class HabitTableViewCell: UITableViewCell {
                             parentGoal.isComplete = true
                             parentGoal.completedStreak += 1
                             self.goalsAPI.markComplete(parentGoal)
+                            self.goalsAPI.edit(goal: parentGoal)
                         }
                     }
                 })
@@ -107,6 +108,7 @@ class HabitTableViewCell: UITableViewCell {
                             parentGoal.isComplete = false
                             parentGoal.completedStreak -= 1
                             self.goalsAPI.markIncomplete(parentGoal)
+                            self.goalsAPI.edit(goal: parentGoal)
                         }
                     }
                 })

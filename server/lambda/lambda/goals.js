@@ -139,5 +139,6 @@ function params(body) {
     name: body.name,
     percent_to_complete: body.percent_to_complete,
     user_uid: body.user_uid,
+    completed_streak: body.completed_streak,
   };
 }
