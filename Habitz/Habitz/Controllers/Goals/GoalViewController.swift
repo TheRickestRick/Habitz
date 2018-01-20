@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -19,6 +20,7 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
    
     // passed in by GoalTableViewController or constructed as part of adding a new goal
     var goal: Goal?
+    var userUid: String?
     
     // data for picker to restrict values
     let pickerData = [0, 25, 50, 75, 100]
@@ -30,36 +32,74 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     var tableViewDelegate: AssociatedHabitsTableViewDelegate?
     
     let habitsAPI = HabitsAPI()
+    let completedHabitsAPI = CompletedHabitsAPI()
+    
+    var habits: [Habit] = []
+    var completions: [Habit] = []
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+        // get current user uid
+        if let user = Auth.auth().currentUser {
+            userUid = user.uid
+            
+//            self.updateHabits()
+        }
+        
         
         // todo get all associated habits for the selected goal
-        habitsAPI.getAllForGoal(havingId: (goal?.id)!) { (habits) in
-            // creating the delegate object and passing the data
-            for habit in habits {
-                print(habit.name)
-            }
-            self.tableViewDelegate = AssociatedHabitsTableViewDelegate(data: habits)
+        habitsAPI.getAllForGoal(havingId: (goal?.id)!) { (allHabits) in
             
-            // setting the delegate object to tableView
-            self.associatedHabitsTableView.delegate = self.tableViewDelegate
-            self.associatedHabitsTableView.dataSource = self.tableViewDelegate
+            self.habits = allHabits
             
-            self.associatedHabitsTableView.reloadData()
+            // get completed habits from TODAY to compare against ALL habits
+            self.completedHabitsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
+                self.completions = completedHabits
+                
+                // update all habits to have correct completion status based on
+                // comparing against the completed habits array
+                self.compare(allHabits: self.habits, completedHabits: self.completions)
+                
+                
+                // get completed habits from YESTERDAY, to compare to all habits, and
+                // reset streak count to zero if a habit was not completed yesterday
+                self.resetMissedCompletions(for: allHabits, completion: {
+                    
+                    // creating the delegate object and passing the data
+                    self.tableViewDelegate = AssociatedHabitsTableViewDelegate(data: self.habits)
+                    
+                    // setting the delegate object to tableView
+                    self.associatedHabitsTableView.delegate = self.tableViewDelegate
+                    self.associatedHabitsTableView.dataSource = self.tableViewDelegate
+                    
+                    self.associatedHabitsTableView.reloadData()
+                })
+            })
         }
+        
+        
+        
+        
+        
+        
         
         
         // handle the text field's input through delegate callbacks
         nameTextField.delegate = self
         
+        // enable save button only if the text field has a valid goal name
+        updateSaveButtonState()
+        
+        
         // handle selecting percentToComplete through delegate callbacks
         percentToCompletePicker.dataSource = self
         percentToCompletePicker.delegate = self
         percentToBeCompleteTextField.inputView = percentToCompletePicker
+        
         
         // sets up views if editing an existing goal
         if let goal = goal {
@@ -71,8 +111,6 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
             percentToBeCompleteTextField.text = String(pickerData[0])
         }
         
-        // enable save button only if the text field has a valid goal name
-        updateSaveButtonState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -179,5 +217,43 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         // disable the save button if the text field is empty
         let text = nameTextField.text ?? ""
         saveButton.isEnabled = !text.isEmpty
+    }
+    
+    
+    
+    //TODO: TODO - move to function or class, this is duplicated in habits VC
+    func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
+        
+        // loop through completed habits
+        for habit in allHabits {
+            // find the habits in all habits that match the completed ones
+            if completedHabits.contains(where: { (completedHabit) -> Bool in
+                return completedHabit.name == habit.name
+            }) {
+                // set that habit to completed in the all habits array
+                habit.isComplete = true
+            }
+        }
+    }
+    
+    func resetMissedCompletions(for allHabits: [Habit], completion: @escaping () -> Void) -> Void {
+        completedHabitsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedHabits) in
+            
+            // loop through completed habits from yesterday
+            for habit in allHabits {
+                
+                // find the habits in all habits that are NOT in completed aka they were missed
+                if !completedHabits.contains(where: { (completedHabit) -> Bool in
+                    return completedHabit.name == habit.name
+                }) {
+                    
+                    // set that habit completed streak to zero in the all habits array
+                    if !habit.isComplete {
+                        habit.completedStreak = 0
+                    }
+                }
+            }
+            completion()
+        }
     }
 }
