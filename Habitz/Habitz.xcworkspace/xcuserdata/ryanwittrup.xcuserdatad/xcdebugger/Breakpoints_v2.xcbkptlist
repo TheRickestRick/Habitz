@@ -9,14 +9,26 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Habitz/Controllers/Habits/HabitsTableViewController.swift"
-            timestampString = "538174720.654214"
+            filePath = "Habitz/Classes/GoalsHabitsTabBarController.swift"
+            timestampString = "538177704.294746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            startingLineNumber = "17"
+            endingLineNumber = "17">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Habitz/Classes/GoalsHabitsTabBarController.swift"
+            timestampString = "538177704.295025"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

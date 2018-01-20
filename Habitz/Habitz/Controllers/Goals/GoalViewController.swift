@@ -15,8 +15,9 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var percentToBeCompleteTextField: UITextField!
-    @IBOutlet weak var completedStreakTextField: UITextField!
+//    @IBOutlet weak var completedStreakTextField: UITextField!
     
+   
     // passed in by GoalTableViewController or constructed as part of adding a new goal
     var goal: Goal?
     
@@ -25,8 +26,30 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     let percentToCompletePicker: UIPickerView! = UIPickerView()
     
     
+    
+    @IBOutlet weak var associatedHabitsTableView: UITableView!
+    var tableViewDelegate: AssociatedHabitsTableViewDelegate?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        // creating the delegate object and passing the data
+        tableViewDelegate = AssociatedHabitsTableViewDelegate(data: [Habit(id: 23, name: "New habit", isComplete: false, goalId: 1, completedStreak: 1, timeOfDay: "evening")])
+        
+        
+//        // passing a function to the delegate object
+//        tableViewDelegate?.didSelectRow = didSelectRow
+        
+        
+        // setting the delegate object to tableView
+        associatedHabitsTableView.delegate = tableViewDelegate
+        associatedHabitsTableView.dataSource = tableViewDelegate
+        
+        
+        
         
         // handle the text field's input through delegate callbacks
         nameTextField.delegate = self
@@ -41,7 +64,7 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
             navigationItem.title = goal.name
             nameTextField.text = goal.name
             percentToBeCompleteTextField.text = String(goal.percentToBeComplete)
-            completedStreakTextField.text = String(goal.completedStreak)
+//            completedStreakTextField.text = String(goal.completedStreak)
         } else {
             // sets up views if creating a new goal
             percentToBeCompleteTextField.text = String(pickerData[0])
