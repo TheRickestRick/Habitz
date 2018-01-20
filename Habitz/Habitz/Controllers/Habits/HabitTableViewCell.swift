@@ -58,21 +58,28 @@ class HabitTableViewCell: UITableViewCell {
             // update database for completion status
             habitsAPI.markComplete(habit, completion: {
                 
+                
+                //TODO: TODO - refactor to function
                 // check if the goal is completed or not
                 // get ALL goals and completed goals belonging to the parent habit
                 self.getHabits(for: parentGoal, completion: { (allHabits, completedHabits) in
                     
                     // if the goal is not complete based on its habits
-                    // set the isComplete status and update the database
                     if parentGoal.isCompleteHaving(all: allHabits, completed: completedHabits) {
-                        parentGoal.isComplete = true
-                        parentGoal.completedStreak += 1
-                        self.goalsAPI.markComplete(parentGoal)
+                        
+                        // change the isComplete status and update the db if it is currently marked as incomplete
+                        if !parentGoal.isComplete {
+                            parentGoal.isComplete = true
+                            parentGoal.completedStreak += 1
+                            self.goalsAPI.markComplete(parentGoal)
+                        }
                     }
                 })
                 
             })
             
+            
+            //TODO: TODO - refactor to function
             // increase habit streak for vc and to database
             self.completedStreakLabel.text = "(\(habit.completedStreak + 1))"
             habit.completedStreak += 1
@@ -86,31 +93,32 @@ class HabitTableViewCell: UITableViewCell {
             // update database for completion status
             habitsAPI.markIncomplete(habit, completion: {
                 
+                
+                //TODO: TODO - refactor to function
                 // check if the goal is completed or not
                 // get ALL goals and completed goals belonging to the parent habit
                 self.getHabits(for: parentGoal, completion: { (allHabits, completedHabits) in
                     
                     // if the goal is not complete based on its habits
-                    // set the isComplete status and update the database
                     if !parentGoal.isCompleteHaving(all: allHabits, completed: completedHabits) {
-                        parentGoal.isComplete = false
                         
-                        if parentGoal.completedStreak > 0 {
+                        // change the isComplete status and update the db if it is currently marked as complete
+                        if parentGoal.isComplete {
+                            parentGoal.isComplete = false
                             parentGoal.completedStreak -= 1
+                            self.goalsAPI.markIncomplete(parentGoal)
                         }
-                        
-                        self.goalsAPI.markIncomplete(parentGoal)
                     }
                 })
                 
             })
             
+            
+            //TODO: TODO - refactor to function
             // decrease habit streak for vc and to database
-            if habit.completedStreak > 0 {
-                self.completedStreakLabel.text = "(\(habit.completedStreak - 1))"
-                habit.completedStreak -= 1
-                habitsAPI.edit(habit: habit)
-            }
+            self.completedStreakLabel.text = "(\(habit.completedStreak - 1))"
+            habit.completedStreak -= 1
+            habitsAPI.edit(habit: habit)
             
             // update table vc for completion status
             habitCompletionUpdateDelegate.toggleCompletion(for: habit)

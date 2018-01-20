@@ -53,7 +53,7 @@ class CounterView: UIView {
         case let x where x < -3:
             self.backgroundColor = ColorScheme.negation.value
         
-        case let x where x < 0:
+        case let x where x <= 0:
             self.backgroundColor = UIColor.yellow // warning
         
         case let x where x < 10:
