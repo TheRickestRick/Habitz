@@ -19,6 +19,9 @@
 		16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1920069ED000CAD6E2 /* LoginViewController.swift */; };
 		16224B1D2006A27900CAD6E2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */; };
 		16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1E2006A39400CAD6E2 /* HomeViewController.swift */; };
+		164BDEBF201387E500ED3491 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BDEBE201387E500ED3491 /* UIColorExtension.swift */; };
+		164BDEC120138A0A00ED3491 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BDEC020138A0A00ED3491 /* ColorScheme.swift */; };
+		164BDEC320138A4200ED3491 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BDEC220138A4200ED3491 /* ColorTheme.swift */; };
 		16928A89200C12FC0047ECA8 /* HabitsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16928A88200C12FC0047ECA8 /* HabitsAPI.swift */; };
 		169F952D201258D80073842D /* GoalIdPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169F952C201258D80073842D /* GoalIdPickerDelegate.swift */; };
 		169F95312012637B0073842D /* HabitCompletionUpdateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169F95302012637B0073842D /* HabitCompletionUpdateDelegate.swift */; };
@@ -46,6 +49,9 @@
 		16224B1920069ED000CAD6E2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16224B1E2006A39400CAD6E2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		164BDEBE201387E500ED3491 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		164BDEC020138A0A00ED3491 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
+		164BDEC220138A4200ED3491 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		16928A88200C12FC0047ECA8 /* HabitsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsAPI.swift; sourceTree = "<group>"; };
 		169F952C201258D80073842D /* GoalIdPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalIdPickerDelegate.swift; sourceTree = "<group>"; };
 		169F95302012637B0073842D /* HabitCompletionUpdateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCompletionUpdateDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +111,16 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		164BDEBD201387CB00ED3491 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				164BDEBE201387E500ED3491 /* UIColorExtension.swift */,
+				164BDEC020138A0A00ED3491 /* ColorScheme.swift */,
+				164BDEC220138A4200ED3491 /* ColorTheme.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		1659CDF72005311000FE4604 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +154,7 @@
 		16E845EB2003CC6900BD7E99 /* Habitz */ = {
 			isa = PBXGroup;
 			children = (
+				164BDEBD201387CB00ED3491 /* UI */,
 				1659CDF72005311000FE4604 /* Classes */,
 				16E8460A20041BD300BD7E99 /* Protocols */,
 				16E845FE2003CFB200BD7E99 /* Models */,
@@ -357,13 +374,16 @@
 				16190E98200A5AA60089FE80 /* GoalsTableViewController.swift in Sources */,
 				161333D12010B76A00AEEE9F /* CompletedHabitsAPI.swift in Sources */,
 				16E846022003CFC700BD7E99 /* Habit.swift in Sources */,
+				164BDEC320138A4200ED3491 /* ColorTheme.swift in Sources */,
 				161333CF2010B75F00AEEE9F /* CompletedGoalsAPI.swift in Sources */,
+				164BDEC120138A0A00ED3491 /* ColorScheme.swift in Sources */,
 				16190EA2200AD4540089FE80 /* HabitTableViewCell.swift in Sources */,
 				169F95312012637B0073842D /* HabitCompletionUpdateDelegate.swift in Sources */,
 				16928A89200C12FC0047ECA8 /* HabitsAPI.swift in Sources */,
 				161333D32010D5EA00AEEE9F /* GoalsHabitsTabBarController.swift in Sources */,
 				16190EA0200AD4450089FE80 /* HabitViewController.swift in Sources */,
 				169F952D201258D80073842D /* GoalIdPickerDelegate.swift in Sources */,
+				164BDEBF201387E500ED3491 /* UIColorExtension.swift in Sources */,
 				16B91D26200BA8E800AD17D3 /* GoalsAPI.swift in Sources */,
 				16190E9C200A63100089FE80 /* GoalViewController.swift in Sources */,
 				16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */,
