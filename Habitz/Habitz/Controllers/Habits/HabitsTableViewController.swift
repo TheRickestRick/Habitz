@@ -163,11 +163,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         // first check if there is a valid section of table, then we check that for the section there is a row
         if let tableSection = TableSection(rawValue: indexPath.section), let habit = data[tableSection]?[indexPath.row] {
             
-            cell.completedStreakLabel.text = "(\(habit.completedStreak))"
+            cell.habit = habit
+            
+            cell.completedStreakCounter.setCounter(to: habit.completedStreak)
             cell.nameLabel.text = habit.name
             cell.completeCheckBox.setOn(habit.isComplete, animated: true)
             
-            cell.habit = habit
             cell.habitCompletionUpdateDelegate = self
             
             cell.goals = goalsHabitsTabBarController.goals

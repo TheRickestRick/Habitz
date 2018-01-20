@@ -373,31 +373,26 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNk-LS-ubP" customClass="CounterView" customModule="Habitz" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="6" width="30" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.80737703849999998" blue="0.87567692909999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Idp-Hg-QXH"/>
+                                                <constraint firstAttribute="width" constant="30" id="srp-WS-oLM"/>
+                                            </constraints>
+                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6f5-Rl-mxQ">
-                                            <rect key="frame" x="16" y="11" width="313" height="22"/>
+                                            <rect key="frame" x="56" y="11" width="263" height="22"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(4)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8M-lN-dHT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="bAC-bo-iC1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a HABIT being tracked" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPJ-ht-ivz">
-                                                    <rect key="frame" x="50" y="0.0" width="263" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="263" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="t8M-lN-dHT" secondAttribute="bottom" id="3Tl-Et-Mza"/>
-                                                <constraint firstItem="t8M-lN-dHT" firstAttribute="top" secondItem="6f5-Rl-mxQ" secondAttribute="top" id="62G-i1-K6u"/>
                                                 <constraint firstItem="UPJ-ht-ivz" firstAttribute="top" secondItem="6f5-Rl-mxQ" secondAttribute="top" id="A4X-ZX-vKu"/>
-                                                <constraint firstItem="UPJ-ht-ivz" firstAttribute="leading" secondItem="t8M-lN-dHT" secondAttribute="trailing" id="NqC-mP-qdf"/>
-                                                <constraint firstItem="t8M-lN-dHT" firstAttribute="leading" secondItem="6f5-Rl-mxQ" secondAttribute="leading" id="Urw-ci-ec0"/>
                                                 <constraint firstAttribute="bottom" secondItem="UPJ-ht-ivz" secondAttribute="bottom" id="fDf-Nb-ox2"/>
                                             </constraints>
                                         </stackView>
@@ -431,17 +426,19 @@
                                         </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="iNk-LS-ubP" firstAttribute="centerY" secondItem="ghg-oS-on2" secondAttribute="centerY" id="23G-G7-R66"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="q6k-gi-buW" secondAttribute="trailing" id="88r-eC-gp7"/>
+                                        <constraint firstItem="iNk-LS-ubP" firstAttribute="leading" secondItem="ghg-oS-on2" secondAttribute="leadingMargin" id="Dy7-2A-XAt"/>
                                         <constraint firstItem="6f5-Rl-mxQ" firstAttribute="top" secondItem="ghg-oS-on2" secondAttribute="topMargin" id="F1V-gS-ytp"/>
-                                        <constraint firstItem="q6k-gi-buW" firstAttribute="leading" secondItem="6f5-Rl-mxQ" secondAttribute="trailing" id="SNC-Sg-EXa"/>
+                                        <constraint firstItem="q6k-gi-buW" firstAttribute="leading" secondItem="6f5-Rl-mxQ" secondAttribute="trailing" constant="10" id="SNC-Sg-EXa"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="6f5-Rl-mxQ" secondAttribute="bottom" id="Vgr-rb-VLL"/>
                                         <constraint firstItem="q6k-gi-buW" firstAttribute="centerY" secondItem="ghg-oS-on2" secondAttribute="centerY" id="eaz-E6-7tD"/>
-                                        <constraint firstItem="6f5-Rl-mxQ" firstAttribute="leading" secondItem="ghg-oS-on2" secondAttribute="leadingMargin" id="rsD-DV-Lco"/>
+                                        <constraint firstItem="6f5-Rl-mxQ" firstAttribute="leading" secondItem="iNk-LS-ubP" secondAttribute="trailing" constant="10" id="x9c-RA-2hA"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="completeCheckBox" destination="q6k-gi-buW" id="30c-U2-5LW"/>
-                                    <outlet property="completedStreakLabel" destination="t8M-lN-dHT" id="sEr-aL-WAw"/>
+                                    <outlet property="completedStreakCounter" destination="iNk-LS-ubP" id="xKN-uJ-cNo"/>
                                     <outlet property="nameLabel" destination="UPJ-ht-ivz" id="Rge-5E-6DS"/>
                                     <segue destination="wu1-Yj-Xs5" kind="show" identifier="showHabitDetail" id="16Y-0t-zan"/>
                                 </connections>

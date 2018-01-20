@@ -12,9 +12,9 @@ import BEMCheckBox
 class HabitTableViewCell: UITableViewCell {
 
     //MARK: - Properties
-    @IBOutlet weak var completedStreakLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var completeCheckBox: BEMCheckBox!
+    @IBOutlet weak var completedStreakCounter: CounterView!
     
     var habit: Habit?
     var goals: [Goal] = []
@@ -82,7 +82,7 @@ class HabitTableViewCell: UITableViewCell {
             
             //TODO: TODO - refactor to function
             // increase habit streak for vc and to database
-            self.completedStreakLabel.text = "(\(habit.completedStreak + 1))"
+            self.completedStreakCounter.setCounter(to: habit.completedStreak + 1)
             habit.completedStreak += 1
             habitsAPI.edit(habit: habit)
             
@@ -118,7 +118,7 @@ class HabitTableViewCell: UITableViewCell {
             
             //TODO: TODO - refactor to function
             // decrease habit streak for vc and to database
-            self.completedStreakLabel.text = "(\(habit.completedStreak - 1))"
+            self.completedStreakCounter.setCounter(to: habit.completedStreak - 1)
             habit.completedStreak -= 1
             habitsAPI.edit(habit: habit)
             
