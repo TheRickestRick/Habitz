@@ -33,6 +33,7 @@
 		16E845F72003CC6900BD7E99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16E845F52003CC6900BD7E99 /* LaunchScreen.storyboard */; };
 		16E846002003CFC000BD7E99 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E845FF2003CFC000BD7E99 /* Goal.swift */; };
 		16E846022003CFC700BD7E99 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E846012003CFC700BD7E99 /* Habit.swift */; };
+		16EF24AE20139CF900E44E82 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EF24AD20139CF900E44E82 /* CounterView.swift */; };
 		BA4F66EDBC34E2E3F276C102 /* Pods_Habitz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		16E845F82003CC6900BD7E99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16E845FF2003CFC000BD7E99 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		16E846012003CFC700BD7E99 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		16EF24AD20139CF900E44E82 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		26BFB2C80B6B317355D2FF80 /* Pods-Habitz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habitz.release.xcconfig"; path = "Pods/Target Support Files/Pods-Habitz/Pods-Habitz.release.xcconfig"; sourceTree = "<group>"; };
 		60B2FD8F07FC07FA063AE7A1 /* Pods-Habitz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habitz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Habitz/Pods-Habitz.debug.xcconfig"; sourceTree = "<group>"; };
 		AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habitz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				164BDEBE201387E500ED3491 /* UIColorExtension.swift */,
 				164BDEC020138A0A00ED3491 /* ColorScheme.swift */,
 				164BDEC220138A4200ED3491 /* ColorTheme.swift */,
+				16EF24AD20139CF900E44E82 /* CounterView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */,
 				16E846002003CFC000BD7E99 /* Goal.swift in Sources */,
 				169F9535201264D60073842D /* TimeOfDayPickerDelegate.swift in Sources */,
+				16EF24AE20139CF900E44E82 /* CounterView.swift in Sources */,
 				16190E98200A5AA60089FE80 /* GoalsTableViewController.swift in Sources */,
 				161333D12010B76A00AEEE9F /* CompletedHabitsAPI.swift in Sources */,
 				16E846022003CFC700BD7E99 /* Habit.swift in Sources */,

@@ -80,17 +80,7 @@ class GoalsTableViewController: UITableViewController {
         
         cell.completedStreakLabel.text = "(\(goal.completedStreak))"
         cell.nameLabel.text = goal.name
-        
-        
-        //TODO: TODO - set text based on complete or not
-        if goal.isComplete {
-            cell.isCompletedLabel.text = "(X)"
-        } else {
-            cell.isCompletedLabel.text = "(O)"
-        }
         cell.completeCheckBox.on = goal.isComplete
-  
-        
         
         return cell
     }

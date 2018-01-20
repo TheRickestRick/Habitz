@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -223,29 +222,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uje-EE-qES" customClass="CounterView" customModule="Habitz" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="7" width="30" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.80737703849999998" blue="0.87567692909999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="BNA-Vu-Hcy"/>
+                                                <constraint firstAttribute="width" constant="30" id="Rc2-xK-Ueu"/>
+                                            </constraints>
+                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-2w-ciy">
-                                            <rect key="frame" x="16" y="11" width="343" height="22"/>
+                                            <rect key="frame" x="46" y="11" width="273" height="22"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(10)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xry-v8-i6N">
-                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="5oS-hD-VwA"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(X)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEn-oH-g3e">
-                                                    <rect key="frame" x="40" y="0.0" width="40" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="Hic-Om-1zr"/>
+                                                        <constraint firstAttribute="width" constant="50" id="5oS-hD-VwA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is some goal being tracked" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2M-iO-TpC">
-                                                    <rect key="frame" x="80" y="0.0" width="263" height="22"/>
+                                                    <rect key="frame" x="50" y="0.0" width="223" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -253,15 +251,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="xry-v8-i6N" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="3vw-xb-yXC"/>
-                                                <constraint firstItem="VEn-oH-g3e" firstAttribute="leading" secondItem="xry-v8-i6N" secondAttribute="trailing" id="DDD-9g-UVL"/>
                                                 <constraint firstItem="V2M-iO-TpC" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="EJ7-DE-dej"/>
                                                 <constraint firstAttribute="bottom" secondItem="xry-v8-i6N" secondAttribute="bottom" id="GWU-xb-zkZ"/>
                                                 <constraint firstItem="xry-v8-i6N" firstAttribute="leading" secondItem="xcD-2w-ciy" secondAttribute="leading" id="HEw-gN-yR0"/>
-                                                <constraint firstItem="VEn-oH-g3e" firstAttribute="top" secondItem="xcD-2w-ciy" secondAttribute="top" id="KXF-Id-EdQ"/>
+                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="leading" secondItem="xry-v8-i6N" secondAttribute="trailing" id="LKx-9x-1o9"/>
                                                 <constraint firstAttribute="trailing" secondItem="V2M-iO-TpC" secondAttribute="trailing" id="kED-aG-gI6"/>
                                                 <constraint firstAttribute="bottom" secondItem="V2M-iO-TpC" secondAttribute="bottom" id="nTs-sa-mQ1"/>
-                                                <constraint firstAttribute="bottom" secondItem="VEn-oH-g3e" secondAttribute="bottom" id="oAQ-fh-hRJ"/>
-                                                <constraint firstItem="V2M-iO-TpC" firstAttribute="leading" secondItem="VEn-oH-g3e" secondAttribute="trailing" id="xns-nI-mI1"/>
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgY-kC-sdj" customClass="BEMCheckBox">
@@ -281,22 +276,24 @@
                                                 <userDefinedRuntimeAttribute type="color" keyPath="onFillColor">
                                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="xcD-2w-ciy" firstAttribute="leading" secondItem="x2B-lZ-Z5Q" secondAttribute="leadingMargin" id="4w2-yi-gha"/>
+                                        <constraint firstItem="lgY-kC-sdj" firstAttribute="leading" secondItem="xcD-2w-ciy" secondAttribute="trailing" constant="10" id="AUb-sz-qqi"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="lgY-kC-sdj" secondAttribute="trailing" id="BIB-8z-OIK"/>
-                                        <constraint firstItem="lgY-kC-sdj" firstAttribute="trailingMargin" secondItem="xcD-2w-ciy" secondAttribute="trailing" constant="-8" id="Ji3-1O-Xlb"/>
+                                        <constraint firstItem="xcD-2w-ciy" firstAttribute="leading" secondItem="Uje-EE-qES" secondAttribute="trailing" id="Noa-lP-8Fr"/>
                                         <constraint firstItem="lgY-kC-sdj" firstAttribute="centerY" secondItem="x2B-lZ-Z5Q" secondAttribute="centerY" id="SHp-kK-H66"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="xcD-2w-ciy" secondAttribute="bottom" id="Xlv-CE-WWI"/>
+                                        <constraint firstItem="Uje-EE-qES" firstAttribute="leading" secondItem="x2B-lZ-Z5Q" secondAttribute="leadingMargin" id="kkL-fq-JMt"/>
                                         <constraint firstItem="xcD-2w-ciy" firstAttribute="top" secondItem="x2B-lZ-Z5Q" secondAttribute="topMargin" id="mrd-0u-ZEr"/>
+                                        <constraint firstItem="Uje-EE-qES" firstAttribute="centerY" secondItem="x2B-lZ-Z5Q" secondAttribute="centerY" id="ya3-Cw-79y"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="completeCheckBox" destination="lgY-kC-sdj" id="TG3-OY-q72"/>
                                     <outlet property="completedStreakLabel" destination="xry-v8-i6N" id="gWb-0P-SXb"/>
-                                    <outlet property="isCompletedLabel" destination="VEn-oH-g3e" id="8e4-bJ-azB"/>
                                     <outlet property="nameLabel" destination="V2M-iO-TpC" id="7Jy-N2-ew5"/>
                                     <segue destination="wtc-X1-4y5" kind="show" identifier="showGoalDetail" id="LCd-yb-SeC"/>
                                 </connections>

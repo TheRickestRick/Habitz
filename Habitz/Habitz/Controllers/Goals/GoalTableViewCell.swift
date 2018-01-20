@@ -14,7 +14,6 @@ class GoalTableViewCell: UITableViewCell {
     //MARK: - Properties
     @IBOutlet weak var completedStreakLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var isCompletedLabel: UILabel!
     @IBOutlet weak var completeCheckBox: BEMCheckBox!
     
     
