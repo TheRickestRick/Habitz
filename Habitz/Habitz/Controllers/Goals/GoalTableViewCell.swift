@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BEMCheckBox
 
 class GoalTableViewCell: UITableViewCell {
 
@@ -14,11 +15,13 @@ class GoalTableViewCell: UITableViewCell {
     @IBOutlet weak var completedStreakLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var isCompletedLabel: UILabel!
+    @IBOutlet weak var completeCheckBox: BEMCheckBox!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        completeCheckBox.isUserInteractionEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

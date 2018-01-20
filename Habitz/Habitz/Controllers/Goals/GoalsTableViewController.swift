@@ -88,6 +88,7 @@ class GoalsTableViewController: UITableViewController {
         } else {
             cell.isCompletedLabel.text = "(O)"
         }
+        cell.completeCheckBox.on = goal.isComplete
   
         
         

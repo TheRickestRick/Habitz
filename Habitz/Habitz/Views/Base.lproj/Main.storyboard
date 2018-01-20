@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -225,7 +226,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-2w-ciy">
                                             <rect key="frame" x="16" y="11" width="343" height="22"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(10)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xry-v8-i6N">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(10)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xry-v8-i6N">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="5oS-hD-VwA"/>
@@ -234,7 +235,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(X)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEn-oH-g3e">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(X)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEn-oH-g3e">
                                                     <rect key="frame" x="40" y="0.0" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Hic-Om-1zr"/>
@@ -263,15 +264,37 @@
                                                 <constraint firstItem="V2M-iO-TpC" firstAttribute="leading" secondItem="VEn-oH-g3e" secondAttribute="trailing" id="xns-nI-mI1"/>
                                             </constraints>
                                         </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgY-kC-sdj" customClass="BEMCheckBox">
+                                            <rect key="frame" x="329" y="7" width="30" height="30"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="0RX-yB-BCz"/>
+                                                <constraint firstAttribute="height" constant="30" id="mAU-dG-iDH"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
+                                                    <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
+                                                    <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="onFillColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="xcD-2w-ciy" firstAttribute="leading" secondItem="x2B-lZ-Z5Q" secondAttribute="leadingMargin" id="4w2-yi-gha"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="xcD-2w-ciy" secondAttribute="trailing" id="Ji3-1O-Xlb"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="lgY-kC-sdj" secondAttribute="trailing" id="BIB-8z-OIK"/>
+                                        <constraint firstItem="lgY-kC-sdj" firstAttribute="trailingMargin" secondItem="xcD-2w-ciy" secondAttribute="trailing" constant="-8" id="Ji3-1O-Xlb"/>
+                                        <constraint firstItem="lgY-kC-sdj" firstAttribute="centerY" secondItem="x2B-lZ-Z5Q" secondAttribute="centerY" id="SHp-kK-H66"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="xcD-2w-ciy" secondAttribute="bottom" id="Xlv-CE-WWI"/>
                                         <constraint firstItem="xcD-2w-ciy" firstAttribute="top" secondItem="x2B-lZ-Z5Q" secondAttribute="topMargin" id="mrd-0u-ZEr"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="completeCheckBox" destination="lgY-kC-sdj" id="TG3-OY-q72"/>
                                     <outlet property="completedStreakLabel" destination="xry-v8-i6N" id="gWb-0P-SXb"/>
                                     <outlet property="isCompletedLabel" destination="VEn-oH-g3e" id="8e4-bJ-azB"/>
                                     <outlet property="nameLabel" destination="V2M-iO-TpC" id="7Jy-N2-ew5"/>
@@ -366,9 +389,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6f5-Rl-mxQ">
-                                            <rect key="frame" x="16" y="11" width="343" height="22"/>
+                                            <rect key="frame" x="16" y="11" width="313" height="22"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(4)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8M-lN-dHT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(4)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8M-lN-dHT">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="bAC-bo-iC1"/>
@@ -378,38 +401,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a HABIT being tracked" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPJ-ht-ivz">
-                                                    <rect key="frame" x="50" y="0.0" width="268" height="22"/>
+                                                    <rect key="frame" x="50" y="0.0" width="263" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6k-gi-buW" customClass="BEMCheckBox">
-                                                    <rect key="frame" x="318" y="0.0" width="25" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="5yP-2M-D7L"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="size" keyPath="minimumTouchSize">
-                                                            <size key="value" width="10" height="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
-                                                            <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="onFillColor">
-                                                            <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                            <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
-                                                            <real key="value" value="0.29999999999999999"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCheckBox:" destination="LJp-ol-UEi" eventType="valueChanged" id="2SN-0M-BtN"/>
-                                                    </connections>
-                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="t8M-lN-dHT" secondAttribute="bottom" id="3Tl-Et-Mza"/>
@@ -417,15 +413,44 @@
                                                 <constraint firstItem="UPJ-ht-ivz" firstAttribute="top" secondItem="6f5-Rl-mxQ" secondAttribute="top" id="A4X-ZX-vKu"/>
                                                 <constraint firstItem="UPJ-ht-ivz" firstAttribute="leading" secondItem="t8M-lN-dHT" secondAttribute="trailing" id="NqC-mP-qdf"/>
                                                 <constraint firstItem="t8M-lN-dHT" firstAttribute="leading" secondItem="6f5-Rl-mxQ" secondAttribute="leading" id="Urw-ci-ec0"/>
-                                                <constraint firstItem="q6k-gi-buW" firstAttribute="leading" secondItem="UPJ-ht-ivz" secondAttribute="trailing" id="eec-Sp-ljD"/>
                                                 <constraint firstAttribute="bottom" secondItem="UPJ-ht-ivz" secondAttribute="bottom" id="fDf-Nb-ox2"/>
                                             </constraints>
                                         </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6k-gi-buW" customClass="BEMCheckBox">
+                                            <rect key="frame" x="329" y="6" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="5yP-2M-D7L"/>
+                                                <constraint firstAttribute="height" constant="30" id="FRH-1u-KHh"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="size" keyPath="minimumTouchSize">
+                                                    <size key="value" width="0.0" height="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
+                                                    <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="onFillColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
+                                                    <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
+                                                    <real key="value" value="0.29999999999999999"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="toggleCheckBox:" destination="LJp-ol-UEi" eventType="valueChanged" id="2SN-0M-BtN"/>
+                                            </connections>
+                                        </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="q6k-gi-buW" secondAttribute="trailing" id="88r-eC-gp7"/>
                                         <constraint firstItem="6f5-Rl-mxQ" firstAttribute="top" secondItem="ghg-oS-on2" secondAttribute="topMargin" id="F1V-gS-ytp"/>
+                                        <constraint firstItem="q6k-gi-buW" firstAttribute="leading" secondItem="6f5-Rl-mxQ" secondAttribute="trailing" id="SNC-Sg-EXa"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="6f5-Rl-mxQ" secondAttribute="bottom" id="Vgr-rb-VLL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="6f5-Rl-mxQ" secondAttribute="trailing" id="Wqd-oc-Yru"/>
+                                        <constraint firstItem="q6k-gi-buW" firstAttribute="centerY" secondItem="ghg-oS-on2" secondAttribute="centerY" id="eaz-E6-7tD"/>
                                         <constraint firstItem="6f5-Rl-mxQ" firstAttribute="leading" secondItem="ghg-oS-on2" secondAttribute="leadingMargin" id="rsD-DV-Lco"/>
                                     </constraints>
                                 </tableViewCellContentView>
