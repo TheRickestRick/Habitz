@@ -11,16 +11,11 @@ import UIKit
 
 class CounterView: UIView {
     var counter: Int = 0
+    var counterLabel: UILabel = UILabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.layer.cornerRadius = self.frame.width / 2
-    }
-    
-    convenience init(startingValue: Int) {
-        self.init(frame: CGRect.zero)
-        self.counter = startingValue
         
         self.layer.cornerRadius = self.frame.width / 2
     }
@@ -34,23 +29,53 @@ class CounterView: UIView {
     }
     
     
+    func setCounter(to counter: Int) -> Void {
+        self.counter = counter
+        self.counterLabel.text = "\(self.counter)"
+        self.updateColor()
+    }
+    
     func incrementCounter() -> Void {
         self.counter += 1
+        self.updateColor()
     }
     
     func decrementCounter() -> Void {
         self.counter -= 1
+        self.updateColor()
+    }
+    
+    
+    // update the background color based on the counter value
+    func updateColor() -> Void {
+        switch self.counter {
+        
+        case let x where x < -3:
+            self.backgroundColor = ColorScheme.negation.value
+        
+        case let x where x < 0:
+            self.backgroundColor = UIColor.yellow // warning
+        
+        case let x where x < 10:
+            self.backgroundColor = ColorScheme.affirmation.value
+        
+        case let x where x > 10:
+            self.backgroundColor = UIColor.blue // success
+        
+        default:
+            self.backgroundColor = ColorScheme.lightBackground.value
+        }
     }
     
     
     private func addLabel() -> Void {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width))
+        counterLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width))
         
-        label.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-        label.textAlignment = .center
-        label.text = "\(self.counter)"
+        counterLabel.center = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+        counterLabel.textAlignment = .center
+        counterLabel.text = "\(self.counter)"
         
-        self.addSubview(label)
+        self.addSubview(counterLabel)
     }
 }
 

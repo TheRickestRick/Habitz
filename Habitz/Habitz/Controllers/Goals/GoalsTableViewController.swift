@@ -79,6 +79,8 @@ class GoalsTableViewController: UITableViewController {
         let goal = goals[indexPath.row]
         
         cell.completedStreakLabel.text = "(\(goal.completedStreak))"
+        cell.completedStreakCounterView.setCounter(to: goal.completedStreak)
+        
         cell.nameLabel.text = goal.name
         cell.completeCheckBox.on = goal.isComplete
         

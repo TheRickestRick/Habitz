@@ -293,6 +293,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="completeCheckBox" destination="lgY-kC-sdj" id="TG3-OY-q72"/>
+                                    <outlet property="completedStreakCounterView" destination="Uje-EE-qES" id="lJH-qX-VCr"/>
                                     <outlet property="completedStreakLabel" destination="xry-v8-i6N" id="gWb-0P-SXb"/>
                                     <outlet property="nameLabel" destination="V2M-iO-TpC" id="7Jy-N2-ew5"/>
                                     <segue destination="wtc-X1-4y5" kind="show" identifier="showGoalDetail" id="LCd-yb-SeC"/>
