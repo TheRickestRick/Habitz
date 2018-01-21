@@ -19,11 +19,8 @@ class HabitTableViewCell: UITableViewCell {
     var habit: Habit?
     var goals: [Goal] = []
     
-    
-    
     var habitsManager: HabitsManager?
     var editableTableDelegate: EditableTableDelegate?
-    
     
     
     override func awakeFromNib() {

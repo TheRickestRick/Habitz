@@ -37,7 +37,7 @@ class HabitsManager: HabitCompletionUpdateDelegate {
     }
     
     
-    
+    //MARK: - Completion Updates
     func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
         let goalsManager = GoalsManager()
         habitsAPI.markComplete(habit, completion: {
@@ -114,7 +114,8 @@ class HabitsManager: HabitCompletionUpdateDelegate {
         }
     }
     
-    //TODO
+    
+    //MARK: - Private and Helper Methods
     func getAllAndCompletedHabits(for goal: Goal, completion: @escaping (_ all: [Habit], _ completed: [Habit]) -> ()) {
         // get ALL goals belonging to that habit
         habitsAPI.getAllForGoal(havingId: goal.id!, completion: { (habits) in

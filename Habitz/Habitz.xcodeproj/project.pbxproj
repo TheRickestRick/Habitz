@@ -214,8 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				169F952C201258D80073842D /* GoalIdPickerDelegate.swift */,
-				169F95302012637B0073842D /* HabitCompletionUpdateDelegate.swift */,
 				169F9534201264D60073842D /* TimeOfDayPickerDelegate.swift */,
+				169F95302012637B0073842D /* HabitCompletionUpdateDelegate.swift */,
 				16EF24BA2014693B00E44E82 /* EditableTableDelegate.swift */,
 			);
 			path = Protocols;

@@ -18,16 +18,10 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     var habits: [Habit] = []
     var completions: [Habit] = []
     
-    
-    
     //TODO: TODO - delete API's, will be owned by managers
     let habitsAPI = HabitsAPI()
     let completedHabitsAPI = CompletedHabitsAPI()
-    let goalsAPI = GoalsAPI()
-    
     let habitsManager = HabitsManager()
-    
-    
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
@@ -269,41 +263,6 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     }
     
     
-    
-    
-    // check if the goal is completed or not and make updates to the db necessary
-    func updateGoalCompletionStatus(goal: Goal, isComplete: Bool) -> Void {
-        
-        // get ALL goals and completed goals belonging to the parent habit
-        self.getHabits(for: goal, completion: { (allHabits, completedHabits) in
-            
-            if isComplete {
-                // if the goal is complete based on its habits, and not currently marked as complete
-                if goal.isCompleteHaving(all: allHabits, completed: completedHabits) && !goal.isComplete {
-                    
-                    goal.isComplete = true
-                    goal.completedStreak += 1
-                    self.goalsAPI.markComplete(goal)
-                        
-                }
-            } else {
-                // if the goal is not complete based on its habits, and currently marked as complete
-                if !goal.isCompleteHaving(all: allHabits, completed: completedHabits) && goal.isComplete {
-                    
-                    goal.isComplete = false
-                    goal.completedStreak -= 1
-                    self.goalsAPI.markIncomplete(goal)
-                    
-                }
-            }
-            
-            self.goalsAPI.edit(goal: goal)
-        })
-    }
-    
-    
-    
-    
     //MARK: - Private Methods
     
     // update data array to group all habits by their time of day
@@ -359,20 +318,5 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
         self.sortData()
         self.tableView.reloadData()
     }
-    
-    
-    
-    func getHabits(for goal: Goal, completion: @escaping (_ all: [Habit], _ completed: [Habit]) -> ()) {
-        // get ALL goals belonging to that habit
-        habitsAPI.getAllForGoal(havingId: goal.id!, completion: { (habits) in
-            let allHabits = habits
-            
-            // get only completed goals beloging to that habit
-            self.completedHabitsAPI.getTodaysCompletionsForGoal(havingId: goal.id!, completion: { (habits) in
-                let completedHabits = habits
-                
-                completion(allHabits, completedHabits)
-            })
-        })
-    }
+
 }
