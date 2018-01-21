@@ -10,15 +10,13 @@ import Foundation
 
 class GoalsManager  {
     let goalsAPI = GoalsAPI()
-    
-    let habitsManager = HabitsManager()
-    
+        
     // check if the goal is completed or not and make updates to the db necessary
-    func updateGoalCompletionStatus(goal: Goal, isComplete: Bool) -> Void {
+    func updateGoalCompletionStatus(goal: Goal, isComplete: Bool, allHabits: [Habit], completedHabits: [Habit]) -> Void {
         
         // get ALL goals and completed goals belonging to the parent habit
-        self.habitsManager.getAllAndCompletedHabits(for: goal, completion: { (allHabits, completedHabits) in
-            
+//        self.habitsManager.getAllAndCompletedHabits(for: goal, completion: { (allHabits, completedHabits) in
+        
             if isComplete {
                 // if the goal is complete based on its habits, and not currently marked as complete
                 if goal.isCompleteHaving(all: allHabits, completed: completedHabits) && !goal.isComplete {
@@ -40,7 +38,7 @@ class GoalsManager  {
             }
             
             self.goalsAPI.edit(goal: goal)
-        })
+//        })
     }
     
 }

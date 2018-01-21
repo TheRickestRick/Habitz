@@ -12,8 +12,6 @@ class HabitsManager {
     let habitsAPI = HabitsAPI()
     let completedHabitsAPI = CompletedHabitsAPI()
     
-    let goalsManager = GoalsManager()
-    
     
     //MARK: - CRUD Operations
     func createHabit(for habit: Habit, completion: @escaping (Habit) -> ()) {
@@ -40,9 +38,10 @@ class HabitsManager {
     
     
     
-    func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
+    func markHabitCompleteFor(completedHabit habit: Habit, completion: @escaping () -> Void) {
         habitsAPI.markComplete(habit, completion: {
-            self.goalsManager.updateGoalCompletionStatus(goal: goal, isComplete: true)
+            completion()
+//            self.goalsManager.updateGoalCompletionStatus(goal: goal, isComplete: true)
         })
         
         // update view for completion status
@@ -51,10 +50,10 @@ class HabitsManager {
     }
     
     
-    func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
+    func markHabitIncomplete(missedHabit habit: Habit, completion: @escaping () -> Void) {
         // update database for completion status
         habitsAPI.markIncomplete(habit, completion: {
-            self.goalsManager.updateGoalCompletionStatus(goal: goal, isComplete: false)
+            completion()
         })
         
         // update view for completion status

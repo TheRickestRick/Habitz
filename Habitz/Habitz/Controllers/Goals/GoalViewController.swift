@@ -38,6 +38,8 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     var completions: [Habit] = []
     
     
+    let habitsManager = HabitsManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

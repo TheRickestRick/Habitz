@@ -13,14 +13,21 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
 
     
     // MARK: - Properties
-    var habits: [Habit] = []
-    let habitsAPI = HabitsAPI()
-    
     var userUid: String?
     
+    var habits: [Habit] = []
     var completions: [Habit] = []
+    
+    
+    
+    //TODO: TODO - delete API's, will be owned by managers
+    let habitsAPI = HabitsAPI()
     let completedHabitsAPI = CompletedHabitsAPI()
     let goalsAPI = GoalsAPI()
+    
+    let habitsManager = HabitsManager()
+    
+    
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
@@ -365,7 +372,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     func createHabit(for habit: Habit) -> Void {
         // add new habit to the database
-        habitsAPI.create(habit: habit, completion: { (habit) in
+        habitsManager.createHabit(for: habit) { (habit) in
             
             // update stored array
             self.habits.append(habit)
@@ -373,20 +380,20 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             // refresh and reload the data in the table view
             self.sortData()
             self.tableView.reloadData()
-        })
+        }
     }
     
     func editHabit(for editedHabit: Habit) -> Void {
         // edit habit in the database
-        habitsAPI.edit(habit: editedHabit)
+        habitsManager.editHabit(for: editedHabit) { (habit) in }
         
         // updates an existing habit in the array
         let indexToEdit = habits.index { (habit) -> Bool in
             return habit.id == editedHabit.id
         }
         habits[indexToEdit!] = editedHabit
-        
-        
+
+
         //TODO: TODO - update to reload only data at the selected indexPath to prevent all checkboxes from activating
         // refresh and reload the data in the table view
         self.sortData()
@@ -395,7 +402,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     func deleteHabit(for deletedHabit: Habit) -> Void {
         // delete habit from database
-         habitsAPI.delete(habit: deletedHabit)
+        habitsManager.deleteHabit(for: deletedHabit) { (habit) in }
         
         // delete the habit from the array
         let indexToDelete = habits.index { (habit) -> Bool in
