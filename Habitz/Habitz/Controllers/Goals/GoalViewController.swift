@@ -51,40 +51,37 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         }
         
         
-        // todo get all associated habits for the selected goal
-        habitsAPI.getAllForGoal(havingId: (goal?.id)!) { (allHabits) in
-            
-            self.habits = allHabits
-            
-            // get completed habits from TODAY to compare against ALL habits
-            self.completedHabitsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
-                self.completions = completedHabits
+        // todo get all associated habits for the selected goal if in edit mode
+        if let goalId = goal?.id {
+            habitsAPI.getAllForGoal(havingId: goalId) { (allHabits) in
                 
-                // update all habits to have correct completion status based on
-                // comparing against the completed habits array
-                self.compare(allHabits: self.habits, completedHabits: self.completions)
+                self.habits = allHabits
                 
-                
-                // get completed habits from YESTERDAY, to compare to all habits, and
-                // reset streak count to zero if a habit was not completed yesterday
-                self.resetMissedCompletions(for: allHabits, completion: {
+                // get completed habits from TODAY to compare against ALL habits
+                self.completedHabitsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
+                    self.completions = completedHabits
                     
-                    // creating the delegate object and passing the data
-                    self.tableViewDelegate = AssociatedHabitsTableViewDelegate(data: self.habits)
+                    // update all habits to have correct completion status based on
+                    // comparing against the completed habits array
+                    self.compare(allHabits: self.habits, completedHabits: self.completions)
                     
-                    // setting the delegate object to tableView
-                    self.associatedHabitsTableView.delegate = self.tableViewDelegate
-                    self.associatedHabitsTableView.dataSource = self.tableViewDelegate
                     
-                    self.associatedHabitsTableView.reloadData()
+                    // get completed habits from YESTERDAY, to compare to all habits, and
+                    // reset streak count to zero if a habit was not completed yesterday
+                    self.resetMissedCompletions(for: allHabits, completion: {
+                        
+                        // creating the delegate object and passing the data
+                        self.tableViewDelegate = AssociatedHabitsTableViewDelegate(data: self.habits)
+                        
+                        // setting the delegate object to tableView
+                        self.associatedHabitsTableView.delegate = self.tableViewDelegate
+                        self.associatedHabitsTableView.dataSource = self.tableViewDelegate
+                        
+                        self.associatedHabitsTableView.reloadData()
+                    })
                 })
-            })
+            }
         }
-        
-        
-        
-        
-        
         
         
         
