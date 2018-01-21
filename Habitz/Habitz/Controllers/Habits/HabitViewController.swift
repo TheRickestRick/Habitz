@@ -12,12 +12,13 @@ import FirebaseAuth
 class HabitViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Properties
+    @IBOutlet weak var habitNameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var isCompletedTextField: UITextField!
     @IBOutlet weak var completedStreakTextField: UITextField!
     @IBOutlet weak var associatedGoalTextField: UITextField!
     @IBOutlet weak var timeOfDayTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     
     // passed in by HabitTableViewController or constructed as part of adding a new habit
     var habit: Habit?
@@ -30,9 +31,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
     let timeOfDayPicker: UIPickerView! = UIPickerView()
     var timeOfDayPickerDelegate: TimeOfDayPickerDelegate?
 
-    //
     let goalsAPI = GoalsAPI()
-    
     
     
     override func viewDidLoad() {
@@ -58,7 +57,6 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
         timeOfDayTextField.inputView = timeOfDayPicker
         
         
-        
         // get current user uid
         if let user = Auth.auth().currentUser {
             userUid = user.uid
@@ -69,9 +67,9 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
                 
                 if let habit = self.habit {
                     // set up views if editing an existing habit
-                    self.navigationItem.title = habit.name
+                    self.navigationItem.title = "Habit Details"
+                    self.habitNameLabel.text = habit.name
                     self.nameTextField.text = habit.name
-                    self.isCompletedTextField.text = String(habit.isComplete)
                     self.completedStreakTextField.text = String(habit.completedStreak)
                     
                     // get index for time of day value, then update the text and pick the row
@@ -88,6 +86,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
                     
                 } else {
                     // setup initial view for create new
+                    self.habitNameLabel.text = "What can you do to support and achieve your goals?"
                     self.associatedGoalTextField.text = self.goalIdPickerDelegate!.pickerData[0].name
                     self.timeOfDayTextField.text = self.timeOfDayPickerDelegate?.pickerData[0]
                 }

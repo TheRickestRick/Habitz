@@ -98,12 +98,12 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         // sets up views if editing an existing goal
         if let goal = goal {
             navigationItem.title = "Goal Details"
-            associatedGoalsLabel.isHidden = false
             goalNameLabel.text = goal.name
             nameTextField.text = goal.name
             percentToBeCompleteTextField.text = String(goal.percentToBeComplete)
         } else {
             // sets up views if creating a new goal
+            goalNameLabel.text = "What do you want to accomplish?\nHow do you want to feel?"
             associatedGoalsLabel.isHidden = true
             percentToBeCompleteTextField.text = String(pickerData[0])
         }
