@@ -19,9 +19,6 @@ class HabitTableViewCell: UITableViewCell {
     var habit: Habit?
     var goals: [Goal] = []
     
-    let habitsAPI = HabitsAPI()
-    let completedHabitsAPI = CompletedHabitsAPI()
-    
     var habitCompletionUpdateDelegate: HabitCompletionUpdateDelegate?
     
     
@@ -60,20 +57,5 @@ class HabitTableViewCell: UITableViewCell {
             habitCompletionUpdateDelegate.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
         }
     }
-    
-    
-    //MARK: - Private Methods
-    func getHabits(for goal: Goal, completion: @escaping (_ all: [Habit], _ completed: [Habit]) -> ()) {
-        // get ALL goals belonging to that habit
-        habitsAPI.getAllForGoal(havingId: goal.id!, completion: { (habits) in
-            let allHabits = habits
-            
-            // get only completed goals beloging to that habit
-            self.completedHabitsAPI.getTodaysCompletionsForGoal(havingId: goal.id!, completion: { (habits) in
-                let completedHabits = habits
-                
-                completion(allHabits, completedHabits)
-            })
-        })
-    }
+
 }
