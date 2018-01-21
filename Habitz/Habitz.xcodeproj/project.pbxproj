@@ -98,7 +98,6 @@
 				16190E97200A5AA60089FE80 /* GoalsTableViewController.swift */,
 				16190E99200A5AB70089FE80 /* GoalTableViewCell.swift */,
 				16190E9B200A63100089FE80 /* GoalViewController.swift */,
-				16EF24B12013F43900E44E82 /* AssociatedHabitsTableViewDelegate.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -217,6 +216,7 @@
 				169F9534201264D60073842D /* TimeOfDayPickerDelegate.swift */,
 				169F95302012637B0073842D /* HabitCompletionUpdateDelegate.swift */,
 				16EF24BA2014693B00E44E82 /* EditableTableDelegate.swift */,
+				16EF24B12013F43900E44E82 /* AssociatedHabitsTableViewDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

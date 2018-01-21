@@ -28,6 +28,17 @@ class HabitTableViewCell: UITableViewCell {
         
         completeCheckBox.onAnimationType = BEMAnimationType.bounce
         completeCheckBox.offAnimationType = BEMAnimationType.fade
+        
+        
+        //MARK: Coloring and Styling
+        self.backgroundColor = ColorScheme.neutralBackground.value
+        
+        nameLabel.textColor = ColorScheme.darkText.value
+        
+        completeCheckBox.onTintColor = ColorScheme.success.value
+        completeCheckBox.onCheckColor = ColorScheme.success.value
+        
+        completeCheckBox.tintColor = ColorScheme.neutral.value
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

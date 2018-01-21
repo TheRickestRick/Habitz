@@ -73,6 +73,15 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        
+        //MARK: Coloring and Styling
+        view.backgroundColor = ColorScheme.neutralBackground.value
+        navigationController?.navigationBar.tintColor = ColorScheme.lightText.value
+        navigationController?.navigationBar.barTintColor = ColorScheme.darkText.value
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value]
+        tableView.backgroundColor = ColorScheme.neutralBackground.value
+
     }
     
     
@@ -145,17 +154,18 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     
     // set up header views and properties
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
-        
-        // view.backgroundColor = UIColor(red: 253.0/255.0, green: 240.0/255.0, blue: 196.0/255.0, alpha: 1)
-        view.backgroundColor = ColorScheme.lightBackground.value
-        
-        
         let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 30, height: sectionHeaderHeight))
+        
+        
+        
+        //TODO: TODO - update font
         label.font = UIFont.boldSystemFont(ofSize: 15)
         
         
-        // label.textColor = UIColor.black
+        
+        view.backgroundColor = ColorScheme.lightBackground.value
         label.textColor = ColorScheme.darkText.value
         
         

@@ -52,18 +52,23 @@ class CounterView: UIView {
         
         case let x where x < -3:
             self.backgroundColor = ColorScheme.negation.value
+            self.counterLabel.textColor = ColorScheme.lightText.value
         
         case let x where x <= 0:
-            self.backgroundColor = UIColor.yellow // warning
+            self.backgroundColor = ColorScheme.warning.value
+            self.counterLabel.textColor = ColorScheme.darkText.value
         
         case let x where x <= 10:
             self.backgroundColor = ColorScheme.affirmation.value
+            self.counterLabel.textColor = ColorScheme.lightText.value
         
         case let x where x > 10:
-            self.backgroundColor = UIColor.blue // success
+            self.backgroundColor = ColorScheme.success.value
+            self.counterLabel.textColor = ColorScheme.lightText.value
         
         default:
             self.backgroundColor = ColorScheme.lightBackground.value
+            self.counterLabel.textColor = ColorScheme.darkText.value
         }
     }
     

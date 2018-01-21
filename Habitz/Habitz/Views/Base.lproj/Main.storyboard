@@ -324,15 +324,6 @@
                                                 <constraint firstAttribute="height" constant="30" id="mAU-dG-iDH"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                    <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
-                                                    <color key="value" red="0.18385430180000001" green="0.77478585030000002" blue="0.05153456411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onFillColor">
-                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </view>

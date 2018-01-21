@@ -18,16 +18,20 @@ enum ColorScheme {
     case darkBackground
     case lightBackground
     case intermidiateBackground
+    case neutralBackground
     
     case darkText
     case lightText
     case intermidiateText
     
+    case success
     case affirmation
+    case neutral
+    case warning
     case negation
-    // 1
+
     case custom(hexString: String, alpha: Double)
-    // 2
+
     func withAlpha(_ alpha: Double) -> UIColor {
         return self.value.withAlphaComponent(CGFloat(alpha))
     }

@@ -96,7 +96,16 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
                 self.updateSaveButtonState()
             })
         }
-
+        
+        
+        //MARK: Coloring and Styling
+        for view in view.subviews {
+            if let subview = view as? UILabel {
+                subview.textColor = ColorScheme.darkText.value
+            } else if let subview = view as? UITextField {
+                subview.textColor = ColorScheme.darkText.value
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

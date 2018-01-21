@@ -12,4 +12,10 @@ import UIKit
 class GoalsHabitsTabBarController: UITabBarController {
     var goals: [Goal] = []
     var habits: [Habit] = []
+    
+    override func viewDidLoad() {
+        self.tabBar.barTintColor = ColorScheme.darkBackground.value
+        self.tabBar.tintColor = ColorScheme.lightText.value
+        
+    }
 }

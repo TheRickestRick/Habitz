@@ -25,6 +25,7 @@ class GoalsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // store the reference to the current tab bar controller
         goalsHabitsTabBarController = self.tabBarController as! GoalsHabitsTabBarController
         
@@ -40,6 +41,20 @@ class GoalsTableViewController: UITableViewController {
         // auto adjust height for goals that have multiple lines of text
         tableView.rowHeight = UITableViewAutomaticDimension
 
+        
+        
+        
+        //MARK: Coloring and Styling
+        self.view.backgroundColor = ColorScheme.neutralBackground.value
+        
+        navigationController?.navigationBar.tintColor = ColorScheme.lightText.value
+        navigationController?.navigationBar.barTintColor = ColorScheme.darkText.value
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value]
+        
+                
+        tableView.backgroundColor = ColorScheme.neutralBackground.value
+        
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

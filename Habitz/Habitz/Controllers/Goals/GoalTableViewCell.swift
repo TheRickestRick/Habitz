@@ -19,14 +19,22 @@ class GoalTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         completeCheckBox.isUserInteractionEnabled = false
+        
+        
+        //MARK: Coloring and Styling
+        self.backgroundColor = ColorScheme.neutralBackground.value
+        
+        nameLabel.textColor = ColorScheme.darkText.value
+        
+        completeCheckBox.onTintColor = ColorScheme.success.value
+        completeCheckBox.onCheckColor = ColorScheme.success.value
+        
+        completeCheckBox.tintColor = ColorScheme.neutral.value
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
