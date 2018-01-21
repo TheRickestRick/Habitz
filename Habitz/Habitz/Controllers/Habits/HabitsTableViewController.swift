@@ -300,6 +300,10 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 }
             })
         })
+        
+        habit.completedStreak += 1
+        habit.isComplete = true
+        editHabit(for: habit)
     }
     
     func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
@@ -325,7 +329,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                 }
             })
         })
+        
+        habit.completedStreak -= 1
+        habit.isComplete = false
+        editHabit(for: habit)
     }
+    
     
     
     
@@ -397,6 +406,9 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             return habit.id == editedHabit.id
         }
         habits[indexToEdit!] = editedHabit
+        
+        
+        //TODO: TODO - update to reload only data at the selected indexPath to prevent all checkboxes from activating
         
         // refresh and reload the data in the table view
         self.sortData()

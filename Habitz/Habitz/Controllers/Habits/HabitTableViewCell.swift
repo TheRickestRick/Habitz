@@ -36,6 +36,7 @@ class HabitTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    
     @IBAction func toggleCheckBox(_ sender: BEMCheckBox) {
         guard let habit = habit, let habitCompletionUpdateDelegate = habitCompletionUpdateDelegate else {return}
         
@@ -52,13 +53,11 @@ class HabitTableViewCell: UITableViewCell {
             
             // update database for completed habit
             habitCompletionUpdateDelegate.markHabitCompleteFor(completedHabit: habit, withParent: parentGoal)
-            self.updatedCompletedStreakCounterFor(habit: habit, by: 1)
             
         } else {
             
             // update database and view for missed habit
             habitCompletionUpdateDelegate.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
-            self.updatedCompletedStreakCounterFor(habit: habit, by: -1)
         }
     }
     
@@ -76,18 +75,5 @@ class HabitTableViewCell: UITableViewCell {
                 completion(allHabits, completedHabits)
             })
         })
-    }
-    
-    
-    // increase or decrease habit streak for vc and update database
-    func updatedCompletedStreakCounterFor(habit: Habit, by offset: Int) -> Void {
-        
-        self.completedStreakCounter.setCounter(to: habit.completedStreak + offset)
-        habit.completedStreak += offset
-        habitsAPI.edit(habit: habit)
-        
-        
-        // update table vc for completion status
-        habitCompletionUpdateDelegate?.toggleCompletion(for: habit)
     }
 }
