@@ -74,6 +74,41 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
     }
+    
+    
+    //TODO: TODO - update from API call to use habits array stored in goalsHabitsTabBarController
+    // this will make it much snappier
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        
+        //TODO: TODO - complete above task or refactor to function for getting and setting habits
+        // get current user uid
+        if let user = Auth.auth().currentUser {
+            userUid = user.uid
+            
+            // get all habits to populate table
+            habitsAPI.getAllForUser(havingUid: userUid!, completion: { (allHabits) in
+                self.habits = allHabits
+                
+                // get completed habits from TODAY to compare against ALL habits
+                self.completedHabitsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
+                    self.completions = completedHabits
+                    
+                    // update all habits to have correct completion status based on
+                    // comparing against the completed habits array
+                    self.habitsManager.compare(allHabits: self.habits, completedHabits: self.completions)
+                    
+                    
+                    // get completed habits from YESTERDAY, to compare to all habits, and
+                    // reset streak count to zero if a habit was not completed yesterday
+                    self.habitsManager.resetMissedCompletions(for: allHabits, forUserUid: self.userUid!, completion: {
+                        self.sortData()
+                        self.tableView.reloadData()
+                    })
+                })
+            })
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
