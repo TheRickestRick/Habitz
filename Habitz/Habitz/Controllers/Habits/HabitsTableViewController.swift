@@ -264,7 +264,6 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     
     
     //MARK: - Private Methods
-    
     // update data array to group all habits by their time of day
     func sortData() {
         data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
@@ -287,6 +286,22 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
         }
     }
     
+    func deleteHabit(for deletedHabit: Habit) -> Void {
+        // delete habit from database
+        habitsManager.deleteHabit(for: deletedHabit) { (habit) in }
+        
+        // delete the habit from the array
+        let indexToDelete = habits.index { (habit) -> Bool in
+            return habit.id == deletedHabit.id
+        }
+        habits.remove(at: indexToDelete!)
+        
+        // refresh and reload the data in the table view
+        self.sortData()
+        self.tableView.reloadData()
+    }
+    
+    //MARK: EditableTableDelegate
     func editHabit(for editedHabit: Habit) -> Void {
         // edit habit in the database
         habitsManager.editHabit(for: editedHabit) { (habit) in }
@@ -299,21 +314,6 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
 
 
         //TODO: TODO - update to reload only data at the selected indexPath to prevent all checkboxes from activating
-        // refresh and reload the data in the table view
-        self.sortData()
-        self.tableView.reloadData()
-    }
-    
-    func deleteHabit(for deletedHabit: Habit) -> Void {
-        // delete habit from database
-        habitsManager.deleteHabit(for: deletedHabit) { (habit) in }
-        
-        // delete the habit from the array
-        let indexToDelete = habits.index { (habit) -> Bool in
-            return habit.id == deletedHabit.id
-        }
-        habits.remove(at: indexToDelete!)
-        
         // refresh and reload the data in the table view
         self.sortData()
         self.tableView.reloadData()

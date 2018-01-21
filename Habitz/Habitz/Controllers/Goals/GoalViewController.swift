@@ -16,29 +16,26 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var percentToBeCompleteTextField: UITextField!
-    
+    @IBOutlet weak var associatedHabitsTableView: UITableView!
    
+    
     // passed in by GoalTableViewController or constructed as part of adding a new goal
     var goal: Goal?
     var userUid: String?
+    
     
     // data for picker to restrict values
     let pickerData = [0, 25, 50, 75, 100]
     let percentToCompletePicker: UIPickerView! = UIPickerView()
     
     
-    
-    @IBOutlet weak var associatedHabitsTableView: UITableView!
-    var tableViewDelegate: AssociatedHabitsTableViewDelegate?
-    
-    let habitsAPI = HabitsAPI()
-    let completedHabitsAPI = CompletedHabitsAPI()
-    
+    // providing data for the table view
     var habits: [Habit] = []
     var completions: [Habit] = []
-    
-    
     let habitsManager = HabitsManager()
+    var tableViewDelegate: AssociatedHabitsTableViewDelegate?
+    var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
+    
     
     
     override func viewDidLoad() {
@@ -48,44 +45,39 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         // get current user uid
         if let user = Auth.auth().currentUser {
             userUid = user.uid
+        }
+        
+        
+        // get all associated habits for the selected goal if in edit mode
+        if goal != nil {
             
-//            self.updateHabits()
-        }
-        
-        
-        // todo get all associated habits for the selected goal if in edit mode
-        if let goalId = goal?.id {
-            habitsAPI.getAllForGoal(havingId: goalId) { (allHabits) in
-                
+            // store a reference to the current tab bar controller
+            goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
+            
+            
+            habitsManager.getAllAndCompletedHabits(for: goal!, completion: { (allHabits, completedHabits) in
                 self.habits = allHabits
+                self.completions = completedHabits
                 
-                // get completed habits from TODAY to compare against ALL habits
-                self.completedHabitsAPI.getTodaysCompletionsForUser(havingUid: self.userUid!, completion: { (completedHabits) in
-                    self.completions = completedHabits
+                self.habitsManager.compare(allHabits: self.habits, completedHabits: self.completions)
+                
+                self.habitsManager.resetMissedCompletions(for: self.habits, forUserUid: self.userUid!, completion: {
+                    // creating the delegate object and passing the data
+                    self.tableViewDelegate = AssociatedHabitsTableViewDelegate(goal: self.goal!,
+                                                                               tabBarController: self.goalsHabitsTabBarController,
+                                                                               tableView: self.associatedHabitsTableView,
+                                                                               allHabits: allHabits,
+                                                                               completedHabits: completedHabits)
                     
-                    // update all habits to have correct completion status based on
-                    // comparing against the completed habits array
-                    self.compare(allHabits: self.habits, completedHabits: self.completions)
                     
+                    // setting the delegate object to tableView
+                    self.associatedHabitsTableView.delegate = self.tableViewDelegate
+                    self.associatedHabitsTableView.dataSource = self.tableViewDelegate
                     
-                    // get completed habits from YESTERDAY, to compare to all habits, and
-                    // reset streak count to zero if a habit was not completed yesterday
-                    self.resetMissedCompletions(for: allHabits, completion: {
-                        
-                        // creating the delegate object and passing the data
-                        self.tableViewDelegate = AssociatedHabitsTableViewDelegate(data: self.habits)
-                        
-                        // setting the delegate object to tableView
-                        self.associatedHabitsTableView.delegate = self.tableViewDelegate
-                        self.associatedHabitsTableView.dataSource = self.tableViewDelegate
-                        
-                        self.associatedHabitsTableView.reloadData()
-                    })
+                    self.associatedHabitsTableView.reloadData()
                 })
-            }
+            })
         }
-        
-        
         
         // handle the text field's input through delegate callbacks
         nameTextField.delegate = self
@@ -218,41 +210,4 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         saveButton.isEnabled = !text.isEmpty
     }
     
-    
-    
-    //TODO: TODO - move to function or class, this is duplicated in habits VC
-    func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
-        
-        // loop through completed habits
-        for habit in allHabits {
-            // find the habits in all habits that match the completed ones
-            if completedHabits.contains(where: { (completedHabit) -> Bool in
-                return completedHabit.name == habit.name
-            }) {
-                // set that habit to completed in the all habits array
-                habit.isComplete = true
-            }
-        }
-    }
-    
-    func resetMissedCompletions(for allHabits: [Habit], completion: @escaping () -> Void) -> Void {
-        completedHabitsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedHabits) in
-            
-            // loop through completed habits from yesterday
-            for habit in allHabits {
-                
-                // find the habits in all habits that are NOT in completed aka they were missed
-                if !completedHabits.contains(where: { (completedHabit) -> Bool in
-                    return completedHabit.name == habit.name
-                }) {
-                    
-                    // set that habit completed streak to zero in the all habits array
-                    if !habit.isComplete {
-                        habit.completedStreak = 0
-                    }
-                }
-            }
-            completion()
-        }
-    }
 }
