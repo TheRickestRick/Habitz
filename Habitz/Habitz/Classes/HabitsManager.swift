@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HabitsManager {
+class HabitsManager: HabitCompletionUpdateDelegate {
     let habitsAPI = HabitsAPI()
     let completedHabitsAPI = CompletedHabitsAPI()
     
@@ -38,10 +38,17 @@ class HabitsManager {
     
     
     
-    func markHabitCompleteFor(completedHabit habit: Habit, completion: @escaping () -> Void) {
+    func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
+        let goalsManager = GoalsManager()
         habitsAPI.markComplete(habit, completion: {
-            completion()
-//            self.goalsManager.updateGoalCompletionStatus(goal: goal, isComplete: true)
+            
+            self.getAllAndCompletedHabits(for: goal, completion: { (allHabits, completedHabits) in
+                
+                goalsManager.updateGoalCompletionStatus(goal: goal,
+                                                        isComplete: true,
+                                                        allHabits: allHabits,
+                                                        completedHabits: completedHabits)
+            })
         })
         
         // update view for completion status
@@ -50,10 +57,17 @@ class HabitsManager {
     }
     
     
-    func markHabitIncomplete(missedHabit habit: Habit, completion: @escaping () -> Void) {
-        // update database for completion status
+    func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
+        let goalsManager = GoalsManager()
+        
         habitsAPI.markIncomplete(habit, completion: {
-            completion()
+            self.getAllAndCompletedHabits(for: goal, completion: { (allHabits, completedHabits) in
+                
+                goalsManager.updateGoalCompletionStatus(goal: goal,
+                                                        isComplete: false,
+                                                        allHabits: allHabits,
+                                                        completedHabits: completedHabits)
+            })
         })
         
         // update view for completion status

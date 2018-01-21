@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDelegate {
+class HabitsTableViewController: UITableViewController, EditableTableDelegate {
 
     
     // MARK: - Properties
@@ -163,7 +163,11 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             cell.nameLabel.text = habit.name
             cell.completeCheckBox.setOn(habit.isComplete, animated: true)
             
-            cell.habitCompletionUpdateDelegate = self
+            
+//            cell.habitCompletionUpdateDelegate = self
+            cell.habitsManager = habitsManager
+            cell.editableTableDelegate = self
+            
             
             cell.goals = goalsHabitsTabBarController.goals
         }
@@ -267,29 +271,29 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
     
     
-    //MARK: - HabitCompletionUpdateDelegate
-    func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
-        habitsAPI.markComplete(habit, completion: {
-            self.updateGoalCompletionStatus(goal: goal, isComplete: true)
-        })
-        
-        // update view for completion status
-        habit.completedStreak += 1
-        habit.isComplete = true
-        editHabit(for: habit)
-    }
-    
-    func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
-        // update database for completion status
-        habitsAPI.markIncomplete(habit, completion: {
-            self.updateGoalCompletionStatus(goal: goal, isComplete: false)
-        })
-        
-        // update view for completion status
-        habit.completedStreak -= 1
-        habit.isComplete = false
-        editHabit(for: habit)
-    }
+//    //MARK: - HabitCompletionUpdateDelegate
+//    func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
+//        habitsAPI.markComplete(habit, completion: {
+//            self.updateGoalCompletionStatus(goal: goal, isComplete: true)
+//        })
+//        
+//        // update view for completion status
+//        habit.completedStreak += 1
+//        habit.isComplete = true
+//        editHabit(for: habit)
+//    }
+//    
+//    func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
+//        // update database for completion status
+//        habitsAPI.markIncomplete(habit, completion: {
+//            self.updateGoalCompletionStatus(goal: goal, isComplete: false)
+//        })
+//        
+//        // update view for completion status
+//        habit.completedStreak -= 1
+//        habit.isComplete = false
+//        editHabit(for: habit)
+//    }
     
     
     // check if the goal is completed or not and make updates to the db necessary

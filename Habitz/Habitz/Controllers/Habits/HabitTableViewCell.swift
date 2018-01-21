@@ -19,7 +19,11 @@ class HabitTableViewCell: UITableViewCell {
     var habit: Habit?
     var goals: [Goal] = []
     
-    var habitCompletionUpdateDelegate: HabitCompletionUpdateDelegate?
+    
+    
+    var habitsManager: HabitsManager?
+    var editableTableDelegate: EditableTableDelegate?
+    
     
     
     override func awakeFromNib() {
@@ -35,7 +39,7 @@ class HabitTableViewCell: UITableViewCell {
     
     
     @IBAction func toggleCheckBox(_ sender: BEMCheckBox) {
-        guard let habit = habit, let habitCompletionUpdateDelegate = habitCompletionUpdateDelegate else {return}
+        guard let habit = habit, let habitsManager = habitsManager, let editableTableDelegate = editableTableDelegate else {return}
         
         
         // for updating goal isComplete status
@@ -49,12 +53,20 @@ class HabitTableViewCell: UITableViewCell {
         if completeCheckBox.on {
             
             // update database for completed habit
-            habitCompletionUpdateDelegate.markHabitCompleteFor(completedHabit: habit, withParent: parentGoal)
+//            habitCompletionUpdateDelegate.markHabitCompleteFor(completedHabit: habit, withParent: parentGoal)
+            habitsManager.markHabitCompleteFor(completedHabit: habit, withParent: parentGoal)
+            
+            
+            editableTableDelegate.editHabit(for: habit)
             
         } else {
             
             // update database and view for missed habit
-            habitCompletionUpdateDelegate.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
+//            habitCompletionUpdateDelegate.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
+            habitsManager.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
+            
+            
+            editableTableDelegate.editHabit(for: habit)
         }
     }
 
