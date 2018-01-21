@@ -78,8 +78,8 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     
     //TODO: TODO - update from API call to use habits array stored in goalsHabitsTabBarController
     // this will make it much snappier
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
         
         //TODO: TODO - complete above task or refactor to function for getting and setting habits
         // get current user uid
