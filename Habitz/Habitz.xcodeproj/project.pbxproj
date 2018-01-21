@@ -35,6 +35,8 @@
 		16E846022003CFC700BD7E99 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E846012003CFC700BD7E99 /* Habit.swift */; };
 		16EF24AE20139CF900E44E82 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EF24AD20139CF900E44E82 /* CounterView.swift */; };
 		16EF24B22013F43900E44E82 /* AssociatedHabitsTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EF24B12013F43900E44E82 /* AssociatedHabitsTableViewDelegate.swift */; };
+		16EF24B72014562C00E44E82 /* HabitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EF24B62014562C00E44E82 /* HabitsManager.swift */; };
+		16EF24B92014565A00E44E82 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EF24B82014565A00E44E82 /* GoalsManager.swift */; };
 		BA4F66EDBC34E2E3F276C102 /* Pods_Habitz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +71,8 @@
 		16E846012003CFC700BD7E99 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		16EF24AD20139CF900E44E82 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		16EF24B12013F43900E44E82 /* AssociatedHabitsTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedHabitsTableViewDelegate.swift; sourceTree = "<group>"; };
+		16EF24B62014562C00E44E82 /* HabitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsManager.swift; sourceTree = "<group>"; };
+		16EF24B82014565A00E44E82 /* GoalsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsManager.swift; sourceTree = "<group>"; };
 		26BFB2C80B6B317355D2FF80 /* Pods-Habitz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habitz.release.xcconfig"; path = "Pods/Target Support Files/Pods-Habitz/Pods-Habitz.release.xcconfig"; sourceTree = "<group>"; };
 		60B2FD8F07FC07FA063AE7A1 /* Pods-Habitz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habitz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Habitz/Pods-Habitz.debug.xcconfig"; sourceTree = "<group>"; };
 		AA8D7D750D2F15EE61705DBE /* Pods_Habitz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habitz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,8 @@
 				161333CE2010B75F00AEEE9F /* CompletedGoalsAPI.swift */,
 				161333D02010B76A00AEEE9F /* CompletedHabitsAPI.swift */,
 				161333D22010D5EA00AEEE9F /* GoalsHabitsTabBarController.swift */,
+				16EF24B62014562C00E44E82 /* HabitsManager.swift */,
+				16EF24B82014565A00E44E82 /* GoalsManager.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -385,11 +391,13 @@
 				164BDEC320138A4200ED3491 /* ColorTheme.swift in Sources */,
 				161333CF2010B75F00AEEE9F /* CompletedGoalsAPI.swift in Sources */,
 				164BDEC120138A0A00ED3491 /* ColorScheme.swift in Sources */,
+				16EF24B72014562C00E44E82 /* HabitsManager.swift in Sources */,
 				16190EA2200AD4540089FE80 /* HabitTableViewCell.swift in Sources */,
 				169F95312012637B0073842D /* HabitCompletionUpdateDelegate.swift in Sources */,
 				16928A89200C12FC0047ECA8 /* HabitsAPI.swift in Sources */,
 				161333D32010D5EA00AEEE9F /* GoalsHabitsTabBarController.swift in Sources */,
 				16190EA0200AD4450089FE80 /* HabitViewController.swift in Sources */,
+				16EF24B92014565A00E44E82 /* GoalsManager.swift in Sources */,
 				169F952D201258D80073842D /* GoalIdPickerDelegate.swift in Sources */,
 				164BDEBF201387E500ED3491 /* UIColorExtension.swift in Sources */,
 				16B91D26200BA8E800AD17D3 /* GoalsAPI.swift in Sources */,
