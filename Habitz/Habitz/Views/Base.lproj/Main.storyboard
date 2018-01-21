@@ -402,7 +402,7 @@
         <scene sceneID="8dD-Qd-CYX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u0x-dX-6Qu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Goals" id="kGt-Io-qNZ"/>
+                    <tabBarItem key="tabBarItem" title="Goals" image="bullseye" id="kGt-Io-qNZ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3QJ-rl-SLb">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -659,7 +659,7 @@
         <scene sceneID="xhC-o8-cnt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lTo-yk-sGW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Habits" id="WU9-rF-gtj"/>
+                    <tabBarItem key="tabBarItem" title="Habits" image="checklist" id="WU9-rF-gtj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ife-0C-r02">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -711,6 +711,10 @@
             <point key="canvasLocation" x="-930" y="1846"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bullseye" width="25" height="25"/>
+        <image name="checklist" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="16Y-0t-zan"/>
         <segue reference="LCd-yb-SeC"/>
