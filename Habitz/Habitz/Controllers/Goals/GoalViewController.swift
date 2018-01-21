@@ -17,7 +17,9 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var percentToBeCompleteTextField: UITextField!
     @IBOutlet weak var associatedHabitsTableView: UITableView!
-   
+    @IBOutlet weak var goalNameLabel: UILabel!
+    @IBOutlet weak var associatedGoalsLabel: UILabel!
+    
     
     // passed in by GoalTableViewController or constructed as part of adding a new goal
     var goal: Goal?
@@ -37,10 +39,8 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // get current user uid
         if let user = Auth.auth().currentUser {
@@ -50,6 +50,7 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         
         // get all associated habits for the selected goal if in edit mode
         if goal != nil {
+            associatedHabitsTableView.isHidden = false
             
             // store a reference to the current tab bar controller
             goalsHabitsTabBarController = tabBarController as! GoalsHabitsTabBarController
@@ -77,6 +78,8 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
                     self.associatedHabitsTableView.reloadData()
                 })
             })
+        } else {
+            associatedHabitsTableView.isHidden = true
         }
         
         // handle the text field's input through delegate callbacks
@@ -94,11 +97,14 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         
         // sets up views if editing an existing goal
         if let goal = goal {
-            navigationItem.title = goal.name
+            navigationItem.title = "Goal Details"
+            associatedGoalsLabel.isHidden = false
+            goalNameLabel.text = goal.name
             nameTextField.text = goal.name
             percentToBeCompleteTextField.text = String(goal.percentToBeComplete)
         } else {
             // sets up views if creating a new goal
+            associatedGoalsLabel.isHidden = true
             percentToBeCompleteTextField.text = String(pickerData[0])
         }
         
@@ -107,12 +113,18 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         for view in view.subviews {
             if let subview = view as? UILabel {
                 subview.textColor = ColorScheme.darkText.value
-                subview.font = UIFont(name: FontScheme.standard.fontName, size: FontScheme.standard.fontSize)
+                subview.font = FontScheme.heavyOblique.font
             } else if let subview = view as? UITextField {
                 subview.textColor = ColorScheme.darkText.value
-                subview.font = UIFont(name: FontScheme.standard.fontName, size: FontScheme.standard.fontSize)
+                subview.font = FontScheme.standard.font
             }
         }
+        navigationController?.navigationBar.tintColor = ColorScheme.lightText.value
+        navigationController?.navigationBar.barTintColor = ColorScheme.darkText.value
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: FontScheme.heavy.font], for: .normal)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: FontScheme.heavy.font], for: .normal)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value,
+                                                                   NSAttributedStringKey.font: FontScheme.heavy.font]
     }
 
     override func didReceiveMemoryWarning() {

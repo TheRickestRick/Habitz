@@ -102,12 +102,18 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
         for view in view.subviews {
             if let subview = view as? UILabel {
                 subview.textColor = ColorScheme.darkText.value
-                subview.font = UIFont(name: FontScheme.standard.fontName, size: FontScheme.standard.fontSize)
+                subview.font = FontScheme.heavyOblique.font
             } else if let subview = view as? UITextField {
                 subview.textColor = ColorScheme.darkText.value
-                subview.font = UIFont(name: FontScheme.standard.fontName, size: FontScheme.standard.fontSize)
+                subview.font = FontScheme.standard.font
             }
         }
+        navigationController?.navigationBar.tintColor = ColorScheme.lightText.value
+        navigationController?.navigationBar.barTintColor = ColorScheme.darkText.value
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: FontScheme.heavy.font], for: .normal)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: FontScheme.heavy.font], for: .normal)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value,
+                                                                   NSAttributedStringKey.font: FontScheme.heavy.font]
     }
 
     override func didReceiveMemoryWarning() {

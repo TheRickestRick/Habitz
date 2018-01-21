@@ -26,6 +26,7 @@ class GoalTableViewCell: UITableViewCell {
         self.backgroundColor = ColorScheme.neutralBackground.value
         
         nameLabel.textColor = ColorScheme.darkText.value
+        nameLabel.font = FontScheme.standard.font
         
         completeCheckBox.onTintColor = ColorScheme.success.value
         completeCheckBox.onCheckColor = ColorScheme.success.value

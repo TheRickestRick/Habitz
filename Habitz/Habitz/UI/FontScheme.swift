@@ -12,4 +12,5 @@ import UIKit
 enum FontScheme {
     case standard
     case heavy
+    case heavyOblique
 }

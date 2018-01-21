@@ -19,6 +19,9 @@ extension FontScheme {
         
         case .heavy:
             return "Avenir-Heavy"
+        
+        case .heavyOblique:
+            return "Avenir-HeavyOblique"
         }
     }
     
@@ -31,6 +34,9 @@ extension FontScheme {
             
         case .heavy:
             return 20.0
+            
+        case .heavyOblique:
+            return 18.0
         }
     }
     
@@ -42,6 +48,9 @@ extension FontScheme {
         
         case .heavy:
             return UIFont(name: "Avenir-Heavy", size: 20.0)!
+            
+        case .heavyOblique:
+            return UIFont(name: "Avenir-HeavyOblique", size: 18.0)!
         }
     }
     
