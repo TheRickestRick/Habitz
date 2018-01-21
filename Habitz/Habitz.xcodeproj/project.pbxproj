@@ -19,6 +19,8 @@
 		16224B1A20069ED000CAD6E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1920069ED000CAD6E2 /* LoginViewController.swift */; };
 		16224B1D2006A27900CAD6E2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */; };
 		16224B1F2006A39400CAD6E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16224B1E2006A39400CAD6E2 /* HomeViewController.swift */; };
+		1628F3402015211F003716B5 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1628F33F2015211F003716B5 /* FontScheme.swift */; };
+		1628F34220152286003716B5 /* FontTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1628F34120152286003716B5 /* FontTheme.swift */; };
 		164BDEBF201387E500ED3491 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BDEBE201387E500ED3491 /* UIColorExtension.swift */; };
 		164BDEC120138A0A00ED3491 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BDEC020138A0A00ED3491 /* ColorScheme.swift */; };
 		164BDEC320138A4200ED3491 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164BDEC220138A4200ED3491 /* ColorTheme.swift */; };
@@ -54,6 +56,8 @@
 		16224B1920069ED000CAD6E2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		16224B1C2006A27900CAD6E2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16224B1E2006A39400CAD6E2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1628F33F2015211F003716B5 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
+		1628F34120152286003716B5 /* FontTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontTheme.swift; sourceTree = "<group>"; };
 		164BDEBE201387E500ED3491 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		164BDEC020138A0A00ED3491 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		164BDEC220138A4200ED3491 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 				164BDEBE201387E500ED3491 /* UIColorExtension.swift */,
 				164BDEC020138A0A00ED3491 /* ColorScheme.swift */,
 				164BDEC220138A4200ED3491 /* ColorTheme.swift */,
+				1628F33F2015211F003716B5 /* FontScheme.swift */,
+				1628F34120152286003716B5 /* FontTheme.swift */,
 				16EF24AD20139CF900E44E82 /* CounterView.swift */,
 			);
 			path = UI;
@@ -139,7 +145,6 @@
 				16928A88200C12FC0047ECA8 /* HabitsAPI.swift */,
 				161333CE2010B75F00AEEE9F /* CompletedGoalsAPI.swift */,
 				161333D02010B76A00AEEE9F /* CompletedHabitsAPI.swift */,
-				161333D22010D5EA00AEEE9F /* GoalsHabitsTabBarController.swift */,
 				16EF24B62014562C00E44E82 /* HabitsManager.swift */,
 				16EF24B82014565A00E44E82 /* GoalsManager.swift */,
 			);
@@ -193,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				16E845EC2003CC6900BD7E99 /* AppDelegate.swift */,
+				161333D22010D5EA00AEEE9F /* GoalsHabitsTabBarController.swift */,
 				16190E93200A59C30089FE80 /* Goals */,
 				16190E94200A59E70089FE80 /* Habits */,
 				16190E95200A59EC0089FE80 /* Login */,
@@ -387,6 +393,7 @@
 				16E846002003CFC000BD7E99 /* Goal.swift in Sources */,
 				169F9535201264D60073842D /* TimeOfDayPickerDelegate.swift in Sources */,
 				16EF24AE20139CF900E44E82 /* CounterView.swift in Sources */,
+				1628F3402015211F003716B5 /* FontScheme.swift in Sources */,
 				16190E98200A5AA60089FE80 /* GoalsTableViewController.swift in Sources */,
 				16EF24B22013F43900E44E82 /* AssociatedHabitsTableViewDelegate.swift in Sources */,
 				161333D12010B76A00AEEE9F /* CompletedHabitsAPI.swift in Sources */,
@@ -405,6 +412,7 @@
 				169F952D201258D80073842D /* GoalIdPickerDelegate.swift in Sources */,
 				164BDEBF201387E500ED3491 /* UIColorExtension.swift in Sources */,
 				16B91D26200BA8E800AD17D3 /* GoalsAPI.swift in Sources */,
+				1628F34220152286003716B5 /* FontTheme.swift in Sources */,
 				16190E9C200A63100089FE80 /* GoalViewController.swift in Sources */,
 				16E845ED2003CC6900BD7E99 /* AppDelegate.swift in Sources */,
 			);

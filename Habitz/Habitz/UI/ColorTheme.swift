@@ -36,6 +36,7 @@ extension ColorScheme {
         
         case .neutralBackground:
             instanceColor = UIColor(hexString: "#FFFFFF")
+
             
         case .darkText:
             instanceColor = UIColor(hexString: "#1E2641")

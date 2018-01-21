@@ -76,12 +76,21 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
         
         
         //MARK: Coloring and Styling
+        let font = UIFont(name: FontScheme.heavy.fontName, size: FontScheme.heavy.fontSize)!
+        
         view.backgroundColor = ColorScheme.neutralBackground.value
+        
         navigationController?.navigationBar.tintColor = ColorScheme.lightText.value
         navigationController?.navigationBar.barTintColor = ColorScheme.darkText.value
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value]
+        
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value,
+                                                                   NSAttributedStringKey.font: font]
+        
         tableView.backgroundColor = ColorScheme.neutralBackground.value
-
+        
     }
     
     

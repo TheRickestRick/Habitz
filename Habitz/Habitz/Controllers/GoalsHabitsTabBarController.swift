@@ -16,6 +16,5 @@ class GoalsHabitsTabBarController: UITabBarController {
     override func viewDidLoad() {
         self.tabBar.barTintColor = ColorScheme.darkBackground.value
         self.tabBar.tintColor = ColorScheme.lightText.value
-        
     }
 }

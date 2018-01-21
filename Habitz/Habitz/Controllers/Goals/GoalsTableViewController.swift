@@ -45,22 +45,20 @@ class GoalsTableViewController: UITableViewController {
         
         
         //MARK: Coloring and Styling
-        self.view.backgroundColor = ColorScheme.neutralBackground.value
+        let font = UIFont(name: FontScheme.heavy.fontName, size: FontScheme.heavy.fontSize)!
+        
+        view.backgroundColor = ColorScheme.neutralBackground.value
         
         navigationController?.navigationBar.tintColor = ColorScheme.lightText.value
         navigationController?.navigationBar.barTintColor = ColorScheme.darkText.value
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value]
         
-                
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+        navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value,
+                                                                   NSAttributedStringKey.font: font]
+        
         tableView.backgroundColor = ColorScheme.neutralBackground.value
-        
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     

@@ -102,8 +102,10 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
         for view in view.subviews {
             if let subview = view as? UILabel {
                 subview.textColor = ColorScheme.darkText.value
+                subview.font = UIFont(name: FontScheme.standard.fontName, size: FontScheme.standard.fontSize)
             } else if let subview = view as? UITextField {
                 subview.textColor = ColorScheme.darkText.value
+                subview.font = UIFont(name: FontScheme.standard.fontName, size: FontScheme.standard.fontSize)
             }
         }
     }
