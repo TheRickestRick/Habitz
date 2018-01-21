@@ -62,12 +62,12 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
                     
                     // update all habits to have correct completion status based on
                     // comparing against the completed habits array
-                    self.compare(allHabits: self.habits, completedHabits: self.completions)
+                    self.habitsManager.compare(allHabits: self.habits, completedHabits: self.completions)
                     
                     
                     // get completed habits from YESTERDAY, to compare to all habits, and
                     // reset streak count to zero if a habit was not completed yesterday
-                    self.resetMissedCompletions(for: allHabits, completion: {
+                    self.habitsManager.resetMissedCompletions(for: allHabits, forUserUid: self.userUid!, completion: {
                         self.sortData()
                         self.tableView.reloadData()
                     })
@@ -163,8 +163,6 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
             cell.nameLabel.text = habit.name
             cell.completeCheckBox.setOn(habit.isComplete, animated: true)
             
-            
-//            cell.habitCompletionUpdateDelegate = self
             cell.habitsManager = habitsManager
             cell.editableTableDelegate = self
             
@@ -271,29 +269,6 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     }
     
     
-//    //MARK: - HabitCompletionUpdateDelegate
-//    func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
-//        habitsAPI.markComplete(habit, completion: {
-//            self.updateGoalCompletionStatus(goal: goal, isComplete: true)
-//        })
-//        
-//        // update view for completion status
-//        habit.completedStreak += 1
-//        habit.isComplete = true
-//        editHabit(for: habit)
-//    }
-//    
-//    func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
-//        // update database for completion status
-//        habitsAPI.markIncomplete(habit, completion: {
-//            self.updateGoalCompletionStatus(goal: goal, isComplete: false)
-//        })
-//        
-//        // update view for completion status
-//        habit.completedStreak -= 1
-//        habit.isComplete = false
-//        editHabit(for: habit)
-//    }
     
     
     // check if the goal is completed or not and make updates to the db necessary
@@ -327,43 +302,9 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     }
     
     
+    
+    
     //MARK: - Private Methods
-    func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
-        
-        // loop through completed habits
-        for habit in allHabits {
-            // find the habits in all habits that match the completed ones
-            if completedHabits.contains(where: { (completedHabit) -> Bool in
-                return completedHabit.name == habit.name
-            }) {
-                // set that habit to completed in the all habits array
-                habit.isComplete = true
-            }
-        }
-    }
-    
-    func resetMissedCompletions(for allHabits: [Habit], completion: @escaping () -> Void) -> Void {
-        completedHabitsAPI.getYesterdaysCompletionsForUser(havingUid: userUid!) { (completedHabits) in
-            
-            // loop through completed habits from yesterday
-            for habit in allHabits {
-                
-                // find the habits in all habits that are NOT in completed aka they were missed
-                if !completedHabits.contains(where: { (completedHabit) -> Bool in
-                    return completedHabit.name == habit.name
-                }) {
-                    
-                    // set that habit completed streak to zero in the all habits array
-                    if !habit.isComplete {
-                        habit.completedStreak = 0
-                    }
-                }
-            }
-            completion()
-        }
-    }
-    
-    
     
     // update data array to group all habits by their time of day
     func sortData() {
@@ -373,7 +314,7 @@ class HabitsTableViewController: UITableViewController, EditableTableDelegate {
     }
     
     
-    
+    //MARK: - CRUD Operations to Update Table View
     func createHabit(for habit: Habit) -> Void {
         // add new habit to the database
         habitsManager.createHabit(for: habit) { (habit) in

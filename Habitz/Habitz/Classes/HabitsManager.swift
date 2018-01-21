@@ -76,6 +76,7 @@ class HabitsManager: HabitCompletionUpdateDelegate {
     }
     
     
+    // updates status on habits based on whether they are marked as completed for the current day
     func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
         // loop through completed habits
         for habit in allHabits {
@@ -90,6 +91,8 @@ class HabitsManager: HabitCompletionUpdateDelegate {
     }
     
     
+    // get completed habits from YESTERDAY, to compare to all habits, and
+    // reset streak count to zero if a habit was not completed yesterday
     func resetMissedCompletions(for allHabits: [Habit], forUserUid userUid: String, completion: @escaping () -> Void) -> Void {
         completedHabitsAPI.getYesterdaysCompletionsForUser(havingUid: userUid) { (completedHabits) in
             
@@ -111,7 +114,7 @@ class HabitsManager: HabitCompletionUpdateDelegate {
         }
     }
     
-    
+    //TODO
     func getAllAndCompletedHabits(for goal: Goal, completion: @escaping (_ all: [Habit], _ completed: [Habit]) -> ()) {
         // get ALL goals belonging to that habit
         habitsAPI.getAllForGoal(havingId: goal.id!, completion: { (habits) in

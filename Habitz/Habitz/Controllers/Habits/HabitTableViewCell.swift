@@ -53,19 +53,13 @@ class HabitTableViewCell: UITableViewCell {
         if completeCheckBox.on {
             
             // update database for completed habit
-//            habitCompletionUpdateDelegate.markHabitCompleteFor(completedHabit: habit, withParent: parentGoal)
             habitsManager.markHabitCompleteFor(completedHabit: habit, withParent: parentGoal)
-            
-            
             editableTableDelegate.editHabit(for: habit)
             
         } else {
             
             // update database and view for missed habit
-//            habitCompletionUpdateDelegate.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
             habitsManager.markHabitIncomplete(missedHabit: habit, withParent: parentGoal)
-            
-            
             editableTableDelegate.editHabit(for: habit)
         }
     }
