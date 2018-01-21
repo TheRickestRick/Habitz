@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDelegate {
+
     
     // MARK: - Properties
     var habits: [Habit] = []
@@ -19,6 +20,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     
     var completions: [Habit] = []
     let completedHabitsAPI = CompletedHabitsAPI()
+    let goalsAPI = GoalsAPI()
     
     var goalsHabitsTabBarController: GoalsHabitsTabBarController = GoalsHabitsTabBarController()
     
@@ -275,6 +277,57 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         toggledHabit.isComplete = !toggledHabit.isComplete
     }
     
+    func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
+        // update database for completion status
+        habitsAPI.markComplete(habit, completion: {
+            
+            
+            //TODO: TODO - refactor to function
+            // check if the goal is completed or not
+            // get ALL goals and completed goals belonging to the parent habit
+            self.getHabits(for: goal, completion: { (allHabits, completedHabits) in
+                
+                // if the goal is not complete based on its habits
+                if goal.isCompleteHaving(all: allHabits, completed: completedHabits) {
+                    
+                    // change the isComplete status and update the db if it is currently marked as incomplete
+                    if !goal.isComplete {
+                        goal.isComplete = true
+                        goal.completedStreak += 1
+                        self.goalsAPI.markComplete(goal)
+                        self.goalsAPI.edit(goal: goal)
+                    }
+                }
+            })
+        })
+    }
+    
+    func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
+        // update database for completion status
+        habitsAPI.markIncomplete(habit, completion: {
+            
+            
+            //TODO: TODO - refactor to function
+            // check if the goal is completed or not
+            // get ALL goals and completed goals belonging to the parent habit
+            self.getHabits(for: goal, completion: { (allHabits, completedHabits) in
+                
+                // if the goal is not complete based on its habits
+                if !goal.isCompleteHaving(all: allHabits, completed: completedHabits) {
+                    
+                    // change the isComplete status and update the db if it is currently marked as complete
+                    if goal.isComplete {
+                        goal.isComplete = false
+                        goal.completedStreak -= 1
+                        self.goalsAPI.markIncomplete(goal)
+                        self.goalsAPI.edit(goal: goal)
+                    }
+                }
+            })
+        })
+    }
+    
+    
     
     //MARK: - Private Methods
     func compare(allHabits: [Habit], completedHabits: [Habit]) -> Void {
@@ -363,5 +416,21 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         // refresh and reload the data in the table view
         self.sortData()
         self.tableView.reloadData()
+    }
+    
+    
+    
+    func getHabits(for goal: Goal, completion: @escaping (_ all: [Habit], _ completed: [Habit]) -> ()) {
+        // get ALL goals belonging to that habit
+        habitsAPI.getAllForGoal(havingId: goal.id!, completion: { (habits) in
+            let allHabits = habits
+            
+            // get only completed goals beloging to that habit
+            self.completedHabitsAPI.getTodaysCompletionsForGoal(havingId: goal.id!, completion: { (habits) in
+                let completedHabits = habits
+                
+                completion(allHabits, completedHabits)
+            })
+        })
     }
 }
