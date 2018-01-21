@@ -8,7 +8,6 @@
 import Foundation
 
 protocol HabitCompletionUpdateDelegate {
-    func toggleCompletion(for toggledHabit: Habit)
     
     func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal)
     

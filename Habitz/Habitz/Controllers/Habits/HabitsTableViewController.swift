@@ -64,25 +64,14 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
                         self.sortData()
                         self.tableView.reloadData()
                     })
-
                 })
-                
             })
-            
         }
-        
         
         tableView.rowHeight = UITableViewAutomaticDimension
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,13 +80,12 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
 
     
-    // MARK: - Table view data source
+    // MARK: - TableView Methods
     override func numberOfSections(in tableView: UITableView) -> Int {
         // total is the last case in the enum so it provides the total number of sections
         return TableSection.total.rawValue
     }
 
-    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Using Swift's optional lookup we first check if there is a valid section of table.
@@ -107,7 +95,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         }
         return 0
     }
-    
     
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -153,8 +140,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
 
     
-    
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "HabitTableViewCell"
 
@@ -179,12 +164,14 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         return cell
     }
 
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -249,6 +236,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
             
             
             habitDetailViewController.habit = selectedHabit
+            
         
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
@@ -272,35 +260,13 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
     
     
-    //MARK: - CompletionUpdateDelegate
-    func toggleCompletion(for toggledHabit: Habit) {
-        toggledHabit.isComplete = !toggledHabit.isComplete
-    }
-    
+    //MARK: - HabitCompletionUpdateDelegate
     func markHabitCompleteFor(completedHabit habit: Habit, withParent goal: Goal) {
-        // update database for completion status
         habitsAPI.markComplete(habit, completion: {
-            
-            
-            //TODO: TODO - refactor to function
-            // check if the goal is completed or not
-            // get ALL goals and completed goals belonging to the parent habit
-            self.getHabits(for: goal, completion: { (allHabits, completedHabits) in
-                
-                // if the goal is not complete based on its habits
-                if goal.isCompleteHaving(all: allHabits, completed: completedHabits) {
-                    
-                    // change the isComplete status and update the db if it is currently marked as incomplete
-                    if !goal.isComplete {
-                        goal.isComplete = true
-                        goal.completedStreak += 1
-                        self.goalsAPI.markComplete(goal)
-                        self.goalsAPI.edit(goal: goal)
-                    }
-                }
-            })
+            self.updateGoalCompletionStatus(goal: goal, isComplete: true)
         })
         
+        // update view for completion status
         habit.completedStreak += 1
         habit.isComplete = true
         editHabit(for: habit)
@@ -309,33 +275,45 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     func markHabitIncomplete(missedHabit habit: Habit, withParent goal: Goal) {
         // update database for completion status
         habitsAPI.markIncomplete(habit, completion: {
-            
-            
-            //TODO: TODO - refactor to function
-            // check if the goal is completed or not
-            // get ALL goals and completed goals belonging to the parent habit
-            self.getHabits(for: goal, completion: { (allHabits, completedHabits) in
-                
-                // if the goal is not complete based on its habits
-                if !goal.isCompleteHaving(all: allHabits, completed: completedHabits) {
-                    
-                    // change the isComplete status and update the db if it is currently marked as complete
-                    if goal.isComplete {
-                        goal.isComplete = false
-                        goal.completedStreak -= 1
-                        self.goalsAPI.markIncomplete(goal)
-                        self.goalsAPI.edit(goal: goal)
-                    }
-                }
-            })
+            self.updateGoalCompletionStatus(goal: goal, isComplete: false)
         })
         
+        // update view for completion status
         habit.completedStreak -= 1
         habit.isComplete = false
         editHabit(for: habit)
     }
     
     
+    // check if the goal is completed or not and make updates to the db necessary
+    func updateGoalCompletionStatus(goal: Goal, isComplete: Bool) -> Void {
+        
+        // get ALL goals and completed goals belonging to the parent habit
+        self.getHabits(for: goal, completion: { (allHabits, completedHabits) in
+            
+            if isComplete {
+                // if the goal is complete based on its habits, and not currently marked as complete
+                if goal.isCompleteHaving(all: allHabits, completed: completedHabits) && !goal.isComplete {
+                    
+                    goal.isComplete = true
+                    goal.completedStreak += 1
+                    self.goalsAPI.markComplete(goal)
+                        
+                }
+            } else {
+                // if the goal is not complete based on its habits, and currently marked as complete
+                if !goal.isCompleteHaving(all: allHabits, completed: completedHabits) && goal.isComplete {
+                    
+                    goal.isComplete = false
+                    goal.completedStreak -= 1
+                    self.goalsAPI.markIncomplete(goal)
+                    
+                }
+            }
+            
+            self.goalsAPI.edit(goal: goal)
+        })
+    }
     
     
     //MARK: - Private Methods
@@ -375,6 +353,7 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
     }
     
     
+    
     // update data array to group all habits by their time of day
     func sortData() {
         data[.morning] = habits.filter({ $0.timeOfDay == "morning" })
@@ -409,7 +388,6 @@ class HabitsTableViewController: UITableViewController, HabitCompletionUpdateDel
         
         
         //TODO: TODO - update to reload only data at the selected indexPath to prevent all checkboxes from activating
-        
         // refresh and reload the data in the table view
         self.sortData()
         self.tableView.reloadData()
