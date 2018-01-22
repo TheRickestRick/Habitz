@@ -26,6 +26,12 @@ class GoalsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         
+        // if user is not signed in, navigate to login page on tab bar controller
+        if Auth.auth().currentUser == nil {
+            self.tabBarController?.selectedIndex = 2
+        }
+        
+        
         // store the reference to the current tab bar controller
         goalsHabitsTabBarController = self.tabBarController as! GoalsHabitsTabBarController
         
@@ -40,8 +46,6 @@ class GoalsTableViewController: UITableViewController {
         
         // auto adjust height for goals that have multiple lines of text
         tableView.rowHeight = UITableViewAutomaticDimension
-
-        
         
         
         //MARK: Coloring and Styling

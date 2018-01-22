@@ -31,21 +31,17 @@ class LoginViewController: UIViewController {
         //MARK: Coloring and Styling
         self.view.backgroundColor = ColorScheme.intermidiateBackground.value
         recursiveSetTextColorForLabelsInView(inView: self.view)
+        
+        
+        self.tabBarController?.tabBar.isHidden = true
     }
     
-//    listener for status changes
-//    override func viewWillAppear(_ animated: Bool) {
-//        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-//            if let user = user {
-//                self.uid = user.uid
-//            }
-//        }
-//    }
-    
-//    deactivate listener for status changes
-//    override func viewWillDisappear(_ animated: Bool) {
-//        Auth.auth().removeStateDidChangeListener(handle!)
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        if let u = Auth.auth().currentUser {
+            self.uid = u.uid
+            self.performSegue(withIdentifier: "goToSplash", sender: self)
+        }
+    }
 
     
     override func didReceiveMemoryWarning() {
@@ -82,11 +78,10 @@ class LoginViewController: UIViewController {
             // sign in with firebase
             Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                 if let u = user {
-                    // go to home screen
                     self.uid = u.uid
                     self.performSegue(withIdentifier: "goToSplash", sender: self)
+                
                 } else {
-                    
                     // handle error for login
                     if let errorCode = AuthErrorCode(rawValue: error!._code) {
                         switch errorCode {
@@ -106,11 +101,10 @@ class LoginViewController: UIViewController {
             // register with firebase
             Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
                 if let u = user {
-                    // go to home screen
                     self.uid = u.uid
                     self.performSegue(withIdentifier: "goToSplash", sender: self)
-                } else {
                     
+                } else {
                     // handle error for registering
                     if let errorCode = AuthErrorCode(rawValue: error!._code) {
                         switch errorCode {

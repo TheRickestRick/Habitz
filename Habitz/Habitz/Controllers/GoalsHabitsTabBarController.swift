@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class GoalsHabitsTabBarController: UITabBarController {
     var goals: [Goal] = []
@@ -17,4 +18,15 @@ class GoalsHabitsTabBarController: UITabBarController {
         self.tabBar.barTintColor = ColorScheme.darkBackground.value
         self.tabBar.tintColor = ColorScheme.lightText.value
     }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.title == "Logout" {
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                print("Error during signout")
+            }
+        }
+    }
+    
 }
