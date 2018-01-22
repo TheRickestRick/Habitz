@@ -27,7 +27,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         errorLabel.text = ""
-        // Do any additional setup after loading the view.
+        
+        //MARK: Coloring and Styling
+        self.view.backgroundColor = ColorScheme.intermidiateBackground.value
+        recursiveSetTextColorForLabelsInView(inView: self.view)
     }
     
 //    listener for status changes
@@ -150,5 +153,29 @@ class LoginViewController: UIViewController {
                        animations: { () -> Void in
             view.alpha = 0
         })
+    }
+    
+    //MARK: - Private Methods
+    func recursiveSetTextColorForLabelsInView(inView: UIView) {
+        for view in inView.subviews {
+            if let subview = view as? UILabel {
+                subview.textColor = ColorScheme.lightText.value
+                subview.font = FontScheme.standard.font
+                
+            } else if let subview = view as? UITextField {
+                subview.textColor = ColorScheme.darkText.value
+                subview.font = FontScheme.standard.font
+                
+            } else if let subview = view as? UIButton {
+                subview.setTitleColor(ColorScheme.lightText.value, for: .normal)
+                subview.titleLabel?.font = FontScheme.standard.font
+                
+            } else if let subview = view as? UISegmentedControl {
+                subview.setTitleTextAttributes([NSAttributedStringKey.font : FontScheme.standard.font,
+                                                NSAttributedStringKey.foregroundColor: ColorScheme.lightText.value], for: .normal)
+                subview.tintColor = ColorScheme.lightBackground.value
+            }
+            else { self.recursiveSetTextColorForLabelsInView(inView: view) }
+        }
     }
 }

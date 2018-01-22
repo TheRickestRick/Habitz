@@ -20,6 +20,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //MARK: Coloring and Styling
+        self.view.backgroundColor = ColorScheme.intermidiateBackground.value
+        for view in view.subviews {
+            if let subview = view as? UILabel {
+                subview.textColor = ColorScheme.lightText.value
+                subview.font = FontScheme.standard.font
+            }
+        }
+        
         self.performSegue(withIdentifier: "goToHome", sender: self)
     }
 
