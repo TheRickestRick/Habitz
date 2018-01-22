@@ -18,7 +18,7 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var associatedGoalTextField: UITextField!
     @IBOutlet weak var timeOfDayTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     // passed in by HabitTableViewController or constructed as part of adding a new habit
     var habit: Habit?
@@ -66,17 +66,12 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
                 self.goalIdPickerDelegate!.pickerData = goals
                 
                 if let habit = self.habit {
-                    // set up views if editing an existing habit
-                    self.navigationItem.title = "Habit Details"
-                    self.habitNameLabel.text = habit.name
-                    self.nameTextField.text = habit.name
-                    self.completedStreakTextField.text = String(habit.completedStreak)
                     
                     // get index for time of day value, then update the text and pick the row
                     let timeOfDayIndex = self.timeOfDayPickerDelegate!.pickerData.index(where: { (timeOfDay) -> Bool in
                         return timeOfDay == habit.timeOfDay
                     })
-                    self.timeOfDayTextField.text = habit.timeOfDay
+                    
                     self.timeOfDayPicker.selectRow(timeOfDayIndex!, inComponent: 0, animated: false)
                     
                     // get index for goal id value, then update the text and pick the row
@@ -85,17 +80,29 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
                     self.goalIdPicker.selectRow(goalIdIndex!, inComponent: 0, animated: false)
                     
                 } else {
-                    // setup initial view for create new
-                    self.habitNameLabel.text = "What can you do to support and achieve your goals?"
                     self.associatedGoalTextField.text = self.goalIdPickerDelegate!.pickerData[0].name
                     self.timeOfDayTextField.text = self.timeOfDayPickerDelegate?.pickerData[0]
                 }
-                
-                // enable save button only if the text field has a valid habit name
-                self.updateSaveButtonState()
             })
         }
         
+        // set up views if editing an existing habit
+        if let habit = habit {
+            navigationItem.title = "Habit Details"
+            
+            habitNameLabel.text = habit.name
+            nameTextField.text = habit.name
+            completedStreakTextField.text = String(habit.completedStreak)
+            timeOfDayTextField.text = habit.timeOfDay
+        } else {
+            // setup initial view for create new
+            cancelButton.title = "Cancel"
+            habitNameLabel.text = "What can you do to support and achieve your goals?"
+            
+        }
+        
+        // enable save button only if the text field has a valid habit name
+        self.updateSaveButtonState()
         
         //MARK: Coloring and Styling
         for view in view.subviews {
@@ -183,11 +190,12 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) -> Void {
         saveButton.isEnabled = false
+        saveButton.title = ""
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) -> Void {
         updateSaveButtonState()
-        navigationItem.title = textField.text
+//        navigationItem.title = textField.text
     }
     
     // handle what happens when hitting return on a text field
@@ -209,7 +217,10 @@ class HabitViewController: UIViewController, UITextFieldDelegate {
     func updateSaveButtonState() -> Void {
         // disable the save button if the text field is empty
         let text = nameTextField.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+        if !text.isEmpty {
+            saveButton.isEnabled = !text.isEmpty
+            saveButton.title = "Save"
+        }
     }
     
 }

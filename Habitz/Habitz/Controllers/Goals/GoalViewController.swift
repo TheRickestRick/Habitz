@@ -85,9 +85,6 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         // handle the text field's input through delegate callbacks
         nameTextField.delegate = self
         
-        // enable save button only if the text field has a valid goal name
-        updateSaveButtonState()
-        
         
         // handle selecting percentToComplete through delegate callbacks
         percentToCompletePicker.dataSource = self
@@ -98,15 +95,22 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
         // sets up views if editing an existing goal
         if let goal = goal {
             navigationItem.title = "Goal Details"
+            
             goalNameLabel.text = goal.name
             nameTextField.text = goal.name
             percentToBeCompleteTextField.text = String(goal.percentToBeComplete)
         } else {
             // sets up views if creating a new goal
+            cancelButton.title = "Cancel"
+            
             goalNameLabel.text = "What do you want to accomplish?\nHow do you want to feel?"
             associatedGoalsLabel.isHidden = true
             percentToBeCompleteTextField.text = String(pickerData[0])
         }
+        
+        
+        // enable save button only if the text field has a valid goal name
+        updateSaveButtonState()
         
         
         //MARK: Coloring and Styling
@@ -159,7 +163,6 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
             goal = Goal(name: name, percentToBeComplete: percentToBeComplete, completedStreak: completedStreak, isComplete: isComplete)
         }
         
-        
     }
     
     
@@ -185,11 +188,11 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     // MARK: - UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) -> Void {
         saveButton.isEnabled = false
+        saveButton.title = ""
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) -> Void {
         updateSaveButtonState()
-        navigationItem.title = textField.text
     }
     
     // handle what happens when hitting return on a text field
@@ -230,7 +233,10 @@ class GoalViewController: UIViewController, UITextFieldDelegate, UIPickerViewDat
     func updateSaveButtonState() -> Void {
         // disable the save button if the text field is empty
         let text = nameTextField.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+        if !text.isEmpty {
+            saveButton.isEnabled = !text.isEmpty
+            saveButton.title = "Save"
+        }
     }
     
 }

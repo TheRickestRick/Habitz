@@ -166,12 +166,12 @@
                         <viewLayoutGuide key="safeArea" id="LW1-Xe-E0M"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Goal" id="ohY-53-wA4">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="W8e-rx-nEl">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="W8e-rx-nEl">
                             <connections>
                                 <action selector="cancel:" destination="wtc-X1-4y5" id="vMB-dW-jhA"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="0gX-4e-8HP">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="0gX-4e-8HP">
                             <connections>
                                 <segue destination="Lfk-nf-pxB" kind="unwind" unwindAction="unwindToGoalListWithSender:" id="dXS-V2-8pY"/>
                             </connections>
@@ -661,12 +661,12 @@
                         <viewLayoutGuide key="safeArea" id="sym-Nw-JXo"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Habit" id="0kZ-3C-rlt">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ezg-3A-wzw">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Ezg-3A-wzw">
                             <connections>
                                 <action selector="cancel:" destination="wu1-Yj-Xs5" id="8MH-Kg-WAc"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="diY-5t-Pj0">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="diY-5t-Pj0">
                             <connections>
                                 <action selector="save:" destination="wu1-Yj-Xs5" id="fl7-fl-R4u"/>
                                 <segue destination="nn8-zs-pcM" kind="unwind" unwindAction="unwindToHabitlListWithSender:" id="zT7-kX-pD9"/>
@@ -675,6 +675,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="associatedGoalTextField" destination="81h-AF-XcW" id="Cuw-7H-drd"/>
+                        <outlet property="cancelButton" destination="Ezg-3A-wzw" id="kda-29-rZ8"/>
                         <outlet property="completedStreakTextField" destination="R4p-cK-cfu" id="HF2-G7-vBx"/>
                         <outlet property="habitNameLabel" destination="GMM-hL-3ym" id="y7o-9H-Lam"/>
                         <outlet property="nameTextField" destination="wsU-be-0Eb" id="L41-No-hwi"/>
