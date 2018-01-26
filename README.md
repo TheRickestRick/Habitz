@@ -17,7 +17,7 @@ Put simply - the goal is the reason, and the habits are the actions.
 This project was inspired based on personal struggles for self-improvement (having to use multiple habit managing apps and spreadsheets / text docs) and two excellent books:
  - [*The Power of Habit*, Charles Duhigg](https://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X)
 
- - [*Thinking Fast and Slow, *Daniel Kahneman](https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555)
+ - [*Thinking Fast and Slow*, Daniel Kahneman](https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555)
 
 ## Challenges
 The project was built over a two week timeline, and there were a number of challenges encountered. Three of the most interesting ones were:
